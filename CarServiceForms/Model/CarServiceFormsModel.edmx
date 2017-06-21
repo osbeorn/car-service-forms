@@ -1,0 +1,688 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CarServiceFormsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="CarServiceFormsModelStoreContainer">
+    <EntitySet Name="Customer" EntityType="CarServiceFormsModel.Store.Customer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Vehicle" EntityType="CarServiceFormsModel.Store.Vehicle" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WorkOrder" EntityType="CarServiceFormsModel.Store.WorkOrder" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WordOrderInformation" EntityType="CarServiceFormsModel.Store.WordOrderInformation" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WorkOrderInstruction" EntityType="CarServiceFormsModel.Store.WorkOrderInstruction" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Service" EntityType="CarServiceFormsModel.Store.Service" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ServiceItemGroup" EntityType="CarServiceFormsModel.Store.ServiceItemGroup" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ServiceItem" EntityType="CarServiceFormsModel.Store.ServiceItem" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AppliedServiceItem" EntityType="CarServiceFormsModel.Store.AppliedServiceItem" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ServiceItemServiceType" EntityType="CarServiceFormsModel.Store.ServiceItemServiceType" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="CustomerVehicle" Association="CarServiceFormsModel.Store.CustomerVehicle">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Vehicle" EntitySet="Vehicle" />
+    </AssociationSet>
+    <AssociationSet Name="VehicleWorkOrder" Association="CarServiceFormsModel.Store.VehicleWorkOrder">
+      <End Role="Vehicle" EntitySet="Vehicle" />
+      <End Role="WorkOrder" EntitySet="WorkOrder" />
+    </AssociationSet>
+    <AssociationSet Name="WorkOrderWordOrderInformation" Association="CarServiceFormsModel.Store.WorkOrderWordOrderInformation">
+      <End Role="WorkOrder" EntitySet="WorkOrder" />
+      <End Role="WordOrderInformation" EntitySet="WordOrderInformation" />
+    </AssociationSet>
+    <AssociationSet Name="WorkOrderWorkOrderInstruction" Association="CarServiceFormsModel.Store.WorkOrderWorkOrderInstruction">
+      <End Role="WorkOrder" EntitySet="WorkOrder" />
+      <End Role="WorkOrderInstruction" EntitySet="WorkOrderInstruction" />
+    </AssociationSet>
+    <AssociationSet Name="WorkOrderServiceForm" Association="CarServiceFormsModel.Store.WorkOrderServiceForm">
+      <End Role="WorkOrder" EntitySet="WorkOrder" />
+      <End Role="ServiceForm" EntitySet="Service" />
+    </AssociationSet>
+    <AssociationSet Name="ServiceItemGroupServiceItem" Association="CarServiceFormsModel.Store.ServiceItemGroupServiceItem">
+      <End Role="ServiceItemGroup" EntitySet="ServiceItemGroup" />
+      <End Role="ServiceItem" EntitySet="ServiceItem" />
+    </AssociationSet>
+    <AssociationSet Name="ServiceAppliedServiceItem" Association="CarServiceFormsModel.Store.ServiceAppliedServiceItem">
+      <End Role="Service" EntitySet="Service" />
+      <End Role="AppliedServiceItem" EntitySet="AppliedServiceItem" />
+    </AssociationSet>
+    <AssociationSet Name="ServiceItemAppliedServiceItem" Association="CarServiceFormsModel.Store.ServiceItemAppliedServiceItem">
+      <End Role="ServiceItem" EntitySet="ServiceItem" />
+      <End Role="AppliedServiceItem" EntitySet="AppliedServiceItem" />
+    </AssociationSet>
+    <AssociationSet Name="ServiceItemServiceItemServiceType" Association="CarServiceFormsModel.Store.ServiceItemServiceItemServiceType">
+      <End Role="ServiceItem" EntitySet="ServiceItem" />
+      <End Role="ServiceItemServiceType" EntitySet="ServiceItemServiceType" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Street" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Post" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Vehicle">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RegistrationNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
+    <Property Name="IdentificationNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TypeCode" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MKBCode" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="GKBCode" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Mileage" Type="int" Nullable="false" />
+    <Property Name="Customer_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WorkOrder">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Number" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Created" Type="datetime" Nullable="false" />
+    <Property Name="Deadline" Type="datetime" Nullable="false" />
+    <Property Name="Vehicle_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WordOrderInformation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Info" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="WorkOrder_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WorkOrderInstruction">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Position" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Quantity" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="WorkOrder_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Service">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="WorkOrder_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ServiceItemGroup">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="Order" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ServiceItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="HasRemarks" Type="bit" Nullable="false" />
+    <Property Name="Order" Type="int" Nullable="false" />
+    <Property Name="ServiceItemGroup_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AppliedServiceItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Remark" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Resolution" Type="int" Nullable="false" />
+    <Property Name="Service_Id" Type="int" Nullable="false" />
+    <Property Name="ServiceItem_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ServiceItemServiceType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceType" Type="int" Nullable="false" />
+    <Property Name="ServiceItem_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="CustomerVehicle">
+    <End Role="Customer" Type="CarServiceFormsModel.Store.Customer" Multiplicity="1" />
+    <End Role="Vehicle" Type="CarServiceFormsModel.Store.Vehicle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vehicle">
+        <PropertyRef Name="Customer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="VehicleWorkOrder">
+    <End Role="Vehicle" Type="CarServiceFormsModel.Store.Vehicle" Multiplicity="1" />
+    <End Role="WorkOrder" Type="CarServiceFormsModel.Store.WorkOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vehicle">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkOrder">
+        <PropertyRef Name="Vehicle_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WorkOrderWordOrderInformation">
+    <End Role="WorkOrder" Type="CarServiceFormsModel.Store.WorkOrder" Multiplicity="1" />
+    <End Role="WordOrderInformation" Type="CarServiceFormsModel.Store.WordOrderInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WorkOrder">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WordOrderInformation">
+        <PropertyRef Name="WorkOrder_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WorkOrderWorkOrderInstruction">
+    <End Role="WorkOrder" Type="CarServiceFormsModel.Store.WorkOrder" Multiplicity="1" />
+    <End Role="WorkOrderInstruction" Type="CarServiceFormsModel.Store.WorkOrderInstruction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WorkOrder">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkOrderInstruction">
+        <PropertyRef Name="WorkOrder_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WorkOrderServiceForm">
+    <End Role="WorkOrder" Type="CarServiceFormsModel.Store.WorkOrder" Multiplicity="1" />
+    <End Role="ServiceForm" Type="CarServiceFormsModel.Store.Service" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WorkOrder">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ServiceForm">
+        <PropertyRef Name="WorkOrder_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ServiceItemGroupServiceItem">
+    <End Role="ServiceItemGroup" Type="CarServiceFormsModel.Store.ServiceItemGroup" Multiplicity="1" />
+    <End Role="ServiceItem" Type="CarServiceFormsModel.Store.ServiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ServiceItemGroup">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ServiceItem">
+        <PropertyRef Name="ServiceItemGroup_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ServiceAppliedServiceItem">
+    <End Role="Service" Type="CarServiceFormsModel.Store.Service" Multiplicity="1" />
+    <End Role="AppliedServiceItem" Type="CarServiceFormsModel.Store.AppliedServiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AppliedServiceItem">
+        <PropertyRef Name="Service_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ServiceItemAppliedServiceItem">
+    <End Role="ServiceItem" Type="CarServiceFormsModel.Store.ServiceItem" Multiplicity="1" />
+    <End Role="AppliedServiceItem" Type="CarServiceFormsModel.Store.AppliedServiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ServiceItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AppliedServiceItem">
+        <PropertyRef Name="ServiceItem_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ServiceItemServiceItemServiceType">
+    <End Role="ServiceItem" Type="CarServiceFormsModel.Store.ServiceItem" Multiplicity="1" />
+    <End Role="ServiceItemServiceType" Type="CarServiceFormsModel.Store.ServiceItemServiceType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ServiceItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ServiceItemServiceType">
+        <PropertyRef Name="ServiceItem_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="CarServiceFormsModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="CarServiceFormsDBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customer" EntityType="CarServiceFormsModel.Customer" />
+          <EntitySet Name="Vehicle" EntityType="CarServiceFormsModel.Vehicle" />
+          <EntitySet Name="WorkOrder" EntityType="CarServiceFormsModel.WorkOrder" />
+          <AssociationSet Name="CustomerVehicle" Association="CarServiceFormsModel.CustomerVehicle">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Vehicle" EntitySet="Vehicle" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleWorkOrder" Association="CarServiceFormsModel.VehicleWorkOrder">
+            <End Role="Vehicle" EntitySet="Vehicle" />
+            <End Role="WorkOrder" EntitySet="WorkOrder" />
+          </AssociationSet>
+          <EntitySet Name="WordOrderInformation" EntityType="CarServiceFormsModel.WordOrderInformation" />
+          <EntitySet Name="WorkOrderInstruction" EntityType="CarServiceFormsModel.WorkOrderInstruction" />
+          <AssociationSet Name="WorkOrderWordOrderInformation" Association="CarServiceFormsModel.WorkOrderWordOrderInformation">
+            <End Role="WorkOrder" EntitySet="WorkOrder" />
+            <End Role="WordOrderInformation" EntitySet="WordOrderInformation" />
+          </AssociationSet>
+          <AssociationSet Name="WorkOrderWorkOrderInstruction" Association="CarServiceFormsModel.WorkOrderWorkOrderInstruction">
+            <End Role="WorkOrder" EntitySet="WorkOrder" />
+            <End Role="WorkOrderInstruction" EntitySet="WorkOrderInstruction" />
+          </AssociationSet>
+          <EntitySet Name="Service" EntityType="CarServiceFormsModel.Service" />
+          <AssociationSet Name="WorkOrderServiceForm" Association="CarServiceFormsModel.WorkOrderServiceForm">
+            <End Role="WorkOrder" EntitySet="WorkOrder" />
+            <End Role="ServiceForm" EntitySet="Service" />
+          </AssociationSet>
+          <EntitySet Name="ServiceItemGroup" EntityType="CarServiceFormsModel.ServiceItemGroup" />
+          <EntitySet Name="ServiceItem" EntityType="CarServiceFormsModel.ServiceItem" />
+          <AssociationSet Name="ServiceItemGroupServiceItem" Association="CarServiceFormsModel.ServiceItemGroupServiceItem">
+            <End Role="ServiceItemGroup" EntitySet="ServiceItemGroup" />
+            <End Role="ServiceItem" EntitySet="ServiceItem" />
+          </AssociationSet>
+          <EntitySet Name="AppliedServiceItem" EntityType="CarServiceFormsModel.AppliedServiceItem" />
+          <AssociationSet Name="ServiceAppliedServiceItem" Association="CarServiceFormsModel.ServiceAppliedServiceItem">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="AppliedServiceItem" EntitySet="AppliedServiceItem" />
+          </AssociationSet>
+          <AssociationSet Name="ServiceItemAppliedServiceItem" Association="CarServiceFormsModel.ServiceItemAppliedServiceItem">
+            <End Role="ServiceItem" EntitySet="ServiceItem" />
+            <End Role="AppliedServiceItem" EntitySet="AppliedServiceItem" />
+          </AssociationSet>
+          <EntitySet Name="ServiceItemServiceType" EntityType="CarServiceFormsModel.ServiceItemServiceType" />
+          <AssociationSet Name="ServiceItemServiceItemServiceType" Association="CarServiceFormsModel.ServiceItemServiceItemServiceType">
+            <End Role="ServiceItem" EntitySet="ServiceItem" />
+            <End Role="ServiceItemServiceType" EntitySet="ServiceItemServiceType" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="Street" Type="String" Nullable="false" />
+          <Property Name="Post" Type="String" Nullable="false" />
+          <NavigationProperty Name="Vehicles" Relationship="CarServiceFormsModel.CustomerVehicle" FromRole="Customer" ToRole="Vehicle" />
+          <Property Name="Phone" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Customer" Relationship="CarServiceFormsModel.CustomerVehicle" FromRole="Vehicle" ToRole="Customer" />
+          <NavigationProperty Name="WorkOrders" Relationship="CarServiceFormsModel.VehicleWorkOrder" FromRole="Vehicle" ToRole="WorkOrder" />
+          <Property Name="RegistrationNumber" Type="String" Nullable="false" />
+          <Property Name="RegistrationDate" Type="DateTime" Nullable="false" />
+          <Property Name="IdentificationNumber" Type="String" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" />
+          <Property Name="TypeCode" Type="String" Nullable="false" />
+          <Property Name="MKBCode" Type="String" Nullable="false" />
+          <Property Name="GKBCode" Type="String" Nullable="false" />
+          <Property Name="Mileage" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Vehicle" Relationship="CarServiceFormsModel.VehicleWorkOrder" FromRole="WorkOrder" ToRole="Vehicle" />
+          <Property Name="Number" Type="String" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="WordOrderInformation" Relationship="CarServiceFormsModel.WorkOrderWordOrderInformation" FromRole="WorkOrder" ToRole="WordOrderInformation" />
+          <NavigationProperty Name="WorkOrderInstructions" Relationship="CarServiceFormsModel.WorkOrderWorkOrderInstruction" FromRole="WorkOrder" ToRole="WorkOrderInstruction" />
+          <Property Name="Deadline" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="ServiceForm" Relationship="CarServiceFormsModel.WorkOrderServiceForm" FromRole="WorkOrder" ToRole="ServiceForm" />
+        </EntityType>
+        <Association Name="CustomerVehicle">
+          <End Type="CarServiceFormsModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="CarServiceFormsModel.Vehicle" Role="Vehicle" Multiplicity="*" />
+        </Association>
+        <Association Name="VehicleWorkOrder">
+          <End Type="CarServiceFormsModel.Vehicle" Role="Vehicle" Multiplicity="1" />
+          <End Type="CarServiceFormsModel.WorkOrder" Role="WorkOrder" Multiplicity="*" />
+        </Association>
+        <EntityType Name="WordOrderInformation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="WorkOrder" Relationship="CarServiceFormsModel.WorkOrderWordOrderInformation" FromRole="WordOrderInformation" ToRole="WorkOrder" />
+          <Property Name="Info" Type="String" Nullable="true" />
+          <Property Name="Description" Type="String" Nullable="true" />
+        </EntityType>
+        <EntityType Name="WorkOrderInstruction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="WorkOrder" Relationship="CarServiceFormsModel.WorkOrderWorkOrderInstruction" FromRole="WorkOrderInstruction" ToRole="WorkOrder" />
+          <Property Name="Position" Type="String" Nullable="true" />
+          <Property Name="Quantity" Type="String" Nullable="true" />
+          <Property Name="Description" Type="String" Nullable="true" />
+        </EntityType>
+        <Association Name="WorkOrderWordOrderInformation">
+          <End Type="CarServiceFormsModel.WorkOrder" Role="WorkOrder" Multiplicity="1" />
+          <End Type="CarServiceFormsModel.WordOrderInformation" Role="WordOrderInformation" Multiplicity="*" />
+        </Association>
+        <Association Name="WorkOrderWorkOrderInstruction">
+          <End Type="CarServiceFormsModel.WorkOrder" Role="WorkOrder" Multiplicity="1" />
+          <End Type="CarServiceFormsModel.WorkOrderInstruction" Role="WorkOrderInstruction" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="WorkOrder" Relationship="CarServiceFormsModel.WorkOrderServiceForm" FromRole="ServiceForm" ToRole="WorkOrder" />
+          <Property Name="Type" Type="CarServiceFormsModel.ServiceType" Nullable="false" />
+          <NavigationProperty Name="AppliedServiceItems" Relationship="CarServiceFormsModel.ServiceAppliedServiceItem" FromRole="Service" ToRole="AppliedServiceItem" />
+        </EntityType>
+        <Association Name="WorkOrderServiceForm">
+          <End Type="CarServiceFormsModel.WorkOrder" Role="WorkOrder" Multiplicity="1" />
+          <End Type="CarServiceFormsModel.Service" Role="ServiceForm" Multiplicity="*" />
+        </Association>
+        <EnumType Name="ServiceType">
+          <Member Name="Interval" />
+          <Member Name="Inspection" />
+          <Member Name="OilChange" />
+        </EnumType>
+        <EntityType Name="ServiceItemGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="ServiceItems" Relationship="CarServiceFormsModel.ServiceItemGroupServiceItem" FromRole="ServiceItemGroup" ToRole="ServiceItem" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Type" Type="CarServiceFormsModel.ServiceItemGroupType" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ServiceItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="ServiceItemGroup" Relationship="CarServiceFormsModel.ServiceItemGroupServiceItem" FromRole="ServiceItem" ToRole="ServiceItemGroup" />
+          <Property Name="Name" Type="String" Nullable="true" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="AppliedServiceItem" Relationship="CarServiceFormsModel.ServiceItemAppliedServiceItem" FromRole="ServiceItem" ToRole="AppliedServiceItem" />
+          <NavigationProperty Name="ServiceTypes" Relationship="CarServiceFormsModel.ServiceItemServiceItemServiceType" FromRole="ServiceItem" ToRole="ServiceItemServiceType" />
+          <Property Name="HasRemarks" Type="Boolean" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="ServiceItemGroupServiceItem">
+          <End Type="CarServiceFormsModel.ServiceItemGroup" Role="ServiceItemGroup" Multiplicity="1" />
+          <End Type="CarServiceFormsModel.ServiceItem" Role="ServiceItem" Multiplicity="*" />
+        </Association>
+        <EntityType Name="AppliedServiceItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Service" Relationship="CarServiceFormsModel.ServiceAppliedServiceItem" FromRole="AppliedServiceItem" ToRole="Service" />
+          <NavigationProperty Name="ServiceItem" Relationship="CarServiceFormsModel.ServiceItemAppliedServiceItem" FromRole="AppliedServiceItem" ToRole="ServiceItem" />
+          <Property Name="Remark" Type="String" Nullable="false" />
+          <Property Name="Resolution" Type="CarServiceFormsModel.AppliedServiceItemResolution" Nullable="false" annotation:StoreGeneratedPattern="None" />
+        </EntityType>
+        <Association Name="ServiceAppliedServiceItem">
+          <End Type="CarServiceFormsModel.Service" Role="Service" Multiplicity="1" />
+          <End Type="CarServiceFormsModel.AppliedServiceItem" Role="AppliedServiceItem" Multiplicity="*" />
+        </Association>
+        <Association Name="ServiceItemAppliedServiceItem">
+          <End Type="CarServiceFormsModel.ServiceItem" Role="ServiceItem" Multiplicity="1" />
+          <End Type="CarServiceFormsModel.AppliedServiceItem" Role="AppliedServiceItem" Multiplicity="*" />
+        </Association>
+        <EnumType Name="AppliedServiceItemStatus">
+          <Member Name="OK" />
+          <Member Name="NOK" />
+          <Member Name="FIXED" />
+        </EnumType>
+        <EnumType Name="AppliedServiceItemResolution">
+          <Member Name="OK" />
+          <Member Name="NOK" />
+          <Member Name="Fixed" />
+        </EnumType>
+        <EnumType Name="ServiceItemGroupType">
+          <Member Name="Electricity" />
+          <Member Name="Tires" />
+          <Member Name="Underside" />
+          <Member Name="EngineBay" />
+          <Member Name="FinishingWork" />
+          <Member Name="Exterior" />
+        </EnumType>
+        <EntityType Name="ServiceItemServiceType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="ServiceItem" Relationship="CarServiceFormsModel.ServiceItemServiceItemServiceType" FromRole="ServiceItemServiceType" ToRole="ServiceItem" />
+          <Property Name="ServiceType" Type="CarServiceFormsModel.ServiceType" Nullable="false" />
+        </EntityType>
+        <Association Name="ServiceItemServiceItemServiceType">
+          <End Type="CarServiceFormsModel.ServiceItem" Role="ServiceItem" Multiplicity="1" />
+          <End Type="CarServiceFormsModel.ServiceItemServiceType" Role="ServiceItemServiceType" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CarServiceFormsModelStoreContainer" CdmEntityContainer="CarServiceFormsDBContext">
+    <EntitySetMapping Name="Customer">
+      <EntityTypeMapping TypeName="IsTypeOf(CarServiceFormsModel.Customer)">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Street" ColumnName="Street" />
+          <ScalarProperty Name="Post" ColumnName="Post" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vehicle">
+      <EntityTypeMapping TypeName="IsTypeOf(CarServiceFormsModel.Vehicle)">
+        <MappingFragment StoreEntitySet="Vehicle">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+          <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+          <ScalarProperty Name="IdentificationNumber" ColumnName="IdentificationNumber" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
+          <ScalarProperty Name="MKBCode" ColumnName="MKBCode" />
+          <ScalarProperty Name="GKBCode" ColumnName="GKBCode" />
+          <ScalarProperty Name="Mileage" ColumnName="Mileage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WorkOrder">
+      <EntityTypeMapping TypeName="IsTypeOf(CarServiceFormsModel.WorkOrder)">
+        <MappingFragment StoreEntitySet="WorkOrder">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WordOrderInformation">
+      <EntityTypeMapping TypeName="IsTypeOf(CarServiceFormsModel.WordOrderInformation)">
+        <MappingFragment StoreEntitySet="WordOrderInformation">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Info" ColumnName="Info" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WorkOrderInstruction">
+      <EntityTypeMapping TypeName="IsTypeOf(CarServiceFormsModel.WorkOrderInstruction)">
+        <MappingFragment StoreEntitySet="WorkOrderInstruction">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Service">
+      <EntityTypeMapping TypeName="IsTypeOf(CarServiceFormsModel.Service)">
+        <MappingFragment StoreEntitySet="Service">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceItemGroup">
+      <EntityTypeMapping TypeName="IsTypeOf(CarServiceFormsModel.ServiceItemGroup)">
+        <MappingFragment StoreEntitySet="ServiceItemGroup">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Order" ColumnName="Order" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceItem">
+      <EntityTypeMapping TypeName="IsTypeOf(CarServiceFormsModel.ServiceItem)">
+        <MappingFragment StoreEntitySet="ServiceItem">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="HasRemarks" ColumnName="HasRemarks" />
+          <ScalarProperty Name="Order" ColumnName="Order" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppliedServiceItem">
+      <EntityTypeMapping TypeName="IsTypeOf(CarServiceFormsModel.AppliedServiceItem)">
+        <MappingFragment StoreEntitySet="AppliedServiceItem">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Resolution" ColumnName="Resolution" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceItemServiceType">
+      <EntityTypeMapping TypeName="IsTypeOf(CarServiceFormsModel.ServiceItemServiceType)">
+        <MappingFragment StoreEntitySet="ServiceItemServiceType">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ServiceType" ColumnName="ServiceType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="CustomerVehicle" TypeName="CarServiceFormsModel.CustomerVehicle" StoreEntitySet="Vehicle">
+      <EndProperty Name="Customer">
+        <ScalarProperty Name="Id" ColumnName="Customer_Id" />
+      </EndProperty>
+      <EndProperty Name="Vehicle">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="VehicleWorkOrder" TypeName="CarServiceFormsModel.VehicleWorkOrder" StoreEntitySet="WorkOrder">
+      <EndProperty Name="Vehicle">
+        <ScalarProperty Name="Id" ColumnName="Vehicle_Id" />
+      </EndProperty>
+      <EndProperty Name="WorkOrder">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="WorkOrderWordOrderInformation" TypeName="CarServiceFormsModel.WorkOrderWordOrderInformation" StoreEntitySet="WordOrderInformation">
+      <EndProperty Name="WorkOrder">
+        <ScalarProperty Name="Id" ColumnName="WorkOrder_Id" />
+      </EndProperty>
+      <EndProperty Name="WordOrderInformation">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="WorkOrderWorkOrderInstruction" TypeName="CarServiceFormsModel.WorkOrderWorkOrderInstruction" StoreEntitySet="WorkOrderInstruction">
+      <EndProperty Name="WorkOrder">
+        <ScalarProperty Name="Id" ColumnName="WorkOrder_Id" />
+      </EndProperty>
+      <EndProperty Name="WorkOrderInstruction">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="WorkOrderServiceForm" TypeName="CarServiceFormsModel.WorkOrderServiceForm" StoreEntitySet="Service">
+      <EndProperty Name="WorkOrder">
+        <ScalarProperty Name="Id" ColumnName="WorkOrder_Id" />
+      </EndProperty>
+      <EndProperty Name="ServiceForm">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ServiceItemGroupServiceItem" TypeName="CarServiceFormsModel.ServiceItemGroupServiceItem" StoreEntitySet="ServiceItem">
+      <EndProperty Name="ServiceItemGroup">
+        <ScalarProperty Name="Id" ColumnName="ServiceItemGroup_Id" />
+      </EndProperty>
+      <EndProperty Name="ServiceItem">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ServiceAppliedServiceItem" TypeName="CarServiceFormsModel.ServiceAppliedServiceItem" StoreEntitySet="AppliedServiceItem">
+      <EndProperty Name="Service">
+        <ScalarProperty Name="Id" ColumnName="Service_Id" />
+      </EndProperty>
+      <EndProperty Name="AppliedServiceItem">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ServiceItemAppliedServiceItem" TypeName="CarServiceFormsModel.ServiceItemAppliedServiceItem" StoreEntitySet="AppliedServiceItem">
+      <EndProperty Name="ServiceItem">
+        <ScalarProperty Name="Id" ColumnName="ServiceItem_Id" />
+      </EndProperty>
+      <EndProperty Name="AppliedServiceItem">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ServiceItemServiceItemServiceType" TypeName="CarServiceFormsModel.ServiceItemServiceItemServiceType" StoreEntitySet="ServiceItemServiceType">
+      <EndProperty Name="ServiceItem">
+        <ScalarProperty Name="Id" ColumnName="ServiceItem_Id" />
+      </EndProperty>
+      <EndProperty Name="ServiceItemServiceType">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

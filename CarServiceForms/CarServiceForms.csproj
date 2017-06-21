@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{154F5132-9FFC-4F1C-843F-3734616C5B38}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>CarServiceForms</RootNamespace>
+    <AssemblyName>CarServiceForms</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CarServiceFormsDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CarServiceFormsDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\CustomerWithVehicleDTO.cs" />
+    <Compile Include="Forms\NewCustomerWithVehicleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewCustomerWithVehicleForm.Designer.cs">
+      <DependentUpon>NewCustomerWithVehicleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SearchCustomerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SearchCustomerForm.Designer.cs">
+      <DependentUpon>SearchCustomerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SearchCustomerWithVehicleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SearchCustomerWithVehicleForm.Designer.cs">
+      <DependentUpon>SearchCustomerWithVehicleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\WorkOrderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WorkOrderForm.Designer.cs">
+      <DependentUpon>WorkOrderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\WorkOrderListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WorkOrderListForm.Designer.cs">
+      <DependentUpon>WorkOrderListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\AppliedServiceItem.cs">
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\AppliedServiceItemResolution.cs">
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\AppliedServiceItemStatus.cs">
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CarServiceFormsContext.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CarServiceFormsContext.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CarServiceFormsContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CarServiceFormsContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CarServiceFormsModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CarServiceFormsModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CarServiceFormsModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Customer.cs">
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Service.cs">
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ServiceItem.cs">
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ServiceItemGroup.cs">
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ServiceItemGroupType.cs">
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ServiceItemServiceType.cs">
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ServiceType.cs">
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Vehicle.cs">
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\WordOrderInformation.cs">
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\WorkOrder.cs">
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\WorkOrderInstruction.cs">
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\NewCustomerWithVehicleForm.resx">
+      <DependentUpon>NewCustomerWithVehicleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SearchCustomerForm.resx">
+      <DependentUpon>SearchCustomerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SearchCustomerWithVehicleForm.resx">
+      <DependentUpon>SearchCustomerWithVehicleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WorkOrderForm.resx">
+      <DependentUpon>WorkOrderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WorkOrderListForm.resx">
+      <DependentUpon>WorkOrderListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Reports\ServiceFormReport.rdlc" />
+    <EntityDeploy Include="Model\CarServiceFormsModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CarServiceFormsModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="CarServiceFormsDataSet.xsc">
+      <DependentUpon>CarServiceFormsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="CarServiceFormsDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CarServiceFormsDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="CarServiceFormsDataSet.xss">
+      <DependentUpon>CarServiceFormsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Model\CarServiceFormsModel.edmx.diagram">
+      <DependentUpon>CarServiceFormsModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\CarServiceFormsContext.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CarServiceFormsContext.Context.cs</LastGenOutput>
+      <DependentUpon>CarServiceFormsModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Model\CarServiceFormsContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CarServiceFormsContext.cs</LastGenOutput>
+      <DependentUpon>CarServiceFormsModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Model\CarServiceFormsModel.edmx.sql" />
+    <Content Include="Model\CarServiceFormsModel.init.dml.sql" />
+    <Content Include="Model\CarServiceFormsModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CarServiceFormsModel.cs</LastGenOutput>
+      <DependentUpon>CarServiceFormsModel.edmx</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
