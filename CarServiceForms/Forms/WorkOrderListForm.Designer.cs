@@ -31,6 +31,9 @@
             this.createButton = new System.Windows.Forms.Button();
             this.workOrdersDataGridView = new System.Windows.Forms.DataGridView();
             this.printButton = new System.Windows.Forms.Button();
+            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Created = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Deadline = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.workOrdersDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,9 +49,16 @@
             // 
             // workOrdersDataGridView
             // 
+            this.workOrdersDataGridView.AllowUserToAddRows = false;
+            this.workOrdersDataGridView.AllowUserToDeleteRows = false;
             this.workOrdersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.workOrdersDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Number,
+            this.Created,
+            this.Deadline});
             this.workOrdersDataGridView.Location = new System.Drawing.Point(12, 41);
             this.workOrdersDataGridView.Name = "workOrdersDataGridView";
+            this.workOrdersDataGridView.ReadOnly = true;
             this.workOrdersDataGridView.Size = new System.Drawing.Size(1050, 528);
             this.workOrdersDataGridView.TabIndex = 1;
             // 
@@ -61,6 +71,27 @@
             this.printButton.Text = "Tiskaj";
             this.printButton.UseVisualStyleBackColor = true;
             this.printButton.Click += new System.EventHandler(this.PrintButton_Click);
+            // 
+            // Number
+            // 
+            this.Number.DataPropertyName = "Number";
+            this.Number.HeaderText = "Št. DN";
+            this.Number.Name = "Number";
+            this.Number.ReadOnly = true;
+            // 
+            // Created
+            // 
+            this.Created.DataPropertyName = "Created";
+            this.Created.HeaderText = "Ustvarjen";
+            this.Created.Name = "Created";
+            this.Created.ReadOnly = true;
+            // 
+            // Deadline
+            // 
+            this.Deadline.DataPropertyName = "Deadline";
+            this.Deadline.HeaderText = "Rok izdelave";
+            this.Deadline.Name = "Deadline";
+            this.Deadline.ReadOnly = true;
             // 
             // WorkOrderListForm
             // 
@@ -82,5 +113,8 @@
         private System.Windows.Forms.Button createButton;
         private System.Windows.Forms.DataGridView workOrdersDataGridView;
         private System.Windows.Forms.Button printButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Number;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Created;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Deadline;
     }
 }

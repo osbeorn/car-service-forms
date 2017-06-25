@@ -24,7 +24,7 @@ namespace CarServiceForms.Forms
         private void InitializeComponents()
         {
             DBContext = new CarServiceFormsDBContext();
-            workOrdersDataGridView.AutoGenerateColumns = true;
+            workOrdersDataGridView.AutoGenerateColumns = false;
 
             LoadWorkOrders();
         }
@@ -36,7 +36,7 @@ namespace CarServiceForms.Forms
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-
+                    LoadWorkOrders();
                 }
             }
         }
@@ -49,7 +49,8 @@ namespace CarServiceForms.Forms
 
         private void PrintButton_Click(object sender, EventArgs e)
         {
-            DBContext.ServiceItem.GroupBy(si => si.ServiceItemGroup.Id).OrderBy((sig, si) => sig.)
+            var serviceItems = DBContext.ServiceItem;
+
         }
     }
 }
