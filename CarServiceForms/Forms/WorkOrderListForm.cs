@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Reporting.WinForms;
+using CarServiceForms.Classes;
 
 namespace CarServiceForms.Forms
 {
@@ -49,8 +51,51 @@ namespace CarServiceForms.Forms
 
         private void PrintButton_Click(object sender, EventArgs e)
         {
-            var serviceItems = DBContext.ServiceItem;
+            var serviceItems = DBContext.ServiceItem
+                .Select(si =>
+                    new ServiceItemWithServiceItemGroupDTO()
+                    {
+                        Id = si.Id,
+                        Description = si.Description,
+                        Order = si.Order,
+                        HasRemarks = si.HasRemarks,
+                        ServiceItemGroupId = si.ServiceItemGroup.Id,
+                        ServiceItemGroupName = si.ServiceItemGroup.Name,
+                        ServiceItemGroupOrder = si.ServiceItemGroup.Order
+                    }
+                )
+                .ToList();
 
+            var serviceFormReport = new List<CarServiceFormReportDTO>()
+            {
+                new CarServiceFormReportDTO()
+                {
+                    WorkOrderNumber = "1234567890",
+                    VehicleIdentificationNumber = "",
+                    VehicleType = "",
+                    VehicleTypeCode = "",
+                    VehicleMKBCode = "",
+                    VehicleGKBCode = "",
+                    VehicleRegistrationNumber = "",
+                    VehicleMileage = "21223",
+                    VehicleRegistrationDate = DateTime.Now,
+                    VehicleModelYear = DateTime.Now.Year.ToString(),
+                    ServiceType = ServiceType.Inspection
+                }
+            };  
+
+            var datasources = new List<ReportDataSource>()
+            {
+                new ReportDataSource("HeaderDataSet", serviceFormReport),
+                new ReportDataSource("BodyDataSet", serviceItems)
+            };
+
+            var form = new ReportViewerForm();
+            form.SetReport(
+                "CarServiceForms.Reports.CarServiceFormReport.rdlc",
+                datasources
+            );
+            form.Show();
         }
     }
 }

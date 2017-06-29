@@ -46,11 +46,10 @@
       <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\Microsoft.ReportViewer.WinForms\11.0.0.0__89845dcd8080cc91\Microsoft.ReportViewer.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -71,12 +70,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CarServiceFormsDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CarServiceFormsDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Classes\CustomerWithVehicleDTO.cs" />
+    <Compile Include="Classes\CarServiceFormReportDTO.cs" />
+    <Compile Include="Classes\ServiceItemWithServiceItemGroupDTO.cs" />
     <Compile Include="Forms\NewCustomerWithVehicleForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -204,28 +200,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Reports\ServiceFormReport.rdlc" />
+    <EmbeddedResource Include="Reports\CarServiceFormReport.rdlc" />
     <EntityDeploy Include="Model\CarServiceFormsModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CarServiceFormsModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="CarServiceFormsDataSet.xsc">
-      <DependentUpon>CarServiceFormsDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="CarServiceFormsDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>CarServiceFormsDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="CarServiceFormsDataSet.xss">
-      <DependentUpon>CarServiceFormsDataSet.xsd</DependentUpon>
-    </None>
     <None Include="Model\CarServiceFormsModel.edmx.diagram">
       <DependentUpon>CarServiceFormsModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\CarServiceForms.Model.ServiceItem.datasource" />
-    <None Include="Properties\DataSources\CarServiceForms.Model.ServiceItemGroup.datasource" />
+    <None Include="Properties\DataSources\CarServiceForms.Classes.CarServiceFormReportDTO.datasource" />
+    <None Include="Properties\DataSources\CarServiceForms.Classes.ServiceItemWithServiceItemGroupDTO.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

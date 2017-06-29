@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Reporting.WinForms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,10 +18,21 @@ namespace CarServiceForms.Forms
             InitializeComponent();
         }
 
-        private void ReportViewerForm_Load(object sender, EventArgs e)
+        public void SetReport(string reportPath, List<ReportDataSource> dataSources)
         {
+            reportViewer.Reset();
+            reportViewer.LocalReport.DataSources.Clear();
 
-            this.reportViewer1.RefreshReport();
+            reportViewer.LocalReport.ReportEmbeddedResource = reportPath;
+            reportViewer.LocalReport.DataSources.Clear();
+            foreach (var dataSource in dataSources)
+            {
+                reportViewer.LocalReport.DataSources.Add(dataSource);
+            }
+
+            Show();
+            Focus();
+            reportViewer.RefreshReport();
         }
     }
 }

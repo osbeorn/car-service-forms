@@ -16,7 +16,7 @@ namespace CarServiceForms.Classes
 
         public long VehicleId { get; set; }
         public string RegistrationNumber { get; set; }
-        public System.DateTime RegistrationDate { get; set; }
+        public DateTime RegistrationDate { get; set; }
         public string IdentificationNumber { get; set; }
         public string Type { get; set; }
         public string TypeCode { get; set; }
