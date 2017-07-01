@@ -45,7 +45,18 @@ namespace CarServiceForms.Forms
 
         private void LoadWorkOrders()
         {
-            var workOrders = DBContext.WorkOrder.ToList();
+            var workOrders = DBContext.WorkOrder
+                .OrderBy(wo => wo.Created)
+                .ToList()
+                .Select(wo => new
+                {
+                    Id = wo.Id,
+                    Created = wo.Created,
+                    Deadline = wo.Deadline,
+                    Customer = wo.Vehicle.Customer.ShortDescription,
+                    Vehicle = wo.Vehicle.ShortDescription
+                })
+                .ToList();
             workOrdersDataGridView.DataSource = workOrders;
         }
 

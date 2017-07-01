@@ -87,6 +87,7 @@
     <Property Name="Number" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Created" Type="datetime" Nullable="false" />
     <Property Name="Deadline" Type="datetime" Nullable="false" />
+    <Property Name="Finished" Type="datetime" Nullable="true" />
     <Property Name="Vehicle_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="WordOrderInformation">
@@ -354,6 +355,7 @@
           <NavigationProperty Name="WorkOrderInstructions" Relationship="CarServiceFormsModel.WorkOrderWorkOrderInstruction" FromRole="WorkOrder" ToRole="WorkOrderInstruction" />
           <Property Name="Deadline" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="ServiceForm" Relationship="CarServiceFormsModel.WorkOrderServiceForm" FromRole="WorkOrder" ToRole="ServiceForm" />
+          <Property Name="Finished" Type="DateTime" Nullable="true" />
         </EntityType>
         <Association Name="CustomerVehicle">
           <End Type="CarServiceFormsModel.Customer" Role="Customer" Multiplicity="1" />
@@ -523,6 +525,7 @@
           <ScalarProperty Name="Number" ColumnName="Number" />
           <ScalarProperty Name="Created" ColumnName="Created" />
           <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+          <ScalarProperty Name="Finished" ColumnName="Finished" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

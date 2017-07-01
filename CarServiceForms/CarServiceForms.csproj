@@ -109,6 +109,8 @@
     <Compile Include="Forms\WorkOrderListForm.Designer.cs">
       <DependentUpon>WorkOrderListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModelPartial\Customer.cs" />
+    <Compile Include="ModelPartial\Vehicle.cs" />
     <Compile Include="Model\AppliedServiceItem.cs">
       <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
     </Compile>

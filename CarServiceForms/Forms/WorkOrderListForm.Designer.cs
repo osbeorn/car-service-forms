@@ -34,6 +34,9 @@
             this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Created = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Deadline = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Customer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Vehicle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Service = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.workOrdersDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,14 +54,19 @@
             // 
             this.workOrdersDataGridView.AllowUserToAddRows = false;
             this.workOrdersDataGridView.AllowUserToDeleteRows = false;
+            this.workOrdersDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.workOrdersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.workOrdersDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Number,
             this.Created,
-            this.Deadline});
+            this.Deadline,
+            this.Customer,
+            this.Vehicle,
+            this.Service});
             this.workOrdersDataGridView.Location = new System.Drawing.Point(12, 41);
             this.workOrdersDataGridView.Name = "workOrdersDataGridView";
             this.workOrdersDataGridView.ReadOnly = true;
+            this.workOrdersDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.workOrdersDataGridView.Size = new System.Drawing.Size(1050, 528);
             this.workOrdersDataGridView.TabIndex = 1;
             // 
@@ -93,6 +101,26 @@
             this.Deadline.Name = "Deadline";
             this.Deadline.ReadOnly = true;
             // 
+            // Customer
+            // 
+            this.Customer.DataPropertyName = "Customer";
+            this.Customer.HeaderText = "Stranka";
+            this.Customer.Name = "Customer";
+            this.Customer.ReadOnly = true;
+            // 
+            // Vehicle
+            // 
+            this.Vehicle.DataPropertyName = "Vehicle";
+            this.Vehicle.HeaderText = "Vozilo";
+            this.Vehicle.Name = "Vehicle";
+            this.Vehicle.ReadOnly = true;
+            // 
+            // Service
+            // 
+            this.Service.HeaderText = "Servis";
+            this.Service.Name = "Service";
+            this.Service.ReadOnly = true;
+            // 
             // WorkOrderListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -116,5 +144,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Number;
         private System.Windows.Forms.DataGridViewTextBoxColumn Created;
         private System.Windows.Forms.DataGridViewTextBoxColumn Deadline;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Customer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Vehicle;
+        private System.Windows.Forms.DataGridViewButtonColumn Service;
     }
 }

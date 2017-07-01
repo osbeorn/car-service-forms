@@ -65,6 +65,7 @@ namespace CarServiceForms.Forms
                     vehicleMKBTextBox.Text = Vehicle.MKBCode;
                     vehicleGKBTextBox.Text = Vehicle.GKBCode;
                     vehicleRegistrationDateDateTimePicker.Value = Vehicle.RegistrationDate;
+                    vehicleMileageNumericUpDown.Value = Vehicle.Mileage;
 
                     WorkOrderInstructions = new List<WorkOrderInstruction>();
                     workOrderInstructionsDataGridView.DataSource = new BindingList<WorkOrderInstruction>(WorkOrderInstructions);
@@ -84,6 +85,8 @@ namespace CarServiceForms.Forms
 
         private void ConfirmButton_Click(object sender, EventArgs e)
         {
+            Vehicle.Mileage = Convert.ToInt32(vehicleMileageNumericUpDown.Value);
+
             WorkOrder = new WorkOrder()
             {
                 Number = wordOrderNumberTextBox.Text,

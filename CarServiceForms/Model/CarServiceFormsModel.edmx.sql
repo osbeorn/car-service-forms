@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/20/2017 22:07:58
--- Generated from EDMX file: F:\Development\car-service-forms\CarServiceForms\Model\CarServiceFormsModel.edmx
+-- Date Created: 07/01/2017 19:22:31
+-- Generated from EDMX file: C:\Other\car-service-forms\CarServiceForms\Model\CarServiceFormsModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -116,6 +116,7 @@ CREATE TABLE [dbo].[WorkOrder] (
     [Number] nvarchar(max)  NOT NULL,
     [Created] datetime  NOT NULL,
     [Deadline] datetime  NOT NULL,
+    [Finished] datetime  NULL,
     [Vehicle_Id] int  NOT NULL
 );
 GO

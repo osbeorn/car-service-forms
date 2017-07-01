@@ -26,6 +26,7 @@ namespace CarServiceForms.Model
         public string Number { get; set; }
         public System.DateTime Created { get; set; }
         public System.DateTime Deadline { get; set; }
+        public Nullable<System.DateTime> Finished { get; set; }
     
         public virtual Vehicle Vehicle { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -58,11 +58,14 @@
             this.description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.confirmButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.vehicleMileageNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.workOrderInstructionsDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vehicleMileageNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -81,6 +84,8 @@
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.label3);
+            this.groupBox4.Controls.Add(this.vehicleMileageNumericUpDown);
             this.groupBox4.Controls.Add(this.vehicleRegistrationDateDateTimePicker);
             this.groupBox4.Controls.Add(this.label12);
             this.groupBox4.Controls.Add(this.vehicleGKBTextBox);
@@ -357,6 +362,27 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
+            // vehicleMileageNumericUpDown
+            // 
+            this.vehicleMileageNumericUpDown.Location = new System.Drawing.Point(319, 104);
+            this.vehicleMileageNumericUpDown.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
+            this.vehicleMileageNumericUpDown.Name = "vehicleMileageNumericUpDown";
+            this.vehicleMileageNumericUpDown.Size = new System.Drawing.Size(187, 20);
+            this.vehicleMileageNumericUpDown.TabIndex = 14;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(265, 107);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(37, 13);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "Št. km";
+            // 
             // WorkOrderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -382,6 +408,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.workOrderInstructionsDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vehicleMileageNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -418,5 +445,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button confirmButton;
         private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown vehicleMileageNumericUpDown;
     }
 }
