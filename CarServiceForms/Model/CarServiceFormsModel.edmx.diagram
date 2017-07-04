@@ -15,7 +15,7 @@
         <AssociationConnector Association="CarServiceFormsModel.WorkOrderWordOrderInformation" />
         <AssociationConnector Association="CarServiceFormsModel.WorkOrderWorkOrderInstruction" />
         <EntityTypeShape EntityType="CarServiceFormsModel.Service" Width="1.5" PointX="7.25" PointY="4.375" />
-        <AssociationConnector Association="CarServiceFormsModel.WorkOrderServiceForm" />
+        <AssociationConnector Association="CarServiceFormsModel.WorkOrderService" />
         <EntityTypeShape EntityType="CarServiceFormsModel.ServiceItemGroup" Width="1.5" PointX="2.75" PointY="6.375" />
         <EntityTypeShape EntityType="CarServiceFormsModel.ServiceItem" Width="1.5" PointX="4.875" PointY="6.375" />
         <AssociationConnector Association="CarServiceFormsModel.ServiceItemGroupServiceItem" />

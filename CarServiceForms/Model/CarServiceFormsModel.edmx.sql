@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/01/2017 19:22:31
--- Generated from EDMX file: C:\Other\car-service-forms\CarServiceForms\Model\CarServiceFormsModel.edmx
+-- Date Created: 07/03/2017 22:21:23
+-- Generated from EDMX file: F:\Development\car-service-forms\CarServiceForms\Model\CarServiceFormsModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -29,8 +29,8 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_WorkOrderWorkOrderInstruction]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[WorkOrderInstruction] DROP CONSTRAINT [FK_WorkOrderWorkOrderInstruction];
 GO
-IF OBJECT_ID(N'[dbo].[FK_WorkOrderServiceForm]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Service] DROP CONSTRAINT [FK_WorkOrderServiceForm];
+IF OBJECT_ID(N'[dbo].[FK_WorkOrderService]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Service] DROP CONSTRAINT [FK_WorkOrderService];
 GO
 IF OBJECT_ID(N'[dbo].[FK_ServiceItemGroupServiceItem]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ServiceItem] DROP CONSTRAINT [FK_ServiceItemGroupServiceItem];
@@ -106,6 +106,7 @@ CREATE TABLE [dbo].[Vehicle] (
     [MKBCode] nvarchar(max)  NOT NULL,
     [GKBCode] nvarchar(max)  NOT NULL,
     [Mileage] int  NOT NULL,
+    [ModelYear] int  NOT NULL,
     [Customer_Id] bigint  NOT NULL
 );
 GO
@@ -144,6 +145,7 @@ GO
 CREATE TABLE [dbo].[Service] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Type] int  NOT NULL,
+    [Created] datetime  NOT NULL,
     [WorkOrder_Id] int  NOT NULL
 );
 GO
@@ -316,15 +318,15 @@ GO
 
 -- Creating foreign key on [WorkOrder_Id] in table 'Service'
 ALTER TABLE [dbo].[Service]
-ADD CONSTRAINT [FK_WorkOrderServiceForm]
+ADD CONSTRAINT [FK_WorkOrderService]
     FOREIGN KEY ([WorkOrder_Id])
     REFERENCES [dbo].[WorkOrder]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_WorkOrderServiceForm'
-CREATE INDEX [IX_FK_WorkOrderServiceForm]
+-- Creating non-clustered index for FOREIGN KEY 'FK_WorkOrderService'
+CREATE INDEX [IX_FK_WorkOrderService]
 ON [dbo].[Service]
     ([WorkOrder_Id]);
 GO

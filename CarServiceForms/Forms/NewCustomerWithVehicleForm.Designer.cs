@@ -44,6 +44,10 @@
             this.customerFirstNameTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.vehicleModelYearNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.vehicleMileageNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.vehicleRegistrationDateDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.label12 = new System.Windows.Forms.Label();
             this.vehicleGKBTextBox = new System.Windows.Forms.TextBox();
@@ -60,12 +64,15 @@
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.vehicleModelYearNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vehicleMileageNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // confirmButton
             // 
             this.confirmButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.confirmButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.confirmButton.Location = new System.Drawing.Point(192, 336);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(75, 23);
@@ -210,6 +217,10 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.vehicleModelYearNumericUpDown);
+            this.groupBox2.Controls.Add(this.label14);
+            this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Controls.Add(this.vehicleMileageNumericUpDown);
             this.groupBox2.Controls.Add(this.vehicleRegistrationDateDateTimePicker);
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.vehicleGKBTextBox);
@@ -231,13 +242,55 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Vozilo";
             // 
+            // vehicleModelYearNumericUpDown
+            // 
+            this.vehicleModelYearNumericUpDown.Location = new System.Drawing.Point(72, 97);
+            this.vehicleModelYearNumericUpDown.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.vehicleModelYearNumericUpDown.Name = "vehicleModelYearNumericUpDown";
+            this.vehicleModelYearNumericUpDown.Size = new System.Drawing.Size(187, 20);
+            this.vehicleModelYearNumericUpDown.TabIndex = 9;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 99);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(56, 13);
+            this.label14.TabIndex = 8;
+            this.label14.Text = "Modelno l.";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(265, 151);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(37, 13);
+            this.label13.TabIndex = 16;
+            this.label13.Text = "Št. km";
+            // 
+            // vehicleMileageNumericUpDown
+            // 
+            this.vehicleMileageNumericUpDown.Location = new System.Drawing.Point(314, 149);
+            this.vehicleMileageNumericUpDown.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
+            this.vehicleMileageNumericUpDown.Name = "vehicleMileageNumericUpDown";
+            this.vehicleMileageNumericUpDown.Size = new System.Drawing.Size(191, 20);
+            this.vehicleMileageNumericUpDown.TabIndex = 17;
+            // 
             // vehicleRegistrationDateDateTimePicker
             // 
             this.vehicleRegistrationDateDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.vehicleRegistrationDateDateTimePicker.Location = new System.Drawing.Point(72, 149);
             this.vehicleRegistrationDateDateTimePicker.Name = "vehicleRegistrationDateDateTimePicker";
             this.vehicleRegistrationDateDateTimePicker.Size = new System.Drawing.Size(187, 20);
-            this.vehicleRegistrationDateDateTimePicker.TabIndex = 13;
+            this.vehicleRegistrationDateDateTimePicker.TabIndex = 15;
             // 
             // label12
             // 
@@ -245,7 +298,7 @@
             this.label12.Location = new System.Drawing.Point(6, 152);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(60, 13);
-            this.label12.TabIndex = 12;
+            this.label12.TabIndex = 14;
             this.label12.Text = "Dat. 1. reg.";
             // 
             // vehicleGKBTextBox
@@ -253,22 +306,22 @@
             this.vehicleGKBTextBox.Location = new System.Drawing.Point(314, 123);
             this.vehicleGKBTextBox.Name = "vehicleGKBTextBox";
             this.vehicleGKBTextBox.Size = new System.Drawing.Size(191, 20);
-            this.vehicleGKBTextBox.TabIndex = 11;
+            this.vehicleGKBTextBox.TabIndex = 13;
             // 
             // vehicleMKBTextBox
             // 
             this.vehicleMKBTextBox.Location = new System.Drawing.Point(72, 123);
             this.vehicleMKBTextBox.Name = "vehicleMKBTextBox";
             this.vehicleMKBTextBox.Size = new System.Drawing.Size(187, 20);
-            this.vehicleMKBTextBox.TabIndex = 9;
+            this.vehicleMKBTextBox.TabIndex = 11;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(277, 126);
+            this.label11.Location = new System.Drawing.Point(265, 126);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(29, 13);
-            this.label11.TabIndex = 10;
+            this.label11.TabIndex = 12;
             this.label11.Text = "GKB";
             // 
             // label10
@@ -277,17 +330,17 @@
             this.label10.Location = new System.Drawing.Point(6, 126);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(30, 13);
-            this.label10.TabIndex = 8;
+            this.label10.TabIndex = 10;
             this.label10.Text = "MKB";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 100);
+            this.label9.Location = new System.Drawing.Point(265, 74);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(52, 13);
+            this.label9.Size = new System.Drawing.Size(22, 13);
             this.label9.TabIndex = 6;
-            this.label9.Text = "Tip vozila";
+            this.label9.Text = "Tip";
             // 
             // label8
             // 
@@ -300,16 +353,16 @@
             // 
             // vehicleTypeTextBox
             // 
-            this.vehicleTypeTextBox.Location = new System.Drawing.Point(72, 97);
+            this.vehicleTypeTextBox.Location = new System.Drawing.Point(314, 71);
             this.vehicleTypeTextBox.Name = "vehicleTypeTextBox";
-            this.vehicleTypeTextBox.Size = new System.Drawing.Size(433, 20);
+            this.vehicleTypeTextBox.Size = new System.Drawing.Size(191, 20);
             this.vehicleTypeTextBox.TabIndex = 7;
             // 
             // vehicleTypeCodeTextBox
             // 
             this.vehicleTypeCodeTextBox.Location = new System.Drawing.Point(72, 71);
             this.vehicleTypeCodeTextBox.Name = "vehicleTypeCodeTextBox";
-            this.vehicleTypeCodeTextBox.Size = new System.Drawing.Size(433, 20);
+            this.vehicleTypeCodeTextBox.Size = new System.Drawing.Size(187, 20);
             this.vehicleTypeCodeTextBox.TabIndex = 5;
             // 
             // label7
@@ -359,12 +412,15 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "NewCustomerWithVehicleForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Nova stranka";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NewCustomerWithVehicleForm_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.vehicleModelYearNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vehicleMileageNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -401,5 +457,9 @@
         private System.Windows.Forms.Button clearButton;
         private System.Windows.Forms.TextBox customerPhoneTextBox;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.NumericUpDown vehicleMileageNumericUpDown;
+        private System.Windows.Forms.NumericUpDown vehicleModelYearNumericUpDown;
+        private System.Windows.Forms.Label label14;
     }
 }

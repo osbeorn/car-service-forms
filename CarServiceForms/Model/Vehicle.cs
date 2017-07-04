@@ -29,6 +29,7 @@ namespace CarServiceForms.Model
         public string MKBCode { get; set; }
         public string GKBCode { get; set; }
         public int Mileage { get; set; }
+        public int ModelYear { get; set; }
     
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

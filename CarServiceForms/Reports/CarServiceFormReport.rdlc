@@ -408,7 +408,7 @@
               </Group>
               <SortExpressions>
                 <SortExpression>
-                  <Value>=Fields!ServiceItemGroupId.Value</Value>
+                  <Value>=Fields!ServiceItemGroupOrder.Value</Value>
                 </SortExpression>
               </SortExpressions>
               <TablixMembers>

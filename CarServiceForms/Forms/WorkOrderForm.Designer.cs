@@ -30,6 +30,8 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.vehicleMileageNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.vehicleRegistrationDateDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.label12 = new System.Windows.Forms.Label();
             this.vehicleGKBTextBox = new System.Windows.Forms.TextBox();
@@ -58,14 +60,15 @@
             this.description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.confirmButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
-            this.vehicleMileageNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.vehicleModelYearNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.vehicleMileageNumericUpDown)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.workOrderInstructionsDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vehicleMileageNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vehicleModelYearNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -75,7 +78,7 @@
             this.groupBox1.Controls.Add(this.selectCustomerButton);
             this.groupBox1.Location = new System.Drawing.Point(12, 65);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1013, 227);
+            this.groupBox1.Size = new System.Drawing.Size(767, 254);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Stranka";
@@ -84,6 +87,8 @@
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.vehicleModelYearNumericUpDown);
+            this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.vehicleMileageNumericUpDown);
             this.groupBox4.Controls.Add(this.vehicleRegistrationDateDateTimePicker);
@@ -100,12 +105,33 @@
             this.groupBox4.Controls.Add(this.vehicleIdentificationNumberTextBox);
             this.groupBox4.Controls.Add(this.vehicleRegistrationNumberTextBox);
             this.groupBox4.Controls.Add(this.label6);
-            this.groupBox4.Location = new System.Drawing.Point(6, 87);
+            this.groupBox4.Location = new System.Drawing.Point(6, 113);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1001, 134);
+            this.groupBox4.Size = new System.Drawing.Size(755, 134);
             this.groupBox4.TabIndex = 2;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Vozilo";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(265, 107);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(37, 13);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Št. km";
+            // 
+            // vehicleMileageNumericUpDown
+            // 
+            this.vehicleMileageNumericUpDown.Location = new System.Drawing.Point(319, 104);
+            this.vehicleMileageNumericUpDown.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
+            this.vehicleMileageNumericUpDown.Name = "vehicleMileageNumericUpDown";
+            this.vehicleMileageNumericUpDown.Size = new System.Drawing.Size(187, 20);
+            this.vehicleMileageNumericUpDown.TabIndex = 17;
             // 
             // vehicleRegistrationDateDateTimePicker
             // 
@@ -114,7 +140,7 @@
             this.vehicleRegistrationDateDateTimePicker.Location = new System.Drawing.Point(72, 104);
             this.vehicleRegistrationDateDateTimePicker.Name = "vehicleRegistrationDateDateTimePicker";
             this.vehicleRegistrationDateDateTimePicker.Size = new System.Drawing.Size(187, 20);
-            this.vehicleRegistrationDateDateTimePicker.TabIndex = 13;
+            this.vehicleRegistrationDateDateTimePicker.TabIndex = 15;
             // 
             // label12
             // 
@@ -122,7 +148,7 @@
             this.label12.Location = new System.Drawing.Point(6, 107);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(60, 13);
-            this.label12.TabIndex = 12;
+            this.label12.TabIndex = 14;
             this.label12.Text = "Dat. 1. reg.";
             // 
             // vehicleGKBTextBox
@@ -233,12 +259,12 @@
             this.customerDataTextBox.Multiline = true;
             this.customerDataTextBox.Name = "customerDataTextBox";
             this.customerDataTextBox.ReadOnly = true;
-            this.customerDataTextBox.Size = new System.Drawing.Size(506, 59);
+            this.customerDataTextBox.Size = new System.Drawing.Size(755, 59);
             this.customerDataTextBox.TabIndex = 1;
             // 
             // selectCustomerButton
             // 
-            this.selectCustomerButton.Location = new System.Drawing.Point(932, 19);
+            this.selectCustomerButton.Location = new System.Drawing.Point(686, 84);
             this.selectCustomerButton.Name = "selectCustomerButton";
             this.selectCustomerButton.Size = new System.Drawing.Size(75, 23);
             this.selectCustomerButton.TabIndex = 0;
@@ -254,7 +280,7 @@
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Location = new System.Drawing.Point(12, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1013, 47);
+            this.groupBox2.Size = new System.Drawing.Size(767, 47);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Delovni nalog";
@@ -296,9 +322,9 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.workOrderInstructionsDataGridView);
-            this.groupBox3.Location = new System.Drawing.Point(12, 298);
+            this.groupBox3.Location = new System.Drawing.Point(12, 325);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1013, 269);
+            this.groupBox3.Size = new System.Drawing.Size(769, 269);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Navodila za delo";
@@ -314,7 +340,7 @@
             this.workOrderInstructionsDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.workOrderInstructionsDataGridView.Location = new System.Drawing.Point(3, 16);
             this.workOrderInstructionsDataGridView.Name = "workOrderInstructionsDataGridView";
-            this.workOrderInstructionsDataGridView.Size = new System.Drawing.Size(1007, 250);
+            this.workOrderInstructionsDataGridView.Size = new System.Drawing.Size(763, 250);
             this.workOrderInstructionsDataGridView.TabIndex = 0;
             // 
             // position
@@ -342,7 +368,7 @@
             // 
             this.confirmButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.confirmButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.confirmButton.Location = new System.Drawing.Point(441, 573);
+            this.confirmButton.Location = new System.Drawing.Point(317, 600);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(75, 23);
             this.confirmButton.TabIndex = 3;
@@ -354,7 +380,7 @@
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(522, 573);
+            this.cancelButton.Location = new System.Drawing.Point(398, 600);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 4;
@@ -362,32 +388,33 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
-            // vehicleMileageNumericUpDown
+            // label4
             // 
-            this.vehicleMileageNumericUpDown.Location = new System.Drawing.Point(319, 104);
-            this.vehicleMileageNumericUpDown.Maximum = new decimal(new int[] {
-            999999,
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(512, 76);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(44, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Model. l";
+            // 
+            // vehicleModelYearNumericUpDown
+            // 
+            this.vehicleModelYearNumericUpDown.Location = new System.Drawing.Point(562, 73);
+            this.vehicleModelYearNumericUpDown.Maximum = new decimal(new int[] {
+            9999,
             0,
             0,
             0});
-            this.vehicleMileageNumericUpDown.Name = "vehicleMileageNumericUpDown";
-            this.vehicleMileageNumericUpDown.Size = new System.Drawing.Size(187, 20);
-            this.vehicleMileageNumericUpDown.TabIndex = 14;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(265, 107);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(37, 13);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "Št. km";
+            this.vehicleModelYearNumericUpDown.Name = "vehicleModelYearNumericUpDown";
+            this.vehicleModelYearNumericUpDown.ReadOnly = true;
+            this.vehicleModelYearNumericUpDown.Size = new System.Drawing.Size(187, 20);
+            this.vehicleModelYearNumericUpDown.TabIndex = 13;
             // 
             // WorkOrderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1037, 608);
+            this.ClientSize = new System.Drawing.Size(791, 636);
             this.ControlBox = false;
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.confirmButton);
@@ -398,17 +425,19 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "WorkOrderForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Delovni nalog";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WorkOrderForm_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.vehicleMileageNumericUpDown)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.workOrderInstructionsDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vehicleMileageNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vehicleModelYearNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -447,5 +476,7 @@
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown vehicleMileageNumericUpDown;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown vehicleModelYearNumericUpDown;
     }
 }

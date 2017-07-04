@@ -1,4 +1,5 @@
-﻿using CarServiceForms.Model;
+﻿using CarServiceForms.Core.Collections;
+using CarServiceForms.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -82,11 +83,12 @@ namespace CarServiceForms.Forms
                 .Customer
                 .Where(c =>
                     !string.IsNullOrEmpty(customerFirstName) && c.FirstName.Contains(customerFirstName) ||
-                    !string.IsNullOrEmpty(customerLastName) && c.LastName.Contains(customerLastName)
+                    !string.IsNullOrEmpty(customerLastName) && c.LastName.Contains(customerLastName) ||
+                    (string.IsNullOrEmpty(customerFirstName) && string.IsNullOrEmpty(customerLastName))
                 )
                 .ToList();
 
-            customersDataGridView.DataSource = customers;
+            customersDataGridView.DataSource = new SortableBindingList<Customer>(customers);
         }
 
         private void SearchCustomerForm_FormClosing(object sender, FormClosingEventArgs e)

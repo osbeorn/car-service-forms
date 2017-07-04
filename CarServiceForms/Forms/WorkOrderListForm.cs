@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Reporting.WinForms;
 using CarServiceForms.Classes;
+using CarServiceForms.Core.Collections;
 
 namespace CarServiceForms.Forms
 {
@@ -48,21 +49,23 @@ namespace CarServiceForms.Forms
             var workOrders = DBContext.WorkOrder
                 .OrderBy(wo => wo.Created)
                 .ToList()
-                .Select(wo => new
+                .Select(wo => new WorkOrderDTO()
                 {
                     Id = wo.Id,
+                    Number = wo.Number,
                     Created = wo.Created,
                     Deadline = wo.Deadline,
                     Customer = wo.Vehicle.Customer.ShortDescription,
                     Vehicle = wo.Vehicle.ShortDescription
                 })
                 .ToList();
-            workOrdersDataGridView.DataSource = workOrders;
+            workOrdersDataGridView.DataSource = new SortableBindingList<WorkOrderDTO>(workOrders);
         }
 
         private void PrintButton_Click(object sender, EventArgs e)
         {
             var serviceItems = DBContext.ServiceItem
+                .Where(si => si.ServiceTypes.Any(sist => sist.ServiceType == ServiceType.Inspection))
                 .Select(si =>
                     new ServiceItemWithServiceItemGroupDTO()
                     {
@@ -107,6 +110,35 @@ namespace CarServiceForms.Forms
                 datasources
             );
             form.Show();
+        }
+
+        private void WorkOrdersDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var workOrdersDataGridView = (DataGridView) sender;
+
+            if (workOrdersDataGridView.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                var workOrder = workOrdersDataGridView.Rows[e.RowIndex].DataBoundItem as WorkOrderDTO;
+                new ServiceSelectionForm(workOrder.Id).ShowDialog();
+            }
+        }
+
+        private void WorkOrdersDataGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            var workOrdersDataGridView = (DataGridView)sender;
+
+            if (e.RowIndex >= 0)
+            {
+                var workOrder = workOrdersDataGridView.Rows[e.RowIndex].DataBoundItem as WorkOrderDTO;
+                using (var form = new WorkOrderForm(workOrder.Id))
+                {
+                    var result = form.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        LoadWorkOrders();
+                    }
+                }
+            }
         }
     }
 }

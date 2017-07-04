@@ -32,9 +32,9 @@
       <End Role="WorkOrder" EntitySet="WorkOrder" />
       <End Role="WorkOrderInstruction" EntitySet="WorkOrderInstruction" />
     </AssociationSet>
-    <AssociationSet Name="WorkOrderServiceForm" Association="CarServiceFormsModel.Store.WorkOrderServiceForm">
+    <AssociationSet Name="WorkOrderService" Association="CarServiceFormsModel.Store.WorkOrderService">
       <End Role="WorkOrder" EntitySet="WorkOrder" />
-      <End Role="ServiceForm" EntitySet="Service" />
+      <End Role="Service" EntitySet="Service" />
     </AssociationSet>
     <AssociationSet Name="ServiceItemGroupServiceItem" Association="CarServiceFormsModel.Store.ServiceItemGroupServiceItem">
       <End Role="ServiceItemGroup" EntitySet="ServiceItemGroup" />
@@ -77,6 +77,7 @@
     <Property Name="MKBCode" Type="nvarchar(max)" Nullable="false" />
     <Property Name="GKBCode" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Mileage" Type="int" Nullable="false" />
+    <Property Name="ModelYear" Type="int" Nullable="false" />
     <Property Name="Customer_Id" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="WorkOrder">
@@ -115,6 +116,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="Created" Type="datetime" Nullable="false" />
     <Property Name="WorkOrder_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ServiceItemGroup">
@@ -203,14 +205,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="WorkOrderServiceForm">
+  <Association Name="WorkOrderService">
     <End Role="WorkOrder" Type="CarServiceFormsModel.Store.WorkOrder" Multiplicity="1" />
-    <End Role="ServiceForm" Type="CarServiceFormsModel.Store.Service" Multiplicity="*" />
+    <End Role="Service" Type="CarServiceFormsModel.Store.Service" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="WorkOrder">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="ServiceForm">
+      <Dependent Role="Service">
         <PropertyRef Name="WorkOrder_Id" />
       </Dependent>
     </ReferentialConstraint>
@@ -290,9 +292,9 @@
             <End Role="WorkOrderInstruction" EntitySet="WorkOrderInstruction" />
           </AssociationSet>
           <EntitySet Name="Service" EntityType="CarServiceFormsModel.Service" />
-          <AssociationSet Name="WorkOrderServiceForm" Association="CarServiceFormsModel.WorkOrderServiceForm">
+          <AssociationSet Name="WorkOrderService" Association="CarServiceFormsModel.WorkOrderService">
             <End Role="WorkOrder" EntitySet="WorkOrder" />
-            <End Role="ServiceForm" EntitySet="Service" />
+            <End Role="Service" EntitySet="Service" />
           </AssociationSet>
           <EntitySet Name="ServiceItemGroup" EntityType="CarServiceFormsModel.ServiceItemGroup" />
           <EntitySet Name="ServiceItem" EntityType="CarServiceFormsModel.ServiceItem" />
@@ -342,6 +344,7 @@
           <Property Name="MKBCode" Type="String" Nullable="false" />
           <Property Name="GKBCode" Type="String" Nullable="false" />
           <Property Name="Mileage" Type="Int32" Nullable="false" />
+          <Property Name="ModelYear" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="WorkOrder">
           <Key>
@@ -354,7 +357,7 @@
           <NavigationProperty Name="WordOrderInformation" Relationship="CarServiceFormsModel.WorkOrderWordOrderInformation" FromRole="WorkOrder" ToRole="WordOrderInformation" />
           <NavigationProperty Name="WorkOrderInstructions" Relationship="CarServiceFormsModel.WorkOrderWorkOrderInstruction" FromRole="WorkOrder" ToRole="WorkOrderInstruction" />
           <Property Name="Deadline" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="ServiceForm" Relationship="CarServiceFormsModel.WorkOrderServiceForm" FromRole="WorkOrder" ToRole="ServiceForm" />
+          <NavigationProperty Name="Service" Relationship="CarServiceFormsModel.WorkOrderService" FromRole="WorkOrder" ToRole="Service" />
           <Property Name="Finished" Type="DateTime" Nullable="true" />
         </EntityType>
         <Association Name="CustomerVehicle">
@@ -397,13 +400,14 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="WorkOrder" Relationship="CarServiceFormsModel.WorkOrderServiceForm" FromRole="ServiceForm" ToRole="WorkOrder" />
+          <NavigationProperty Name="WorkOrder" Relationship="CarServiceFormsModel.WorkOrderService" FromRole="Service" ToRole="WorkOrder" />
           <Property Name="Type" Type="CarServiceFormsModel.ServiceType" Nullable="false" />
           <NavigationProperty Name="AppliedServiceItems" Relationship="CarServiceFormsModel.ServiceAppliedServiceItem" FromRole="Service" ToRole="AppliedServiceItem" />
+          <Property Name="Created" Type="DateTime" Nullable="false" />
         </EntityType>
-        <Association Name="WorkOrderServiceForm">
+        <Association Name="WorkOrderService">
           <End Type="CarServiceFormsModel.WorkOrder" Role="WorkOrder" Multiplicity="1" />
-          <End Type="CarServiceFormsModel.Service" Role="ServiceForm" Multiplicity="*" />
+          <End Type="CarServiceFormsModel.Service" Role="Service" Multiplicity="*" />
         </Association>
         <EnumType Name="ServiceType">
           <Member Name="Interval" />
@@ -515,6 +519,7 @@
           <ScalarProperty Name="MKBCode" ColumnName="MKBCode" />
           <ScalarProperty Name="GKBCode" ColumnName="GKBCode" />
           <ScalarProperty Name="Mileage" ColumnName="Mileage" />
+          <ScalarProperty Name="ModelYear" ColumnName="ModelYear" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -553,6 +558,7 @@
         <MappingFragment StoreEntitySet="Service">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -626,11 +632,11 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="WorkOrderServiceForm" TypeName="CarServiceFormsModel.WorkOrderServiceForm" StoreEntitySet="Service">
+    <AssociationSetMapping Name="WorkOrderService" TypeName="CarServiceFormsModel.WorkOrderService" StoreEntitySet="Service">
       <EndProperty Name="WorkOrder">
         <ScalarProperty Name="Id" ColumnName="WorkOrder_Id" />
       </EndProperty>
-      <EndProperty Name="ServiceForm">
+      <EndProperty Name="Service">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>

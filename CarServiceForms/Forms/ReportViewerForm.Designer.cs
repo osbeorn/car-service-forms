@@ -36,14 +36,14 @@
             this.reportViewer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.reportViewer.Location = new System.Drawing.Point(0, 0);
             this.reportViewer.Name = "reportViewer";
-            this.reportViewer.Size = new System.Drawing.Size(735, 644);
+            this.reportViewer.Size = new System.Drawing.Size(860, 644);
             this.reportViewer.TabIndex = 0;
             // 
             // ReportViewerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(735, 644);
+            this.ClientSize = new System.Drawing.Size(860, 644);
             this.Controls.Add(this.reportViewer);
             this.Name = "ReportViewerForm";
             this.Text = "ReportViewerForm";

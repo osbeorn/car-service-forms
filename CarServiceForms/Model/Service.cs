@@ -22,6 +22,7 @@ namespace CarServiceForms.Model
     
         public int Id { get; set; }
         public ServiceType Type { get; set; }
+        public System.DateTime Created { get; set; }
     
         public virtual WorkOrder WorkOrder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

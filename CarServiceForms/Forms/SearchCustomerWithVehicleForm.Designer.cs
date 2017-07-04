@@ -304,6 +304,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SearchCustomerWithVehicleForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Išči stranko";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SearchCustomerWithVehicleForm_FormClosing);
             this.groupBox1.ResumeLayout(false);

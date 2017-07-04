@@ -12,7 +12,7 @@ namespace CarServiceForms.Model
         {
             get
             {
-                const string FORMAT = "{0}¸({1})";
+                const string FORMAT = "{0}, ({1})";
                 return string.Format(FORMAT, Type, RegistrationNumber);
             }
         }

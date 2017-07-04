@@ -30,13 +30,13 @@
         {
             this.createButton = new System.Windows.Forms.Button();
             this.workOrdersDataGridView = new System.Windows.Forms.DataGridView();
-            this.printButton = new System.Windows.Forms.Button();
             this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Created = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Deadline = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Customer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Vehicle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Service = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.printButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.workOrdersDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,6 +69,57 @@
             this.workOrdersDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.workOrdersDataGridView.Size = new System.Drawing.Size(1050, 528);
             this.workOrdersDataGridView.TabIndex = 1;
+            this.workOrdersDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.WorkOrdersDataGridView_CellContentClick);
+            this.workOrdersDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.WorkOrdersDataGridView_CellMouseDoubleClick);
+            // 
+            // Number
+            // 
+            this.Number.DataPropertyName = "Number";
+            this.Number.FillWeight = 10F;
+            this.Number.HeaderText = "Št. DN";
+            this.Number.Name = "Number";
+            this.Number.ReadOnly = true;
+            // 
+            // Created
+            // 
+            this.Created.DataPropertyName = "Created";
+            this.Created.FillWeight = 10F;
+            this.Created.HeaderText = "Ustvarjen";
+            this.Created.Name = "Created";
+            this.Created.ReadOnly = true;
+            // 
+            // Deadline
+            // 
+            this.Deadline.DataPropertyName = "Deadline";
+            this.Deadline.FillWeight = 10F;
+            this.Deadline.HeaderText = "Rok izdelave";
+            this.Deadline.Name = "Deadline";
+            this.Deadline.ReadOnly = true;
+            // 
+            // Customer
+            // 
+            this.Customer.DataPropertyName = "Customer";
+            this.Customer.FillWeight = 37F;
+            this.Customer.HeaderText = "Stranka";
+            this.Customer.Name = "Customer";
+            this.Customer.ReadOnly = true;
+            // 
+            // Vehicle
+            // 
+            this.Vehicle.DataPropertyName = "Vehicle";
+            this.Vehicle.FillWeight = 30F;
+            this.Vehicle.HeaderText = "Vozilo";
+            this.Vehicle.Name = "Vehicle";
+            this.Vehicle.ReadOnly = true;
+            // 
+            // Service
+            // 
+            this.Service.FillWeight = 3F;
+            this.Service.HeaderText = "";
+            this.Service.Name = "Service";
+            this.Service.ReadOnly = true;
+            this.Service.Text = "...";
+            this.Service.UseColumnTextForButtonValue = true;
             // 
             // printButton
             // 
@@ -80,47 +131,6 @@
             this.printButton.UseVisualStyleBackColor = true;
             this.printButton.Click += new System.EventHandler(this.PrintButton_Click);
             // 
-            // Number
-            // 
-            this.Number.DataPropertyName = "Number";
-            this.Number.HeaderText = "Št. DN";
-            this.Number.Name = "Number";
-            this.Number.ReadOnly = true;
-            // 
-            // Created
-            // 
-            this.Created.DataPropertyName = "Created";
-            this.Created.HeaderText = "Ustvarjen";
-            this.Created.Name = "Created";
-            this.Created.ReadOnly = true;
-            // 
-            // Deadline
-            // 
-            this.Deadline.DataPropertyName = "Deadline";
-            this.Deadline.HeaderText = "Rok izdelave";
-            this.Deadline.Name = "Deadline";
-            this.Deadline.ReadOnly = true;
-            // 
-            // Customer
-            // 
-            this.Customer.DataPropertyName = "Customer";
-            this.Customer.HeaderText = "Stranka";
-            this.Customer.Name = "Customer";
-            this.Customer.ReadOnly = true;
-            // 
-            // Vehicle
-            // 
-            this.Vehicle.DataPropertyName = "Vehicle";
-            this.Vehicle.HeaderText = "Vozilo";
-            this.Vehicle.Name = "Vehicle";
-            this.Vehicle.ReadOnly = true;
-            // 
-            // Service
-            // 
-            this.Service.HeaderText = "Servis";
-            this.Service.Name = "Service";
-            this.Service.ReadOnly = true;
-            // 
             // WorkOrderListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -129,7 +139,10 @@
             this.Controls.Add(this.printButton);
             this.Controls.Add(this.workOrdersDataGridView);
             this.Controls.Add(this.createButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "WorkOrderListForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Delovni nalogi";
             ((System.ComponentModel.ISupportInitialize)(this.workOrdersDataGridView)).EndInit();
             this.ResumeLayout(false);

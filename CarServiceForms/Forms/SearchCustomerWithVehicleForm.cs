@@ -1,4 +1,5 @@
 ﻿using CarServiceForms.Classes;
+using CarServiceForms.Core.Collections;
 using CarServiceForms.Model;
 using System;
 using System.Collections.Generic;
@@ -88,7 +89,7 @@ namespace CarServiceForms.Forms
                 })
                 .ToList();
 
-            customersDataGridView.DataSource = customerDTOs;
+            customersDataGridView.DataSource = new SortableBindingList<CustomerWithVehicleDTO>(customerDTOs);
         }
 
         private void SearchCustomerWithVehicleForm_FormClosing(object sender, FormClosingEventArgs e)

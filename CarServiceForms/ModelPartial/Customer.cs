@@ -16,5 +16,14 @@ namespace CarServiceForms.Model
                 return string.Format(FORMAT, FirstName, LastName, Street, Post);
             }
         }
+
+        public string LongDescription
+        {
+            get
+            {
+                const string FORMAT = "{0} {1}\n{2}\n{3}\n{4}";
+                return string.Format(FORMAT, FirstName, LastName, Street, Post, Phone);
+            }
+        }
     }
 }
