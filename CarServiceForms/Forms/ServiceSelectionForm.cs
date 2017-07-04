@@ -86,7 +86,7 @@ namespace CarServiceForms.Forms
             var selectedServiceType = (ServiceType)serviceTypeComboBox.SelectedValue;
 
             var serviceItems = DBContext.ServiceItem
-                .Where(si => si.ServiceItemGroup.Type.Equals(selectedServiceType))
+                .Where(si => si.ServiceTypes.Any(sist => sist.ServiceType == selectedServiceType))
                 .Select(si =>
                     new ServiceItemWithServiceItemGroupDTO()
                     {
