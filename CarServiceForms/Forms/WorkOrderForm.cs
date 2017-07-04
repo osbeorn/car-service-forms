@@ -141,7 +141,7 @@ namespace CarServiceForms.Forms
             vehicleMileageNumericUpDown.Value = Vehicle.Mileage;
             vehicleModelYearNumericUpDown.Value = Vehicle.ModelYear;
 
-            workOrderInstructionsDataGridView.DataSource = new SortableBindingList<WorkOrderInstruction>(WorkOrderInstructions);
+            workOrderInstructionsDataGridView.DataSource = new BindingList<WorkOrderInstruction>(WorkOrderInstructions);
         }
     }
 }
