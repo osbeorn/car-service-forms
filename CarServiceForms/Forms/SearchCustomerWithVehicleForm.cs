@@ -82,10 +82,14 @@ namespace CarServiceForms.Forms
                     IdentificationNumber = v.IdentificationNumber,
                     RegistrationNumber = v.RegistrationNumber,
                     RegistrationDate = v.RegistrationDate,
+                    Type = v.Type,
+                    TypeCode = v.TypeCode,
                     GKBCode = v.GKBCode,
                     MKBCode = v.MKBCode,
-                    Type = v.Type,
-                    TypeCode = v.TypeCode
+                    Mileage = v.Mileage,
+                    ModelYear = v.ModelYear,
+                    Engine = v.Engine,
+                    Transmission = v.Transmission
                 })
                 .ToList();
 

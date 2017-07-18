@@ -16,6 +16,7 @@
     <EntitySet Name="ServiceItem" EntityType="CarServiceFormsModel.Store.ServiceItem" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="AppliedServiceItem" EntityType="CarServiceFormsModel.Store.AppliedServiceItem" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ServiceItemServiceType" EntityType="CarServiceFormsModel.Store.ServiceItemServiceType" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Settings" EntityType="CarServiceFormsModel.Store.Settings" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="CustomerVehicle" Association="CarServiceFormsModel.Store.CustomerVehicle">
       <End Role="Customer" EntitySet="Customer" />
       <End Role="Vehicle" EntitySet="Vehicle" />
@@ -68,7 +69,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="RegistrationNumber" Type="nvarchar(max)" Nullable="false" />
     <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
     <Property Name="IdentificationNumber" Type="nvarchar(max)" Nullable="false" />
@@ -78,84 +79,95 @@
     <Property Name="GKBCode" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Mileage" Type="int" Nullable="false" />
     <Property Name="ModelYear" Type="int" Nullable="false" />
+    <Property Name="Engine" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Transmission" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Customer_Id" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="WorkOrder">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Number" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Created" Type="datetime" Nullable="false" />
     <Property Name="Deadline" Type="datetime" Nullable="false" />
     <Property Name="Finished" Type="datetime" Nullable="true" />
-    <Property Name="Vehicle_Id" Type="int" Nullable="false" />
+    <Property Name="Vehicle_Id" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="WordOrderInformation">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Info" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="WorkOrder_Id" Type="int" Nullable="false" />
+    <Property Name="WorkOrder_Id" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="WorkOrderInstruction">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Position" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Quantity" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="WorkOrder_Id" Type="int" Nullable="false" />
+    <Property Name="WorkOrder_Id" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="Service">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Type" Type="int" Nullable="false" />
     <Property Name="Created" Type="datetime" Nullable="false" />
-    <Property Name="WorkOrder_Id" Type="int" Nullable="false" />
+    <Property Name="WorkOrder_Id" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="ServiceItemGroup">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Type" Type="int" Nullable="false" />
     <Property Name="Order" Type="int" Nullable="false" />
+    <Property Name="Enabled" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="ServiceItem">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
     <Property Name="HasRemarks" Type="bit" Nullable="false" />
     <Property Name="Order" Type="int" Nullable="false" />
-    <Property Name="ServiceItemGroup_Id" Type="int" Nullable="false" />
+    <Property Name="Enabled" Type="bit" Nullable="false" />
+    <Property Name="ServiceItemGroup_Id" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="AppliedServiceItem">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Remark" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Resolution" Type="int" Nullable="false" />
-    <Property Name="Service_Id" Type="int" Nullable="false" />
-    <Property Name="ServiceItem_Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Remark" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Resolution" Type="int" Nullable="true" />
+    <Property Name="Service_Id" Type="bigint" Nullable="false" />
+    <Property Name="ServiceItem_Id" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="ServiceItemServiceType">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ServiceType" Type="int" Nullable="false" />
-    <Property Name="ServiceItem_Id" Type="int" Nullable="false" />
+    <Property Name="ServiceItem_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Settings">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Key" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <Association Name="CustomerVehicle">
     <End Role="Customer" Type="CarServiceFormsModel.Store.Customer" Multiplicity="1" />
@@ -316,6 +328,7 @@
             <End Role="ServiceItem" EntitySet="ServiceItem" />
             <End Role="ServiceItemServiceType" EntitySet="ServiceItemServiceType" />
           </AssociationSet>
+          <EntitySet Name="Settings" EntityType="CarServiceFormsModel.Settings" />
         </EntityContainer>
         <EntityType Name="Customer">
           <Key>
@@ -333,7 +346,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Customer" Relationship="CarServiceFormsModel.CustomerVehicle" FromRole="Vehicle" ToRole="Customer" />
           <NavigationProperty Name="WorkOrders" Relationship="CarServiceFormsModel.VehicleWorkOrder" FromRole="Vehicle" ToRole="WorkOrder" />
           <Property Name="RegistrationNumber" Type="String" Nullable="false" />
@@ -345,12 +358,14 @@
           <Property Name="GKBCode" Type="String" Nullable="false" />
           <Property Name="Mileage" Type="Int32" Nullable="false" />
           <Property Name="ModelYear" Type="Int32" Nullable="false" />
+          <Property Name="Engine" Type="String" Nullable="false" />
+          <Property Name="Transmission" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="WorkOrder">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Vehicle" Relationship="CarServiceFormsModel.VehicleWorkOrder" FromRole="WorkOrder" ToRole="Vehicle" />
           <Property Name="Number" Type="String" Nullable="false" />
           <Property Name="Created" Type="DateTime" Nullable="false" />
@@ -372,7 +387,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="WorkOrder" Relationship="CarServiceFormsModel.WorkOrderWordOrderInformation" FromRole="WordOrderInformation" ToRole="WorkOrder" />
           <Property Name="Info" Type="String" Nullable="true" />
           <Property Name="Description" Type="String" Nullable="true" />
@@ -381,7 +396,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="WorkOrder" Relationship="CarServiceFormsModel.WorkOrderWorkOrderInstruction" FromRole="WorkOrderInstruction" ToRole="WorkOrder" />
           <Property Name="Position" Type="String" Nullable="true" />
           <Property Name="Quantity" Type="String" Nullable="true" />
@@ -399,7 +414,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="WorkOrder" Relationship="CarServiceFormsModel.WorkOrderService" FromRole="Service" ToRole="WorkOrder" />
           <Property Name="Type" Type="CarServiceFormsModel.ServiceType" Nullable="false" />
           <NavigationProperty Name="AppliedServiceItems" Relationship="CarServiceFormsModel.ServiceAppliedServiceItem" FromRole="Service" ToRole="AppliedServiceItem" />
@@ -418,24 +433,24 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="ServiceItems" Relationship="CarServiceFormsModel.ServiceItemGroupServiceItem" FromRole="ServiceItemGroup" ToRole="ServiceItem" />
           <Property Name="Name" Type="String" Nullable="false" />
-          <Property Name="Type" Type="CarServiceFormsModel.ServiceItemGroupType" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="Enabled" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="ServiceItem">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="ServiceItemGroup" Relationship="CarServiceFormsModel.ServiceItemGroupServiceItem" FromRole="ServiceItem" ToRole="ServiceItemGroup" />
           <Property Name="Name" Type="String" Nullable="true" />
-          <Property Name="Description" Type="String" Nullable="false" />
           <NavigationProperty Name="AppliedServiceItem" Relationship="CarServiceFormsModel.ServiceItemAppliedServiceItem" FromRole="ServiceItem" ToRole="AppliedServiceItem" />
           <NavigationProperty Name="ServiceTypes" Relationship="CarServiceFormsModel.ServiceItemServiceItemServiceType" FromRole="ServiceItem" ToRole="ServiceItemServiceType" />
           <Property Name="HasRemarks" Type="Boolean" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="Enabled" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="ServiceItemGroupServiceItem">
           <End Type="CarServiceFormsModel.ServiceItemGroup" Role="ServiceItemGroup" Multiplicity="1" />
@@ -445,11 +460,11 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Service" Relationship="CarServiceFormsModel.ServiceAppliedServiceItem" FromRole="AppliedServiceItem" ToRole="Service" />
           <NavigationProperty Name="ServiceItem" Relationship="CarServiceFormsModel.ServiceItemAppliedServiceItem" FromRole="AppliedServiceItem" ToRole="ServiceItem" />
-          <Property Name="Remark" Type="String" Nullable="false" />
-          <Property Name="Resolution" Type="CarServiceFormsModel.AppliedServiceItemResolution" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Remark" Type="String" Nullable="true" />
+          <Property Name="Resolution" Type="CarServiceFormsModel.AppliedServiceItemResolution" Nullable="true" annotation:StoreGeneratedPattern="None" />
         </EntityType>
         <Association Name="ServiceAppliedServiceItem">
           <End Type="CarServiceFormsModel.Service" Role="Service" Multiplicity="1" />
@@ -481,7 +496,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="ServiceItem" Relationship="CarServiceFormsModel.ServiceItemServiceItemServiceType" FromRole="ServiceItemServiceType" ToRole="ServiceItem" />
           <Property Name="ServiceType" Type="CarServiceFormsModel.ServiceType" Nullable="false" />
         </EntityType>
@@ -489,6 +504,15 @@
           <End Type="CarServiceFormsModel.ServiceItem" Role="ServiceItem" Multiplicity="1" />
           <End Type="CarServiceFormsModel.ServiceItemServiceType" Role="ServiceItemServiceType" Multiplicity="*" />
         </Association>
+        <EntityType Name="Settings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Key" Type="String" Nullable="false" />
+          <Property Name="Value" Type="String" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -520,6 +544,8 @@
           <ScalarProperty Name="GKBCode" ColumnName="GKBCode" />
           <ScalarProperty Name="Mileage" ColumnName="Mileage" />
           <ScalarProperty Name="ModelYear" ColumnName="ModelYear" />
+          <ScalarProperty Name="Engine" ColumnName="Engine" />
+          <ScalarProperty Name="Transmission" ColumnName="Transmission" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -567,8 +593,8 @@
         <MappingFragment StoreEntitySet="ServiceItemGroup">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="Order" ColumnName="Order" />
+          <ScalarProperty Name="Enabled" ColumnName="Enabled" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -577,9 +603,9 @@
         <MappingFragment StoreEntitySet="ServiceItem">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="HasRemarks" ColumnName="HasRemarks" />
           <ScalarProperty Name="Order" ColumnName="Order" />
+          <ScalarProperty Name="Enabled" ColumnName="Enabled" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -597,6 +623,16 @@
         <MappingFragment StoreEntitySet="ServiceItemServiceType">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ServiceType" ColumnName="ServiceType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Settings">
+      <EntityTypeMapping TypeName="IsTypeOf(CarServiceFormsModel.Settings)">
+        <MappingFragment StoreEntitySet="Settings">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -20,10 +20,10 @@ namespace CarServiceForms.Model
             this.ServiceItems = new HashSet<ServiceItem>();
         }
     
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
-        public ServiceItemGroupType Type { get; set; }
         public int Order { get; set; }
+        public bool Enabled { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceItem> ServiceItems { get; set; }

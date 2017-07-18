@@ -74,9 +74,37 @@
     <Compile Include="Classes\CarServiceFormReportDTO.cs" />
     <Compile Include="Classes\ServiceItemWithServiceItemGroupDTO.cs" />
     <Compile Include="Classes\WorkOrderDTO.cs" />
+    <Compile Include="Core\Collections\ListViewGroupComparer.cs" />
+    <Compile Include="Core\Collections\ListViewItemComparer.cs" />
     <Compile Include="Core\Collections\PropertyComparer.cs" />
     <Compile Include="Core\Collections\SortableBindingList.cs" />
     <Compile Include="Core\Helpers\DateTimeHelper.cs" />
+    <Compile Include="Core\Helpers\ControlExtensions.cs" />
+    <Compile Include="Core\Helpers\ValidationHelper.cs" />
+    <Compile Include="Forms\EditCustomerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditCustomerForm.Designer.cs">
+      <DependentUpon>EditCustomerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditServiceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditServiceForm.Designer.cs">
+      <DependentUpon>EditServiceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ExtendedServiceSelectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ExtendedServiceSelectionForm.Designer.cs">
+      <DependentUpon>ExtendedServiceSelectionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditCustomerWithVehicleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditCustomerWithVehicleForm.Designer.cs">
+      <DependentUpon>EditCustomerWithVehicleForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\NewCustomerWithVehicleForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +134,12 @@
     </Compile>
     <Compile Include="Forms\ServiceSelectionForm.Designer.cs">
       <DependentUpon>ServiceSelectionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\WorkOrderForm.cs">
       <SubType>Form</SubType>
@@ -171,6 +205,9 @@
     <Compile Include="Model\ServiceType.cs">
       <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Settings.cs">
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Vehicle.cs">
       <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
     </Compile>
@@ -185,6 +222,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\EditCustomerForm.resx">
+      <DependentUpon>EditCustomerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditServiceForm.resx">
+      <DependentUpon>EditServiceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ExtendedServiceSelectionForm.resx">
+      <DependentUpon>ExtendedServiceSelectionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditCustomerWithVehicleForm.resx">
+      <DependentUpon>EditCustomerWithVehicleForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewCustomerWithVehicleForm.resx">
       <DependentUpon>NewCustomerWithVehicleForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -199,6 +248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ServiceSelectionForm.resx">
       <DependentUpon>ServiceSelectionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\WorkOrderForm.resx">
       <DependentUpon>WorkOrderForm.cs</DependentUpon>

@@ -20,7 +20,7 @@ namespace CarServiceForms.Model
             this.WorkOrders = new HashSet<WorkOrder>();
         }
     
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string RegistrationNumber { get; set; }
         public System.DateTime RegistrationDate { get; set; }
         public string IdentificationNumber { get; set; }
@@ -30,6 +30,8 @@ namespace CarServiceForms.Model
         public string GKBCode { get; set; }
         public int Mileage { get; set; }
         public int ModelYear { get; set; }
+        public string Engine { get; set; }
+        public string Transmission { get; set; }
     
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

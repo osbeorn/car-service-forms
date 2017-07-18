@@ -1,6 +1,6 @@
 ﻿namespace CarServiceForms.Forms
 {
-    partial class NewCustomerWithVehicleForm
+    partial class EditCustomerWithVehicleForm
     {
         /// <summary>
         /// Required designer variable.
@@ -33,8 +33,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.customerPhoneTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.clearButton = new System.Windows.Forms.Button();
-            this.searchCustomerButton = new System.Windows.Forms.Button();
             this.customerPostTextBox = new System.Windows.Forms.TextBox();
             this.customerLastNameTextBox = new System.Windows.Forms.TextBox();
             this.customerStreetTextBox = new System.Windows.Forms.TextBox();
@@ -44,6 +42,10 @@
             this.customerFirstNameTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.vehicleTransmissionTextBox = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.vehicleEngineTextBox = new System.Windows.Forms.TextBox();
             this.vehicleModelYearNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -62,10 +64,6 @@
             this.vehicleIdentificationNumberTextBox = new System.Windows.Forms.TextBox();
             this.vehicleRegistrationNumberTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.vehicleEngineTextBox = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.vehicleTransmissionTextBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vehicleModelYearNumericUpDown)).BeginInit();
@@ -75,7 +73,7 @@
             // confirmButton
             // 
             this.confirmButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.confirmButton.Location = new System.Drawing.Point(225, 331);
+            this.confirmButton.Location = new System.Drawing.Point(224, 301);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(75, 23);
             this.confirmButton.TabIndex = 2;
@@ -86,7 +84,7 @@
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(306, 331);
+            this.cancelButton.Location = new System.Drawing.Point(305, 301);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 3;
@@ -98,8 +96,6 @@
             // 
             this.groupBox1.Controls.Add(this.customerPhoneTextBox);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.clearButton);
-            this.groupBox1.Controls.Add(this.searchCustomerButton);
             this.groupBox1.Controls.Add(this.customerPostTextBox);
             this.groupBox1.Controls.Add(this.customerLastNameTextBox);
             this.groupBox1.Controls.Add(this.customerStreetTextBox);
@@ -110,7 +106,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(580, 128);
+            this.groupBox1.Size = new System.Drawing.Size(580, 98);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Stranka";
@@ -130,26 +126,6 @@
             this.label5.Size = new System.Drawing.Size(43, 13);
             this.label5.TabIndex = 8;
             this.label5.Text = "Telefon";
-            // 
-            // clearButton
-            // 
-            this.clearButton.Location = new System.Drawing.Point(499, 97);
-            this.clearButton.Name = "clearButton";
-            this.clearButton.Size = new System.Drawing.Size(75, 23);
-            this.clearButton.TabIndex = 11;
-            this.clearButton.Text = "Počisti";
-            this.clearButton.UseVisualStyleBackColor = true;
-            this.clearButton.Click += new System.EventHandler(this.ClearButton_Click);
-            // 
-            // searchCustomerButton
-            // 
-            this.searchCustomerButton.Location = new System.Drawing.Point(418, 97);
-            this.searchCustomerButton.Name = "searchCustomerButton";
-            this.searchCustomerButton.Size = new System.Drawing.Size(75, 23);
-            this.searchCustomerButton.TabIndex = 10;
-            this.searchCustomerButton.Text = "Išči";
-            this.searchCustomerButton.UseVisualStyleBackColor = true;
-            this.searchCustomerButton.Click += new System.EventHandler(this.SearchCustomerButton_Click);
             // 
             // customerPostTextBox
             // 
@@ -239,12 +215,44 @@
             this.groupBox2.Controls.Add(this.vehicleIdentificationNumberTextBox);
             this.groupBox2.Controls.Add(this.vehicleRegistrationNumberTextBox);
             this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Location = new System.Drawing.Point(12, 146);
+            this.groupBox2.Location = new System.Drawing.Point(12, 116);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(580, 179);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Vozilo";
+            // 
+            // vehicleTransmissionTextBox
+            // 
+            this.vehicleTransmissionTextBox.Location = new System.Drawing.Point(72, 97);
+            this.vehicleTransmissionTextBox.Name = "vehicleTransmissionTextBox";
+            this.vehicleTransmissionTextBox.Size = new System.Drawing.Size(215, 20);
+            this.vehicleTransmissionTextBox.TabIndex = 13;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 100);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(52, 13);
+            this.label15.TabIndex = 12;
+            this.label15.Text = "Menjalnik";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 74);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(34, 13);
+            this.label16.TabIndex = 8;
+            this.label16.Text = "Motor";
+            // 
+            // vehicleEngineTextBox
+            // 
+            this.vehicleEngineTextBox.Location = new System.Drawing.Point(72, 71);
+            this.vehicleEngineTextBox.Name = "vehicleEngineTextBox";
+            this.vehicleEngineTextBox.Size = new System.Drawing.Size(215, 20);
+            this.vehicleEngineTextBox.TabIndex = 9;
             // 
             // vehicleModelYearNumericUpDown
             // 
@@ -401,44 +409,12 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Reg. št.";
             // 
-            // vehicleEngineTextBox
-            // 
-            this.vehicleEngineTextBox.Location = new System.Drawing.Point(72, 71);
-            this.vehicleEngineTextBox.Name = "vehicleEngineTextBox";
-            this.vehicleEngineTextBox.Size = new System.Drawing.Size(215, 20);
-            this.vehicleEngineTextBox.TabIndex = 9;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 74);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(34, 13);
-            this.label16.TabIndex = 8;
-            this.label16.Text = "Motor";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 100);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(52, 13);
-            this.label15.TabIndex = 12;
-            this.label15.Text = "Menjalnik";
-            // 
-            // vehicleTransmissionTextBox
-            // 
-            this.vehicleTransmissionTextBox.Location = new System.Drawing.Point(72, 97);
-            this.vehicleTransmissionTextBox.Name = "vehicleTransmissionTextBox";
-            this.vehicleTransmissionTextBox.Size = new System.Drawing.Size(215, 20);
-            this.vehicleTransmissionTextBox.TabIndex = 13;
-            // 
-            // NewCustomerWithVehicleForm
+            // EditCustomerWithVehicleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(604, 367);
+            this.ClientSize = new System.Drawing.Size(604, 336);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -447,10 +423,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "NewCustomerWithVehicleForm";
+            this.Name = "EditCustomerWithVehicleForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Nova stranka";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NewCustomerWithVehicleForm_FormClosing);
+            this.Text = "Uredi stranko";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditCustomerWithVehicleForm_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -489,8 +465,6 @@
         private System.Windows.Forms.TextBox vehicleIdentificationNumberTextBox;
         private System.Windows.Forms.TextBox vehicleRegistrationNumberTextBox;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button searchCustomerButton;
-        private System.Windows.Forms.Button clearButton;
         private System.Windows.Forms.TextBox customerPhoneTextBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label13;

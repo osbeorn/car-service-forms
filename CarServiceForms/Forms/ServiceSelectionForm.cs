@@ -15,8 +15,6 @@ namespace CarServiceForms.Forms
 {
     public partial class ServiceSelectionForm : Form
     {
-        private const string MESSAGE = "Za vozilo z delovnega naloga je predviden \"{0}\".\n(Izbiro lahko spremenite spodaj.)";
-
         private CarServiceFormsDBContext DBContext { get; set; }
         private WorkOrder WorkOrder { get; set; }
 
@@ -29,9 +27,18 @@ namespace CarServiceForms.Forms
         private void InitializeComponents(long workOrderId)
         {
             DBContext = new CarServiceFormsDBContext();
-
+            GetWorkOrderData(workOrderId);
             SetupServiceTypeComboBoxDatasource();
-            SelectDefaultServiceType(workOrderId);
+        }
+
+        public void CleanupComponents()
+        {
+            DBContext.Dispose();
+        }
+
+        private void GetWorkOrderData(long workOrderId)
+        {
+            WorkOrder = DBContext.WorkOrder.Find(workOrderId);
         }
 
         private void SetupServiceTypeComboBoxDatasource()
@@ -57,15 +64,6 @@ namespace CarServiceForms.Forms
             serviceTypeComboBox.DataSource = serviceTypes;
         }
 
-        private void SelectDefaultServiceType(long workOrderId)
-        {
-            WorkOrder = DBContext.WorkOrder.Find(workOrderId);
-            var defaultServiceType = ServiceType.Interval;
-
-            serviceTypeComboBox.SelectedValue = defaultServiceType;
-            serviceTypeMessageLabel.Text = string.Format(MESSAGE, GetServiceTypeDescription(defaultServiceType));
-        }
-
         private string GetServiceTypeDescription(ServiceType serviceType)
         {
             switch (serviceType)
@@ -83,15 +81,19 @@ namespace CarServiceForms.Forms
 
         private void ConfirmButton_Click(object sender, EventArgs e)
         {
-            var selectedServiceType = (ServiceType)serviceTypeComboBox.SelectedValue;
+            var selectedServiceType = (ServiceType) serviceTypeComboBox.SelectedValue;
 
             var serviceItems = DBContext.ServiceItem
-                .Where(si => si.ServiceTypes.Any(sist => sist.ServiceType == selectedServiceType))
+                .Where(si => 
+                    si.ServiceTypes.Any(sist => sist.ServiceType == selectedServiceType) &&
+                    si.Enabled &&
+                    si.ServiceItemGroup.Enabled
+                )
                 .Select(si =>
                     new ServiceItemWithServiceItemGroupDTO()
                     {
                         Id = si.Id,
-                        Description = si.Description,
+                        Name = si.Name,
                         Order = si.Order,
                         HasRemarks = si.HasRemarks,
                         ServiceItemGroupId = si.ServiceItemGroup.Id,
@@ -131,6 +133,11 @@ namespace CarServiceForms.Forms
                 datasources
             );
             form.Show();
+        }
+
+        private void ServiceSelectionForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CleanupComponents();
         }
     }
 }

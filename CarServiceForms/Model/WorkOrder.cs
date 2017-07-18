@@ -22,7 +22,7 @@ namespace CarServiceForms.Model
             this.Service = new HashSet<Service>();
         }
     
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Number { get; set; }
         public System.DateTime Created { get; set; }
         public System.DateTime Deadline { get; set; }

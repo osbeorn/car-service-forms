@@ -70,7 +70,7 @@ namespace CarServiceForms.Forms
                     new ServiceItemWithServiceItemGroupDTO()
                     {
                         Id = si.Id,
-                        Description = si.Description,
+                        Name = si.Name,
                         Order = si.Order,
                         HasRemarks = si.HasRemarks,
                         ServiceItemGroupId = si.ServiceItemGroup.Id,
@@ -116,10 +116,15 @@ namespace CarServiceForms.Forms
         {
             var workOrdersDataGridView = (DataGridView) sender;
 
-            if (workOrdersDataGridView.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            if (e.RowIndex >= 0 && workOrdersDataGridView.Columns[e.ColumnIndex] is DataGridViewButtonColumn && workOrdersDataGridView.Columns[e.ColumnIndex].Name == "Service")
             {
                 var workOrder = workOrdersDataGridView.Rows[e.RowIndex].DataBoundItem as WorkOrderDTO;
-                new ServiceSelectionForm(workOrder.Id).ShowDialog();
+                //new ServiceSelectionForm(workOrder.Id).ShowDialog();
+                new ExtendedServiceSelectionForm(workOrder.Id).ShowDialog();
+            }
+            else if (e.RowIndex >= 0 && workOrdersDataGridView.Columns[e.ColumnIndex] is DataGridViewButtonColumn && workOrdersDataGridView.Columns[e.ColumnIndex].Name == "Invoice")
+            {
+                var workOrder = workOrdersDataGridView.Rows[e.RowIndex].DataBoundItem as WorkOrderDTO;
             }
         }
 
@@ -139,6 +144,46 @@ namespace CarServiceForms.Forms
                     }
                 }
             }
+        }
+
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void ServicesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new EditServiceForm().Show();
+        }
+
+        private void CustomersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenSearchCustomerWithVehicleForm();
+        }
+
+        private void OpenSearchCustomerWithVehicleForm()
+        {
+            using (var form = new SearchCustomerWithVehicleForm())
+            {
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    var selectedCustomerId = form.ReturnValue1;
+                    var selectedVehicleId = form.ReturnValue2;
+
+                    using (var form2 = new EditCustomerWithVehicleForm(selectedCustomerId.Value, selectedVehicleId.Value))
+                    {
+                        form2.ShowDialog();
+                    }
+
+                    OpenSearchCustomerWithVehicleForm();
+                }
+            }
+        }
+
+        private void SettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new SettingsForm().ShowDialog();
         }
     }
 }

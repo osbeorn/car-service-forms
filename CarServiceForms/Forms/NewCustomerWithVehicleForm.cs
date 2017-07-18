@@ -99,7 +99,9 @@ namespace CarServiceForms.Forms
                     IdentificationNumber = vehicleIdentificationNumberTextBox.Text,
                     Type = vehicleTypeTextBox.Text,
                     TypeCode = vehicleTypeCodeTextBox.Text,
+                    Engine = vehicleEngineTextBox.Text,
                     MKBCode = vehicleMKBTextBox.Text,
+                    Transmission = vehicleTransmissionTextBox.Text,
                     GKBCode = vehicleGKBTextBox.Text,
                     Mileage = Convert.ToInt32(vehicleMileageNumericUpDown.Value)
                 };
@@ -125,7 +127,9 @@ namespace CarServiceForms.Forms
                     IdentificationNumber = vehicleIdentificationNumberTextBox.Text,
                     Type = vehicleTypeTextBox.Text,
                     TypeCode = vehicleTypeCodeTextBox.Text,
+                    Engine = vehicleEngineTextBox.Text,
                     MKBCode = vehicleMKBTextBox.Text,
+                    Transmission = vehicleTransmissionTextBox.Text,
                     GKBCode = vehicleGKBTextBox.Text,
                     Mileage = Convert.ToInt32(vehicleMileageNumericUpDown.Value),
                     ModelYear = Convert.ToInt32(vehicleModelYearNumericUpDown.Value)

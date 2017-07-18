@@ -12,13 +12,11 @@ namespace CarServiceForms.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class WorkOrderInstruction
+    public partial class Settings
     {
         public long Id { get; set; }
-        public string Position { get; set; }
-        public string Quantity { get; set; }
-        public string Description { get; set; }
-    
-        public virtual WorkOrder WorkOrder { get; set; }
+        public string Key { get; set; }
+        public string Value { get; set; }
+        public string Type { get; set; }
     }
 }

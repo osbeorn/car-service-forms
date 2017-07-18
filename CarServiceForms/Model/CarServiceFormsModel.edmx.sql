@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/03/2017 22:21:23
+-- Date Created: 07/17/2017 19:49:01
 -- Generated from EDMX file: F:\Development\car-service-forms\CarServiceForms\Model\CarServiceFormsModel.edmx
 -- --------------------------------------------------
 
@@ -97,7 +97,7 @@ GO
 
 -- Creating table 'Vehicle'
 CREATE TABLE [dbo].[Vehicle] (
-    [Id] int IDENTITY(1,1) NOT NULL,
+    [Id] bigint IDENTITY(1,1) NOT NULL,
     [RegistrationNumber] nvarchar(max)  NOT NULL,
     [RegistrationDate] datetime  NOT NULL,
     [IdentificationNumber] nvarchar(max)  NOT NULL,
@@ -107,84 +107,95 @@ CREATE TABLE [dbo].[Vehicle] (
     [GKBCode] nvarchar(max)  NOT NULL,
     [Mileage] int  NOT NULL,
     [ModelYear] int  NOT NULL,
+    [Engine] nvarchar(max)  NOT NULL,
+    [Transmission] nvarchar(max)  NOT NULL,
     [Customer_Id] bigint  NOT NULL
 );
 GO
 
 -- Creating table 'WorkOrder'
 CREATE TABLE [dbo].[WorkOrder] (
-    [Id] int IDENTITY(1,1) NOT NULL,
+    [Id] bigint IDENTITY(1,1) NOT NULL,
     [Number] nvarchar(max)  NOT NULL,
     [Created] datetime  NOT NULL,
     [Deadline] datetime  NOT NULL,
     [Finished] datetime  NULL,
-    [Vehicle_Id] int  NOT NULL
+    [Vehicle_Id] bigint  NOT NULL
 );
 GO
 
 -- Creating table 'WordOrderInformation'
 CREATE TABLE [dbo].[WordOrderInformation] (
-    [Id] int IDENTITY(1,1) NOT NULL,
+    [Id] bigint IDENTITY(1,1) NOT NULL,
     [Info] nvarchar(max)  NULL,
     [Description] nvarchar(max)  NULL,
-    [WorkOrder_Id] int  NOT NULL
+    [WorkOrder_Id] bigint  NOT NULL
 );
 GO
 
 -- Creating table 'WorkOrderInstruction'
 CREATE TABLE [dbo].[WorkOrderInstruction] (
-    [Id] int IDENTITY(1,1) NOT NULL,
+    [Id] bigint IDENTITY(1,1) NOT NULL,
     [Position] nvarchar(max)  NULL,
     [Quantity] nvarchar(max)  NULL,
     [Description] nvarchar(max)  NULL,
-    [WorkOrder_Id] int  NOT NULL
+    [WorkOrder_Id] bigint  NOT NULL
 );
 GO
 
 -- Creating table 'Service'
 CREATE TABLE [dbo].[Service] (
-    [Id] int IDENTITY(1,1) NOT NULL,
+    [Id] bigint IDENTITY(1,1) NOT NULL,
     [Type] int  NOT NULL,
     [Created] datetime  NOT NULL,
-    [WorkOrder_Id] int  NOT NULL
+    [WorkOrder_Id] bigint  NOT NULL
 );
 GO
 
 -- Creating table 'ServiceItemGroup'
 CREATE TABLE [dbo].[ServiceItemGroup] (
-    [Id] int IDENTITY(1,1) NOT NULL,
+    [Id] bigint IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
-    [Type] int  NOT NULL,
-    [Order] int  NOT NULL
+    [Order] int  NOT NULL,
+    [Enabled] bit  NOT NULL
 );
 GO
 
 -- Creating table 'ServiceItem'
 CREATE TABLE [dbo].[ServiceItem] (
-    [Id] int IDENTITY(1,1) NOT NULL,
+    [Id] bigint IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NULL,
-    [Description] nvarchar(max)  NOT NULL,
     [HasRemarks] bit  NOT NULL,
     [Order] int  NOT NULL,
-    [ServiceItemGroup_Id] int  NOT NULL
+    [Enabled] bit  NOT NULL,
+    [ServiceItemGroup_Id] bigint  NOT NULL
 );
 GO
 
 -- Creating table 'AppliedServiceItem'
 CREATE TABLE [dbo].[AppliedServiceItem] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [Remark] nvarchar(max)  NOT NULL,
-    [Resolution] int  NOT NULL,
-    [Service_Id] int  NOT NULL,
-    [ServiceItem_Id] int  NOT NULL
+    [Id] bigint IDENTITY(1,1) NOT NULL,
+    [Remark] nvarchar(max)  NULL,
+    [Resolution] int  NULL,
+    [Service_Id] bigint  NOT NULL,
+    [ServiceItem_Id] bigint  NOT NULL
 );
 GO
 
 -- Creating table 'ServiceItemServiceType'
 CREATE TABLE [dbo].[ServiceItemServiceType] (
-    [Id] int IDENTITY(1,1) NOT NULL,
+    [Id] bigint IDENTITY(1,1) NOT NULL,
     [ServiceType] int  NOT NULL,
-    [ServiceItem_Id] int  NOT NULL
+    [ServiceItem_Id] bigint  NOT NULL
+);
+GO
+
+-- Creating table 'Settings'
+CREATE TABLE [dbo].[Settings] (
+    [Id] bigint IDENTITY(1,1) NOT NULL,
+    [Key] nvarchar(max)  NOT NULL,
+    [Value] nvarchar(max)  NOT NULL,
+    [Type] nvarchar(max)  NULL
 );
 GO
 
@@ -249,6 +260,12 @@ GO
 -- Creating primary key on [Id] in table 'ServiceItemServiceType'
 ALTER TABLE [dbo].[ServiceItemServiceType]
 ADD CONSTRAINT [PK_ServiceItemServiceType]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Settings'
+ALTER TABLE [dbo].[Settings]
+ADD CONSTRAINT [PK_Settings]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

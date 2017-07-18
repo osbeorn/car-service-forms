@@ -20,7 +20,7 @@ namespace CarServiceForms.Model
             this.AppliedServiceItems = new HashSet<AppliedServiceItem>();
         }
     
-        public int Id { get; set; }
+        public long Id { get; set; }
         public ServiceType Type { get; set; }
         public System.DateTime Created { get; set; }
     

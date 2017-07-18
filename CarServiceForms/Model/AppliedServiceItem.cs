@@ -14,9 +14,9 @@ namespace CarServiceForms.Model
     
     public partial class AppliedServiceItem
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Remark { get; set; }
-        public AppliedServiceItemResolution Resolution { get; set; }
+        public Nullable<AppliedServiceItemResolution> Resolution { get; set; }
     
         public virtual Service Service { get; set; }
         public virtual ServiceItem ServiceItem { get; set; }

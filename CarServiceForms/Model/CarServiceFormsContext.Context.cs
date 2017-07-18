@@ -35,5 +35,6 @@ namespace CarServiceForms.Model
         public virtual DbSet<ServiceItem> ServiceItem { get; set; }
         public virtual DbSet<AppliedServiceItem> AppliedServiceItem { get; set; }
         public virtual DbSet<ServiceItemServiceType> ServiceItemServiceType { get; set; }
+        public virtual DbSet<Settings> Settings { get; set; }
     }
 }

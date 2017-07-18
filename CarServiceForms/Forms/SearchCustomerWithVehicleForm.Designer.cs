@@ -39,6 +39,9 @@
             this.searchButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.customersDataGridView = new System.Windows.Forms.DataGridView();
+            this.newButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.confirmButton = new System.Windows.Forms.Button();
             this.customerFirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerLastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerStreet = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,11 +51,12 @@
             this.vehicleRegistrationDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vehicleType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vehicleTypeCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vehicleEngine = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vehicleMKBCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vehicleTransmission = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vehicleGKBCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.newButton = new System.Windows.Forms.Button();
-            this.cancelButton = new System.Windows.Forms.Button();
-            this.confirmButton = new System.Windows.Forms.Button();
+            this.vehicleModelYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vehicleMileage = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customersDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -160,8 +164,12 @@
             this.vehicleRegistrationDate,
             this.vehicleType,
             this.vehicleTypeCode,
+            this.vehicleEngine,
             this.vehicleMKBCode,
-            this.vehicleGKBCode});
+            this.vehicleTransmission,
+            this.vehicleGKBCode,
+            this.vehicleModelYear,
+            this.vehicleMileage});
             this.customersDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.customersDataGridView.Location = new System.Drawing.Point(3, 16);
             this.customersDataGridView.Name = "customersDataGridView";
@@ -169,6 +177,38 @@
             this.customersDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.customersDataGridView.Size = new System.Drawing.Size(608, 248);
             this.customersDataGridView.TabIndex = 0;
+            // 
+            // newButton
+            // 
+            this.newButton.Location = new System.Drawing.Point(551, 116);
+            this.newButton.Name = "newButton";
+            this.newButton.Size = new System.Drawing.Size(75, 23);
+            this.newButton.TabIndex = 9;
+            this.newButton.Text = "Nova";
+            this.newButton.UseVisualStyleBackColor = true;
+            this.newButton.Click += new System.EventHandler(this.NewButton_Click);
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.Location = new System.Drawing.Point(323, 418);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 12;
+            this.cancelButton.Text = "Prekliči";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            // 
+            // confirmButton
+            // 
+            this.confirmButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.confirmButton.Location = new System.Drawing.Point(242, 418);
+            this.confirmButton.Name = "confirmButton";
+            this.confirmButton.Size = new System.Drawing.Size(75, 23);
+            this.confirmButton.TabIndex = 11;
+            this.confirmButton.Text = "Potrdi";
+            this.confirmButton.UseVisualStyleBackColor = true;
+            this.confirmButton.Click += new System.EventHandler(this.ConfirmButton_Click);
             // 
             // customerFirstName
             // 
@@ -234,12 +274,26 @@
             this.vehicleTypeCode.Name = "vehicleTypeCode";
             this.vehicleTypeCode.ReadOnly = true;
             // 
+            // vehicleEngine
+            // 
+            this.vehicleEngine.DataPropertyName = "Engine";
+            this.vehicleEngine.HeaderText = "Motor";
+            this.vehicleEngine.Name = "vehicleEngine";
+            this.vehicleEngine.ReadOnly = true;
+            // 
             // vehicleMKBCode
             // 
             this.vehicleMKBCode.DataPropertyName = "MKBCode";
             this.vehicleMKBCode.HeaderText = "MKB";
             this.vehicleMKBCode.Name = "vehicleMKBCode";
             this.vehicleMKBCode.ReadOnly = true;
+            // 
+            // vehicleTransmission
+            // 
+            this.vehicleTransmission.DataPropertyName = "Transmission";
+            this.vehicleTransmission.HeaderText = "Menjalnik";
+            this.vehicleTransmission.Name = "vehicleTransmission";
+            this.vehicleTransmission.ReadOnly = true;
             // 
             // vehicleGKBCode
             // 
@@ -248,37 +302,19 @@
             this.vehicleGKBCode.Name = "vehicleGKBCode";
             this.vehicleGKBCode.ReadOnly = true;
             // 
-            // newButton
+            // vehicleModelYear
             // 
-            this.newButton.Location = new System.Drawing.Point(551, 116);
-            this.newButton.Name = "newButton";
-            this.newButton.Size = new System.Drawing.Size(75, 23);
-            this.newButton.TabIndex = 9;
-            this.newButton.Text = "Nova";
-            this.newButton.UseVisualStyleBackColor = true;
-            this.newButton.Click += new System.EventHandler(this.NewButton_Click);
+            this.vehicleModelYear.DataPropertyName = "ModelYear";
+            this.vehicleModelYear.HeaderText = "Model. leto";
+            this.vehicleModelYear.Name = "vehicleModelYear";
+            this.vehicleModelYear.ReadOnly = true;
             // 
-            // cancelButton
+            // vehicleMileage
             // 
-            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(323, 418);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 12;
-            this.cancelButton.Text = "Prekliči";
-            this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
-            // 
-            // confirmButton
-            // 
-            this.confirmButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.confirmButton.Location = new System.Drawing.Point(242, 418);
-            this.confirmButton.Name = "confirmButton";
-            this.confirmButton.Size = new System.Drawing.Size(75, 23);
-            this.confirmButton.TabIndex = 11;
-            this.confirmButton.Text = "Potrdi";
-            this.confirmButton.UseVisualStyleBackColor = true;
-            this.confirmButton.Click += new System.EventHandler(this.ConfirmButton_Click);
+            this.vehicleMileage.DataPropertyName = "Mileage";
+            this.vehicleMileage.HeaderText = "Št. km.";
+            this.vehicleMileage.Name = "vehicleMileage";
+            this.vehicleMileage.ReadOnly = true;
             // 
             // SearchCustomerWithVehicleForm
             // 
@@ -339,7 +375,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn vehicleRegistrationDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn vehicleType;
         private System.Windows.Forms.DataGridViewTextBoxColumn vehicleTypeCode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vehicleEngine;
         private System.Windows.Forms.DataGridViewTextBoxColumn vehicleMKBCode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vehicleTransmission;
         private System.Windows.Forms.DataGridViewTextBoxColumn vehicleGKBCode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vehicleModelYear;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vehicleMileage;
     }
 }

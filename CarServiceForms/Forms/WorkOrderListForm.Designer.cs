@@ -30,19 +30,29 @@
         {
             this.createButton = new System.Windows.Forms.Button();
             this.workOrdersDataGridView = new System.Windows.Forms.DataGridView();
+            this.printButton = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.codelistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.servicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Created = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Deadline = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Customer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Vehicle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Service = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.printButton = new System.Windows.Forms.Button();
+            this.Invoice = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.workOrdersDataGridView)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // createButton
             // 
-            this.createButton.Location = new System.Drawing.Point(987, 12);
+            this.createButton.Location = new System.Drawing.Point(987, 27);
             this.createButton.Name = "createButton";
             this.createButton.Size = new System.Drawing.Size(75, 23);
             this.createButton.TabIndex = 0;
@@ -62,20 +72,97 @@
             this.Deadline,
             this.Customer,
             this.Vehicle,
-            this.Service});
-            this.workOrdersDataGridView.Location = new System.Drawing.Point(12, 41);
+            this.Service,
+            this.Invoice});
+            this.workOrdersDataGridView.Location = new System.Drawing.Point(12, 56);
             this.workOrdersDataGridView.Name = "workOrdersDataGridView";
             this.workOrdersDataGridView.ReadOnly = true;
             this.workOrdersDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.workOrdersDataGridView.Size = new System.Drawing.Size(1050, 528);
+            this.workOrdersDataGridView.Size = new System.Drawing.Size(1050, 513);
             this.workOrdersDataGridView.TabIndex = 1;
             this.workOrdersDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.WorkOrdersDataGridView_CellContentClick);
             this.workOrdersDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.WorkOrdersDataGridView_CellMouseDoubleClick);
             // 
+            // printButton
+            // 
+            this.printButton.Location = new System.Drawing.Point(906, 27);
+            this.printButton.Name = "printButton";
+            this.printButton.Size = new System.Drawing.Size(75, 23);
+            this.printButton.TabIndex = 2;
+            this.printButton.Text = "Tiskaj";
+            this.printButton.UseVisualStyleBackColor = true;
+            this.printButton.Click += new System.EventHandler(this.PrintButton_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.editToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.menuStrip1.Size = new System.Drawing.Size(1074, 24);
+            this.menuStrip1.TabIndex = 3;
+            this.menuStrip1.Text = "mainMenuStrip";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
+            this.fileToolStripMenuItem.Text = "Datoteka";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitToolStripMenuItem.Text = "Izhod";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.customersToolStripMenuItem,
+            this.codelistsToolStripMenuItem,
+            this.settingsToolStripMenuItem});
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.editToolStripMenuItem.Text = "Urejanje";
+            // 
+            // customersToolStripMenuItem
+            // 
+            this.customersToolStripMenuItem.Name = "customersToolStripMenuItem";
+            this.customersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.customersToolStripMenuItem.Text = "Stranke";
+            this.customersToolStripMenuItem.Click += new System.EventHandler(this.CustomersToolStripMenuItem_Click);
+            // 
+            // codelistsToolStripMenuItem
+            // 
+            this.codelistsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.servicesToolStripMenuItem});
+            this.codelistsToolStripMenuItem.Name = "codelistsToolStripMenuItem";
+            this.codelistsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.codelistsToolStripMenuItem.Text = "Šifranti";
+            // 
+            // servicesToolStripMenuItem
+            // 
+            this.servicesToolStripMenuItem.Name = "servicesToolStripMenuItem";
+            this.servicesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.servicesToolStripMenuItem.Text = "Pregledi";
+            this.servicesToolStripMenuItem.Click += new System.EventHandler(this.ServicesToolStripMenuItem_Click);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.settingsToolStripMenuItem.Text = "Nastavitve";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
+            // 
             // Number
             // 
             this.Number.DataPropertyName = "Number";
-            this.Number.FillWeight = 10F;
+            this.Number.FillWeight = 8F;
             this.Number.HeaderText = "Št. DN";
             this.Number.Name = "Number";
             this.Number.ReadOnly = true;
@@ -83,7 +170,7 @@
             // Created
             // 
             this.Created.DataPropertyName = "Created";
-            this.Created.FillWeight = 10F;
+            this.Created.FillWeight = 11F;
             this.Created.HeaderText = "Ustvarjen";
             this.Created.Name = "Created";
             this.Created.ReadOnly = true;
@@ -91,7 +178,7 @@
             // Deadline
             // 
             this.Deadline.DataPropertyName = "Deadline";
-            this.Deadline.FillWeight = 10F;
+            this.Deadline.FillWeight = 11F;
             this.Deadline.HeaderText = "Rok izdelave";
             this.Deadline.Name = "Deadline";
             this.Deadline.ReadOnly = true;
@@ -99,7 +186,7 @@
             // Customer
             // 
             this.Customer.DataPropertyName = "Customer";
-            this.Customer.FillWeight = 37F;
+            this.Customer.FillWeight = 33F;
             this.Customer.HeaderText = "Stranka";
             this.Customer.Name = "Customer";
             this.Customer.ReadOnly = true;
@@ -107,29 +194,30 @@
             // Vehicle
             // 
             this.Vehicle.DataPropertyName = "Vehicle";
-            this.Vehicle.FillWeight = 30F;
+            this.Vehicle.FillWeight = 27F;
             this.Vehicle.HeaderText = "Vozilo";
             this.Vehicle.Name = "Vehicle";
             this.Vehicle.ReadOnly = true;
             // 
             // Service
             // 
-            this.Service.FillWeight = 3F;
-            this.Service.HeaderText = "";
+            this.Service.FillWeight = 5F;
+            this.Service.HeaderText = "Pregled";
             this.Service.Name = "Service";
             this.Service.ReadOnly = true;
+            this.Service.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Service.Text = "...";
             this.Service.UseColumnTextForButtonValue = true;
             // 
-            // printButton
+            // Invoice
             // 
-            this.printButton.Location = new System.Drawing.Point(906, 12);
-            this.printButton.Name = "printButton";
-            this.printButton.Size = new System.Drawing.Size(75, 23);
-            this.printButton.TabIndex = 2;
-            this.printButton.Text = "Tiskaj";
-            this.printButton.UseVisualStyleBackColor = true;
-            this.printButton.Click += new System.EventHandler(this.PrintButton_Click);
+            this.Invoice.FillWeight = 5F;
+            this.Invoice.HeaderText = "Račun";
+            this.Invoice.Name = "Invoice";
+            this.Invoice.ReadOnly = true;
+            this.Invoice.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Invoice.Text = "...";
+            this.Invoice.UseColumnTextForButtonValue = true;
             // 
             // WorkOrderListForm
             // 
@@ -139,13 +227,18 @@
             this.Controls.Add(this.printButton);
             this.Controls.Add(this.workOrdersDataGridView);
             this.Controls.Add(this.createButton);
+            this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "WorkOrderListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Delovni nalogi";
             ((System.ComponentModel.ISupportInitialize)(this.workOrdersDataGridView)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -154,11 +247,20 @@
         private System.Windows.Forms.Button createButton;
         private System.Windows.Forms.DataGridView workOrdersDataGridView;
         private System.Windows.Forms.Button printButton;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem customersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem codelistsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem servicesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Number;
         private System.Windows.Forms.DataGridViewTextBoxColumn Created;
         private System.Windows.Forms.DataGridViewTextBoxColumn Deadline;
         private System.Windows.Forms.DataGridViewTextBoxColumn Customer;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vehicle;
         private System.Windows.Forms.DataGridViewButtonColumn Service;
+        private System.Windows.Forms.DataGridViewButtonColumn Invoice;
     }
 }

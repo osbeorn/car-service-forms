@@ -14,7 +14,7 @@ namespace CarServiceForms.Model
     
     public partial class ServiceItemServiceType
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public ServiceType ServiceType { get; set; }
     
         public virtual ServiceItem ServiceItem { get; set; }

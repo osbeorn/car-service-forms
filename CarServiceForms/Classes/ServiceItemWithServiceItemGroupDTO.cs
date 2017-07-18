@@ -9,7 +9,7 @@ namespace CarServiceForms.Classes
     class ServiceItemWithServiceItemGroupDTO
     {
         public long Id { get; set; }
-        public string Description { get; set; }
+        public string Name { get; set; }
         public int Order { get; set; }
         public bool HasRemarks { get; set; }
 

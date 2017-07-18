@@ -22,5 +22,9 @@ namespace CarServiceForms.Classes
         public string TypeCode { get; set; }
         public string MKBCode { get; set; }
         public string GKBCode { get; set; }
+        public int Mileage { get; set; }
+        public int ModelYear { get; set; }
+        public string Engine { get; set; }
+        public string Transmission { get; set; }
     }
 }

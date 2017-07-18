@@ -14,6 +14,8 @@ namespace CarServiceForms.Forms
 {
     public partial class WorkOrderForm : Form
     {
+        private const string WORK_ORDER_NUMBER_FORMAT = "{0}/{1}";
+
         private CarServiceFormsDBContext DBContext { get; set; }
 
         private Customer Customer { get; set; }
@@ -82,7 +84,7 @@ namespace CarServiceForms.Forms
             {
                 WorkOrder = new WorkOrder()
                 {
-                    Number = wordOrderNumberTextBox.Text,
+                    Number = workOrderNumberMaskedTextBox.Text,
                     Created = DateTime.Now,
                     Deadline = workOrderDeadlineDateTimePicker.Value,
                     Vehicle = Vehicle,
@@ -91,7 +93,7 @@ namespace CarServiceForms.Forms
                 DBContext.WorkOrder.Add(WorkOrder);
             } else
             {
-                WorkOrder.Number = wordOrderNumberTextBox.Text;
+                WorkOrder.Number = workOrderNumberMaskedTextBox.Text;
                 WorkOrder.Deadline = workOrderDeadlineDateTimePicker.Value;
                 WorkOrder.WorkOrderInstructions = WorkOrderInstructions;
             }
@@ -110,7 +112,12 @@ namespace CarServiceForms.Forms
         private void SetupWorkOrderData(long? workOrderId, long? customerId, long? vehicleId)
         {
             if (!workOrderId.HasValue && !customerId.HasValue && !vehicleId.HasValue)
+            {
+                var workOrderNumber = GetNextWorkOrderNumber();
+                workOrderNumberMaskedTextBox.Text = string.Format(WORK_ORDER_NUMBER_FORMAT, DateTime.Now.Year, workOrderNumber);
+
                 return;
+            }
 
             if (workOrderId.HasValue)
             {
@@ -119,7 +126,7 @@ namespace CarServiceForms.Forms
                 Vehicle = WorkOrder.Vehicle;
                 WorkOrderInstructions = WorkOrder.WorkOrderInstructions.ToList();
 
-                wordOrderNumberTextBox.Text = WorkOrder.Number;
+                workOrderNumberMaskedTextBox.Text = WorkOrder.Number;
                 workOrderDeadlineDateTimePicker.Value = WorkOrder.Deadline;
             }
             else if (customerId.HasValue && vehicleId.HasValue)
@@ -135,13 +142,43 @@ namespace CarServiceForms.Forms
             vehicleIdentificationNumberTextBox.Text = Vehicle.IdentificationNumber;
             vehicleTypeCodeTextBox.Text = Vehicle.TypeCode;
             vehicleTypeTextBox.Text = Vehicle.Type;
+            vehicleEngineTextBox.Text = Vehicle.Engine;
             vehicleMKBTextBox.Text = Vehicle.MKBCode;
+            vehicleTransmissionTextBox.Text = Vehicle.Transmission;
             vehicleGKBTextBox.Text = Vehicle.GKBCode;
             vehicleRegistrationDateDateTimePicker.Value = Vehicle.RegistrationDate;
             vehicleMileageNumericUpDown.Value = Vehicle.Mileage;
             vehicleModelYearNumericUpDown.Value = Vehicle.ModelYear;
 
             workOrderInstructionsDataGridView.DataSource = new BindingList<WorkOrderInstruction>(WorkOrderInstructions);
+        }
+
+        private string GetNextWorkOrderNumber()
+        {
+            var maxWorkOrderNumber = DBContext.WorkOrder
+                    .Where(wo => wo.Created.Year == DateTime.Now.Year)
+                    .Select(wo => wo.Number.ToString())
+                    .ToList()
+                    .Select(n =>
+                    {
+                        var split = n.Split('/');
+                        if (split.Length == 2)
+                        {
+                            int result;
+                            bool success = Int32.TryParse(split[1], out result);
+                            return success ? result : 0;
+                        }
+                        return 0;
+                    })
+                    .DefaultIfEmpty()
+                    .Max();
+
+            return (++maxWorkOrderNumber).ToString("D4");
+        }
+
+        private void WorkOrderNumberMaskedTextBox_Leave(object sender, EventArgs e)
+        {
+
         }
     }
 }
