@@ -119,29 +119,42 @@ namespace CarServiceForms.Forms
             if (e.RowIndex >= 0 && workOrdersDataGridView.Columns[e.ColumnIndex] is DataGridViewButtonColumn && workOrdersDataGridView.Columns[e.ColumnIndex].Name == "Service")
             {
                 var workOrder = workOrdersDataGridView.Rows[e.RowIndex].DataBoundItem as WorkOrderDTO;
-                //new ServiceSelectionForm(workOrder.Id).ShowDialog();
-                new ExtendedServiceSelectionForm(workOrder.Id).ShowDialog();
+                //using (var form = new ServiceSelectionForm(workOrder.Id))
+                using (var form = new ExtendedServiceSelectionForm(workOrder.Id))
+                {
+                    var result = form.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        workOrdersDataGridView.Refresh();
+                    }
+                }
             }
             else if (e.RowIndex >= 0 && workOrdersDataGridView.Columns[e.ColumnIndex] is DataGridViewButtonColumn && workOrdersDataGridView.Columns[e.ColumnIndex].Name == "Invoice")
             {
                 var workOrder = workOrdersDataGridView.Rows[e.RowIndex].DataBoundItem as WorkOrderDTO;
+                using (var form = new InvoiceForm(workOrder.Id))
+                {
+                    var result = form.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        workOrdersDataGridView.Refresh();
+                    }
+                }
             }
         }
 
         private void WorkOrdersDataGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var workOrdersDataGridView = (DataGridView)sender;
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
 
-            if (e.RowIndex >= 0)
+            var workOrder = workOrdersDataGridView.Rows[e.RowIndex].DataBoundItem as WorkOrderDTO;
+            using (var form = new WorkOrderForm(workOrder.Id))
             {
-                var workOrder = workOrdersDataGridView.Rows[e.RowIndex].DataBoundItem as WorkOrderDTO;
-                using (var form = new WorkOrderForm(workOrder.Id))
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK)
                 {
-                    var result = form.ShowDialog();
-                    if (result == DialogResult.OK)
-                    {
-                        LoadWorkOrders();
-                    }
+                    LoadWorkOrders();
                 }
             }
         }
@@ -153,7 +166,7 @@ namespace CarServiceForms.Forms
 
         private void ServicesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new EditServiceForm().Show();
+            new EditServiceItemsForm().Show();
         }
 
         private void CustomersToolStripMenuItem_Click(object sender, EventArgs e)
@@ -184,6 +197,44 @@ namespace CarServiceForms.Forms
         private void SettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new SettingsForm().ShowDialog();
+        }
+
+        private void ServiceItemsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new EditServiceItemsForm().ShowDialog();
+        }
+
+        private void ServiceTypesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void WorkOrdersDataGridView_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
+            var workOrderDTO = workOrdersDataGridView.Rows[e.RowIndex].DataBoundItem as WorkOrderDTO;
+
+            var dataGridViewColumn = workOrdersDataGridView.Columns[e.ColumnIndex];
+            if (dataGridViewColumn.Name == "Service")
+            {
+                var servicesExist = DBContext.WorkOrder.Find(workOrderDTO.Id).Services.Any();
+                if (servicesExist)
+                {
+                    var dataGridViewButtonColumn = (DataGridViewButtonColumn) dataGridViewColumn;
+                    dataGridViewButtonColumn.Text = "✔";
+                }
+            }
+            else if (dataGridViewColumn.Name == "Invoice")
+            {
+                var invoiceExist = DBContext.WorkOrder.Find(workOrderDTO.Id).Invoice != null;
+                if (invoiceExist)
+                {
+                    var dataGridViewButtonColumn = (DataGridViewButtonColumn) dataGridViewColumn;
+                    dataGridViewButtonColumn.Text = "✔";
+                }
+            }
         }
     }
 }

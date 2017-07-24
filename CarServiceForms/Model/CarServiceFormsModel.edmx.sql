@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/17/2017 19:49:01
+-- Date Created: 07/22/2017 14:17:16
 -- Generated from EDMX file: F:\Development\car-service-forms\CarServiceForms\Model\CarServiceFormsModel.edmx
 -- --------------------------------------------------
 
@@ -44,6 +44,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ServiceItemServiceItemServiceType]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ServiceItemServiceType] DROP CONSTRAINT [FK_ServiceItemServiceItemServiceType];
 GO
+IF OBJECT_ID(N'[dbo].[FK_InvoiceInvoiceItem]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[InvoiceItem] DROP CONSTRAINT [FK_InvoiceInvoiceItem];
+GO
+IF OBJECT_ID(N'[dbo].[FK_WorkOrderInvoice]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Invoice] DROP CONSTRAINT [FK_WorkOrderInvoice];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -78,6 +84,15 @@ IF OBJECT_ID(N'[dbo].[AppliedServiceItem]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[ServiceItemServiceType]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ServiceItemServiceType];
+GO
+IF OBJECT_ID(N'[dbo].[Settings]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Settings];
+GO
+IF OBJECT_ID(N'[dbo].[Invoice]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Invoice];
+GO
+IF OBJECT_ID(N'[dbo].[InvoiceItem]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[InvoiceItem];
 GO
 
 -- --------------------------------------------------
@@ -199,6 +214,27 @@ CREATE TABLE [dbo].[Settings] (
 );
 GO
 
+-- Creating table 'Invoice'
+CREATE TABLE [dbo].[Invoice] (
+    [Id] bigint IDENTITY(1,1) NOT NULL,
+    [Number] nvarchar(max)  NOT NULL,
+    [Created] datetime  NOT NULL,
+    [WorkOrder_Id] bigint  NOT NULL
+);
+GO
+
+-- Creating table 'InvoiceItem'
+CREATE TABLE [dbo].[InvoiceItem] (
+    [Id] bigint IDENTITY(1,1) NOT NULL,
+    [Description] nvarchar(max)  NOT NULL,
+    [Quantity] decimal(18,0)  NOT NULL,
+    [Price] decimal(18,0)  NOT NULL,
+    [Discount] decimal(18,0)  NOT NULL,
+    [FinalPrice] decimal(18,0)  NOT NULL,
+    [Invoice_Id] bigint  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -266,6 +302,18 @@ GO
 -- Creating primary key on [Id] in table 'Settings'
 ALTER TABLE [dbo].[Settings]
 ADD CONSTRAINT [PK_Settings]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Invoice'
+ALTER TABLE [dbo].[Invoice]
+ADD CONSTRAINT [PK_Invoice]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'InvoiceItem'
+ALTER TABLE [dbo].[InvoiceItem]
+ADD CONSTRAINT [PK_InvoiceItem]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -406,6 +454,36 @@ GO
 CREATE INDEX [IX_FK_ServiceItemServiceItemServiceType]
 ON [dbo].[ServiceItemServiceType]
     ([ServiceItem_Id]);
+GO
+
+-- Creating foreign key on [Invoice_Id] in table 'InvoiceItem'
+ALTER TABLE [dbo].[InvoiceItem]
+ADD CONSTRAINT [FK_InvoiceInvoiceItem]
+    FOREIGN KEY ([Invoice_Id])
+    REFERENCES [dbo].[Invoice]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_InvoiceInvoiceItem'
+CREATE INDEX [IX_FK_InvoiceInvoiceItem]
+ON [dbo].[InvoiceItem]
+    ([Invoice_Id]);
+GO
+
+-- Creating foreign key on [WorkOrder_Id] in table 'Invoice'
+ALTER TABLE [dbo].[Invoice]
+ADD CONSTRAINT [FK_WorkOrderInvoice]
+    FOREIGN KEY ([WorkOrder_Id])
+    REFERENCES [dbo].[WorkOrder]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_WorkOrderInvoice'
+CREATE INDEX [IX_FK_WorkOrderInvoice]
+ON [dbo].[Invoice]
+    ([WorkOrder_Id]);
 GO
 
 -- --------------------------------------------------

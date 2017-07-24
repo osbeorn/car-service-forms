@@ -17,6 +17,8 @@
     <EntitySet Name="AppliedServiceItem" EntityType="CarServiceFormsModel.Store.AppliedServiceItem" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ServiceItemServiceType" EntityType="CarServiceFormsModel.Store.ServiceItemServiceType" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Settings" EntityType="CarServiceFormsModel.Store.Settings" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Invoice" EntityType="CarServiceFormsModel.Store.Invoice" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="InvoiceItem" EntityType="CarServiceFormsModel.Store.InvoiceItem" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="CustomerVehicle" Association="CarServiceFormsModel.Store.CustomerVehicle">
       <End Role="Customer" EntitySet="Customer" />
       <End Role="Vehicle" EntitySet="Vehicle" />
@@ -52,6 +54,14 @@
     <AssociationSet Name="ServiceItemServiceItemServiceType" Association="CarServiceFormsModel.Store.ServiceItemServiceItemServiceType">
       <End Role="ServiceItem" EntitySet="ServiceItem" />
       <End Role="ServiceItemServiceType" EntitySet="ServiceItemServiceType" />
+    </AssociationSet>
+    <AssociationSet Name="InvoiceInvoiceItem" Association="CarServiceFormsModel.Store.InvoiceInvoiceItem">
+      <End Role="Invoice" EntitySet="Invoice" />
+      <End Role="InvoiceItem" EntitySet="InvoiceItem" />
+    </AssociationSet>
+    <AssociationSet Name="WorkOrderInvoice" Association="CarServiceFormsModel.Store.WorkOrderInvoice">
+      <End Role="WorkOrder" EntitySet="WorkOrder" />
+      <End Role="Invoice" EntitySet="Invoice" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Customer">
@@ -169,6 +179,27 @@
     <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Type" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Number" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Created" Type="datetime" Nullable="false" />
+    <Property Name="WorkOrder_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InvoiceItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Quantity" Type="decimal" Nullable="false" />
+    <Property Name="Price" Type="decimal" Nullable="false" />
+    <Property Name="Discount" Type="decimal" Nullable="false" />
+    <Property Name="FinalPrice" Type="decimal" Nullable="false" />
+    <Property Name="Invoice_Id" Type="bigint" Nullable="false" />
+  </EntityType>
   <Association Name="CustomerVehicle">
     <End Role="Customer" Type="CarServiceFormsModel.Store.Customer" Multiplicity="1" />
     <End Role="Vehicle" Type="CarServiceFormsModel.Store.Vehicle" Multiplicity="*" />
@@ -277,6 +308,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="InvoiceInvoiceItem">
+    <End Role="Invoice" Type="CarServiceFormsModel.Store.Invoice" Multiplicity="1" />
+    <End Role="InvoiceItem" Type="CarServiceFormsModel.Store.InvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvoiceItem">
+        <PropertyRef Name="Invoice_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WorkOrderInvoice">
+    <End Role="WorkOrder" Type="CarServiceFormsModel.Store.WorkOrder" Multiplicity="1" />
+    <End Role="Invoice" Type="CarServiceFormsModel.Store.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WorkOrder">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="WorkOrder_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -329,6 +384,16 @@
             <End Role="ServiceItemServiceType" EntitySet="ServiceItemServiceType" />
           </AssociationSet>
           <EntitySet Name="Settings" EntityType="CarServiceFormsModel.Settings" />
+          <EntitySet Name="Invoice" EntityType="CarServiceFormsModel.Invoice" />
+          <EntitySet Name="InvoiceItem" EntityType="CarServiceFormsModel.InvoiceItem" />
+          <AssociationSet Name="InvoiceInvoiceItem" Association="CarServiceFormsModel.InvoiceInvoiceItem">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="InvoiceItem" EntitySet="InvoiceItem" />
+          </AssociationSet>
+          <AssociationSet Name="WorkOrderInvoice" Association="CarServiceFormsModel.WorkOrderInvoice">
+            <End Role="WorkOrder" EntitySet="WorkOrder" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Customer">
           <Key>
@@ -372,8 +437,9 @@
           <NavigationProperty Name="WordOrderInformation" Relationship="CarServiceFormsModel.WorkOrderWordOrderInformation" FromRole="WorkOrder" ToRole="WordOrderInformation" />
           <NavigationProperty Name="WorkOrderInstructions" Relationship="CarServiceFormsModel.WorkOrderWorkOrderInstruction" FromRole="WorkOrder" ToRole="WorkOrderInstruction" />
           <Property Name="Deadline" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="Service" Relationship="CarServiceFormsModel.WorkOrderService" FromRole="WorkOrder" ToRole="Service" />
+          <NavigationProperty Name="Services" Relationship="CarServiceFormsModel.WorkOrderService" FromRole="WorkOrder" ToRole="Service" />
           <Property Name="Finished" Type="DateTime" Nullable="true" />
+          <NavigationProperty Name="Invoice" Relationship="CarServiceFormsModel.WorkOrderInvoice" FromRole="WorkOrder" ToRole="Invoice" />
         </EntityType>
         <Association Name="CustomerVehicle">
           <End Type="CarServiceFormsModel.Customer" Role="Customer" Multiplicity="1" />
@@ -513,6 +579,36 @@
           <Property Name="Value" Type="String" Nullable="false" />
           <Property Name="Type" Type="String" Nullable="true" />
         </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="InvoiceItems" Relationship="CarServiceFormsModel.InvoiceInvoiceItem" FromRole="Invoice" ToRole="InvoiceItem" />
+          <NavigationProperty Name="WorkOrder" Relationship="CarServiceFormsModel.WorkOrderInvoice" FromRole="Invoice" ToRole="WorkOrder" />
+          <Property Name="Number" Type="String" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InvoiceItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Invoice" Relationship="CarServiceFormsModel.InvoiceInvoiceItem" FromRole="InvoiceItem" ToRole="Invoice" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="Quantity" Type="Decimal" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" />
+          <Property Name="Discount" Type="Decimal" Nullable="false" />
+          <Property Name="FinalPrice" Type="Decimal" Nullable="false" />
+        </EntityType>
+        <Association Name="InvoiceInvoiceItem">
+          <End Type="CarServiceFormsModel.Invoice" Role="Invoice" Multiplicity="1" />
+          <End Type="CarServiceFormsModel.InvoiceItem" Role="InvoiceItem" Multiplicity="*" />
+        </Association>
+        <Association Name="WorkOrderInvoice">
+          <End Type="CarServiceFormsModel.WorkOrder" Role="WorkOrder" Multiplicity="1" />
+          <End Type="CarServiceFormsModel.Invoice" Role="Invoice" Multiplicity="0..1" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -636,6 +732,27 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Invoice">
+      <EntityTypeMapping TypeName="IsTypeOf(CarServiceFormsModel.Invoice)">
+        <MappingFragment StoreEntitySet="Invoice">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InvoiceItem">
+      <EntityTypeMapping TypeName="IsTypeOf(CarServiceFormsModel.InvoiceItem)">
+        <MappingFragment StoreEntitySet="InvoiceItem">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="FinalPrice" ColumnName="FinalPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="CustomerVehicle" TypeName="CarServiceFormsModel.CustomerVehicle" StoreEntitySet="Vehicle">
       <EndProperty Name="Customer">
         <ScalarProperty Name="Id" ColumnName="Customer_Id" />
@@ -707,6 +824,23 @@
       <EndProperty Name="ServiceItemServiceType">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="InvoiceInvoiceItem" TypeName="CarServiceFormsModel.InvoiceInvoiceItem" StoreEntitySet="InvoiceItem">
+      <EndProperty Name="Invoice">
+        <ScalarProperty Name="Id" ColumnName="Invoice_Id" />
+      </EndProperty>
+      <EndProperty Name="InvoiceItem">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="WorkOrderInvoice" TypeName="CarServiceFormsModel.WorkOrderInvoice" StoreEntitySet="Invoice">
+      <EndProperty Name="WorkOrder">
+        <ScalarProperty Name="Id" ColumnName="WorkOrder_Id" />
+      </EndProperty>
+      <EndProperty Name="Invoice">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+            <Condition ColumnName="WorkOrder_Id" IsNull="false" />
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>

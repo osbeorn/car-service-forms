@@ -38,6 +38,8 @@
             this.customersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.codelistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.servicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.serviceItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.serviceTypesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Created = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -82,6 +84,7 @@
             this.workOrdersDataGridView.TabIndex = 1;
             this.workOrdersDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.WorkOrdersDataGridView_CellContentClick);
             this.workOrdersDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.WorkOrdersDataGridView_CellMouseDoubleClick);
+            this.workOrdersDataGridView.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.WorkOrdersDataGridView_CellPainting);
             // 
             // printButton
             // 
@@ -133,7 +136,7 @@
             // customersToolStripMenuItem
             // 
             this.customersToolStripMenuItem.Name = "customersToolStripMenuItem";
-            this.customersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.customersToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.customersToolStripMenuItem.Text = "Stranke";
             this.customersToolStripMenuItem.Click += new System.EventHandler(this.CustomersToolStripMenuItem_Click);
             // 
@@ -142,20 +145,36 @@
             this.codelistsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.servicesToolStripMenuItem});
             this.codelistsToolStripMenuItem.Name = "codelistsToolStripMenuItem";
-            this.codelistsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.codelistsToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.codelistsToolStripMenuItem.Text = "Šifranti";
             // 
             // servicesToolStripMenuItem
             // 
+            this.servicesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.serviceItemsToolStripMenuItem,
+            this.serviceTypesToolStripMenuItem});
             this.servicesToolStripMenuItem.Name = "servicesToolStripMenuItem";
-            this.servicesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.servicesToolStripMenuItem.Text = "Pregledi";
-            this.servicesToolStripMenuItem.Click += new System.EventHandler(this.ServicesToolStripMenuItem_Click);
+            this.servicesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.servicesToolStripMenuItem.Text = "Servisni pregledi";
+            // 
+            // serviceItemsToolStripMenuItem
+            // 
+            this.serviceItemsToolStripMenuItem.Name = "serviceItemsToolStripMenuItem";
+            this.serviceItemsToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.serviceItemsToolStripMenuItem.Text = "Postavke";
+            this.serviceItemsToolStripMenuItem.Click += new System.EventHandler(this.ServiceItemsToolStripMenuItem_Click);
+            // 
+            // serviceTypesToolStripMenuItem
+            // 
+            this.serviceTypesToolStripMenuItem.Name = "serviceTypesToolStripMenuItem";
+            this.serviceTypesToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.serviceTypesToolStripMenuItem.Text = "Tipi pregledov";
+            this.serviceTypesToolStripMenuItem.Click += new System.EventHandler(this.ServiceTypesToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.settingsToolStripMenuItem.Text = "Nastavitve";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
             // 
@@ -255,6 +274,8 @@
         private System.Windows.Forms.ToolStripMenuItem codelistsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem servicesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem serviceItemsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem serviceTypesToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Number;
         private System.Windows.Forms.DataGridViewTextBoxColumn Created;
         private System.Windows.Forms.DataGridViewTextBoxColumn Deadline;

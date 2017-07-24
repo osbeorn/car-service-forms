@@ -72,8 +72,10 @@
   <ItemGroup>
     <Compile Include="Classes\CustomerWithVehicleDTO.cs" />
     <Compile Include="Classes\CarServiceFormReportDTO.cs" />
+    <Compile Include="Classes\InvoiceItemReportDTO.cs" />
     <Compile Include="Classes\ServiceItemWithServiceItemGroupDTO.cs" />
     <Compile Include="Classes\WorkOrderDTO.cs" />
+    <Compile Include="Classes\InvoiceReportDTO.cs" />
     <Compile Include="Core\Collections\ListViewGroupComparer.cs" />
     <Compile Include="Core\Collections\ListViewItemComparer.cs" />
     <Compile Include="Core\Collections\PropertyComparer.cs" />
@@ -87,11 +89,11 @@
     <Compile Include="Forms\EditCustomerForm.Designer.cs">
       <DependentUpon>EditCustomerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\EditServiceForm.cs">
+    <Compile Include="Forms\EditServiceItemsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\EditServiceForm.Designer.cs">
-      <DependentUpon>EditServiceForm.cs</DependentUpon>
+    <Compile Include="Forms\EditServiceItemsForm.Designer.cs">
+      <DependentUpon>EditServiceItemsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ExtendedServiceSelectionForm.cs">
       <SubType>Form</SubType>
@@ -104,6 +106,12 @@
     </Compile>
     <Compile Include="Forms\EditCustomerWithVehicleForm.Designer.cs">
       <DependentUpon>EditCustomerWithVehicleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\InvoiceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InvoiceForm.Designer.cs">
+      <DependentUpon>InvoiceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\NewCustomerWithVehicleForm.cs">
       <SubType>Form</SubType>
@@ -187,6 +195,12 @@
     <Compile Include="Model\Customer.cs">
       <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Invoice.cs">
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\InvoiceItem.cs">
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Service.cs">
       <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
     </Compile>
@@ -225,14 +239,17 @@
     <EmbeddedResource Include="Forms\EditCustomerForm.resx">
       <DependentUpon>EditCustomerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EditServiceForm.resx">
-      <DependentUpon>EditServiceForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\EditServiceItemsForm.resx">
+      <DependentUpon>EditServiceItemsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ExtendedServiceSelectionForm.resx">
       <DependentUpon>ExtendedServiceSelectionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditCustomerWithVehicleForm.resx">
       <DependentUpon>EditCustomerWithVehicleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InvoiceForm.resx">
+      <DependentUpon>InvoiceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewCustomerWithVehicleForm.resx">
       <DependentUpon>NewCustomerWithVehicleForm.cs</DependentUpon>
@@ -268,6 +285,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Reports\CarServiceFormReport.rdlc" />
+    <EmbeddedResource Include="Reports\InvoiceReport.rdlc" />
     <EntityDeploy Include="Model\CarServiceFormsModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CarServiceFormsModel.Designer.cs</LastGenOutput>
@@ -276,8 +294,12 @@
       <DependentUpon>CarServiceFormsModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\CarServiceForms.Classes.CustomerWithVehicleDTO.datasource" />
+    <None Include="Properties\DataSources\CarServiceForms.Classes.InvoiceItemReportDTO.datasource" />
+    <None Include="Properties\DataSources\CarServiceForms.Classes.InvoiceReportDTO.datasource" />
     <None Include="Properties\DataSources\CarServiceForms.Classes.CarServiceFormReportDTO.datasource" />
     <None Include="Properties\DataSources\CarServiceForms.Classes.ServiceItemWithServiceItemGroupDTO.datasource" />
+    <None Include="Properties\DataSources\CarServiceForms.Classes.WorkOrderDTO.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

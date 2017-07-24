@@ -4,94 +4,127 @@ using System.ComponentModel;
 
 namespace CarServiceForms.Core.Collections
 {
-    public class SortableBindingList<T> : BindingList<T>
+    /// <summary>
+    /// Provides a generic collection that supports data binding and additionally supports sorting.
+    /// See http://msdn.microsoft.com/en-us/library/ms993236.aspx
+    /// If the elements are IComparable it uses that; otherwise compares the ToString()
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the list.</typeparam>
+    public class SortableBindingList<T> : BindingList<T> where T : class
     {
-        private readonly Dictionary<Type, PropertyComparer<T>> comparers;
-        private bool isSorted;
-        private ListSortDirection listSortDirection;
-        private PropertyDescriptor propertyDescriptor;
+        private bool _isSorted;
+        private ListSortDirection _sortDirection = ListSortDirection.Ascending;
+        private PropertyDescriptor _sortProperty;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SortableBindingList{T}"/> class.
+        /// </summary>
         public SortableBindingList()
-            : base(new List<T>())
         {
-            this.comparers = new Dictionary<Type, PropertyComparer<T>>();
         }
 
-        public SortableBindingList(IEnumerable<T> enumeration)
-            : base(new List<T>(enumeration))
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SortableBindingList{T}"/> class.
+        /// </summary>
+        /// <param name="list">An <see cref="T:System.Collections.Generic.IList`1" /> of items to be contained in the <see cref="T:System.ComponentModel.BindingList`1" />.</param>
+        public SortableBindingList(IList<T> list)
+            : base(list)
         {
-            this.comparers = new Dictionary<Type, PropertyComparer<T>>();
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the list supports sorting.
+        /// </summary>
         protected override bool SupportsSortingCore
         {
             get { return true; }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the list is sorted.
+        /// </summary>
         protected override bool IsSortedCore
         {
-            get { return this.isSorted; }
+            get { return _isSorted; }
         }
 
-        protected override PropertyDescriptor SortPropertyCore
-        {
-            get { return this.propertyDescriptor; }
-        }
-
+        /// <summary>
+        /// Gets the direction the list is sorted.
+        /// </summary>
         protected override ListSortDirection SortDirectionCore
         {
-            get { return this.listSortDirection; }
+            get { return _sortDirection; }
         }
 
-        protected override bool SupportsSearchingCore
+        /// <summary>
+        /// Gets the property descriptor that is used for sorting the list if sorting is implemented in a derived class; otherwise, returns null
+        /// </summary>
+        protected override PropertyDescriptor SortPropertyCore
         {
-            get { return true; }
+            get { return _sortProperty; }
         }
 
-        protected override void ApplySortCore(PropertyDescriptor property, ListSortDirection direction)
-        {
-            List<T> itemsList = (List<T>)this.Items;
-
-            Type propertyType = property.PropertyType;
-            PropertyComparer<T> comparer;
-            if (!this.comparers.TryGetValue(propertyType, out comparer))
-            {
-                comparer = new PropertyComparer<T>(property, direction);
-                this.comparers.Add(propertyType, comparer);
-            }
-
-            comparer.SetPropertyAndDirection(property, direction);
-            itemsList.Sort(comparer);
-
-            this.propertyDescriptor = property;
-            this.listSortDirection = direction;
-            this.isSorted = true;
-
-            this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
-        }
-
+        /// <summary>
+        /// Removes any sort applied with ApplySortCore if sorting is implemented
+        /// </summary>
         protected override void RemoveSortCore()
         {
-            this.isSorted = false;
-            this.propertyDescriptor = base.SortPropertyCore;
-            this.listSortDirection = base.SortDirectionCore;
-
-            this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
+            _sortDirection = ListSortDirection.Ascending;
+            _sortProperty = null;
         }
 
-        protected override int FindCore(PropertyDescriptor property, object key)
+        /// <summary>
+        /// Sorts the items if overridden in a derived class
+        /// </summary>
+        /// <param name="prop"></param>
+        /// <param name="direction"></param>
+        protected override void ApplySortCore(PropertyDescriptor prop, ListSortDirection direction)
         {
-            int count = this.Count;
-            for (int i = 0; i < count; ++i)
-            {
-                T element = this[i];
-                if (property.GetValue(element).Equals(key))
-                {
-                    return i;
-                }
-            }
+            _sortProperty = prop;
+            _sortDirection = direction;
 
-            return -1;
+            var list = Items as List<T>;
+            if (list == null) return;
+
+            list.Sort(Compare);
+
+            _isSorted = true;
+            //fire an event that the list has been changed.
+            OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
+        }
+
+
+        private int Compare(T lhs, T rhs)
+        {
+            int result = OnComparison(lhs, rhs);
+            //invert if descending
+            if (_sortDirection == ListSortDirection.Descending)
+                result = -result;
+            return result;
+        }
+
+        private int OnComparison(T lhs, T rhs)
+        {
+            object lhsValue = lhs == null ? null : _sortProperty.GetValue(lhs);
+            object rhsValue = rhs == null ? null : _sortProperty.GetValue(rhs);
+            if (lhsValue == null)
+            {
+                return (rhsValue == null) ? 0 : -1; //nulls are equal
+            }
+            if (rhsValue == null)
+            {
+                return 1; //first has value, second doesn't
+            }
+            if (lhsValue is IComparable)
+            {
+                return ((IComparable)lhsValue).CompareTo(rhsValue);
+            }
+            if (lhsValue.Equals(rhsValue))
+            {
+                return 0; //both are the same
+            }
+            //not comparable, compare ToString
+            return lhsValue.ToString().CompareTo(rhsValue.ToString());
         }
     }
 }

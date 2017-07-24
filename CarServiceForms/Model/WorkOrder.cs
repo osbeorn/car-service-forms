@@ -19,7 +19,7 @@ namespace CarServiceForms.Model
         {
             this.WordOrderInformation = new HashSet<WordOrderInformation>();
             this.WorkOrderInstructions = new HashSet<WorkOrderInstruction>();
-            this.Service = new HashSet<Service>();
+            this.Services = new HashSet<Service>();
         }
     
         public long Id { get; set; }
@@ -34,6 +34,7 @@ namespace CarServiceForms.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkOrderInstruction> WorkOrderInstructions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Service> Service { get; set; }
+        public virtual ICollection<Service> Services { get; set; }
+        public virtual Invoice Invoice { get; set; }
     }
 }

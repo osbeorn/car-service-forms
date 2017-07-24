@@ -14,7 +14,7 @@ namespace CarServiceForms.Forms
 {
     public partial class SearchCustomerForm : Form
     {
-        private CarServiceFormsDBContext DbContext { get; set; }
+        private CarServiceFormsDBContext DBContext { get; set; }
         public long? ReturnValue { get; set; }
 
         public SearchCustomerForm()
@@ -25,13 +25,13 @@ namespace CarServiceForms.Forms
 
         private void InitializeComponents()
         {
-            DbContext = new CarServiceFormsDBContext();
+            DBContext = new CarServiceFormsDBContext();
             customersDataGridView.AutoGenerateColumns = false;
         }
 
         private void CleanupComponents()
         {
-            DbContext.Dispose();
+            DBContext.Dispose();
         }
 
         private void SearchButton_Click(object sender, EventArgs e)
@@ -79,7 +79,7 @@ namespace CarServiceForms.Forms
             var customerFirstName = customerFirstNameTextBox.Text;
             var customerLastName = customerLastNameTextBox.Text;
 
-            var customers = DbContext
+            var customers = DBContext
                 .Customer
                 .Where(c =>
                     !string.IsNullOrEmpty(customerFirstName) && c.FirstName.Contains(customerFirstName) ||
