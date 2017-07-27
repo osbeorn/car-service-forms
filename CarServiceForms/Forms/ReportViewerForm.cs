@@ -21,6 +21,7 @@ namespace CarServiceForms.Forms
         public void SetReport(string reportPath, List<ReportDataSource> dataSources)
         {
             reportViewer.Reset();
+            reportViewer.ZoomMode = ZoomMode.PageWidth;
             reportViewer.LocalReport.DataSources.Clear();
 
             reportViewer.LocalReport.ReportEmbeddedResource = reportPath;
@@ -30,8 +31,6 @@ namespace CarServiceForms.Forms
                 reportViewer.LocalReport.DataSources.Add(dataSource);
             }
 
-            Show();
-            Focus();
             reportViewer.RefreshReport();
         }
     }

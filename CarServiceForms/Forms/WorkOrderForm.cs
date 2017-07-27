@@ -127,6 +127,8 @@ namespace CarServiceForms.Forms
                 WorkOrderInstructions = WorkOrder.WorkOrderInstructions.ToList();
 
                 workOrderNumberMaskedTextBox.Text = WorkOrder.Number;
+                workOrderNumberMaskedTextBox.ReadOnly = true;
+
                 workOrderDeadlineDateTimePicker.Value = WorkOrder.Deadline;
             }
             else if (customerId.HasValue && vehicleId.HasValue)

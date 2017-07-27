@@ -21,7 +21,6 @@
         <AssociationConnector Association="CarServiceFormsModel.ServiceItemGroupServiceItem" />
         <EntityTypeShape EntityType="CarServiceFormsModel.AppliedServiceItem" Width="1.5" PointX="7.25" PointY="7.375" />
         <AssociationConnector Association="CarServiceFormsModel.ServiceAppliedServiceItem" />
-        <AssociationConnector Association="CarServiceFormsModel.ServiceItemAppliedServiceItem" />
         <EntityTypeShape EntityType="CarServiceFormsModel.ServiceItemServiceType" Width="1.5" PointX="4.875" PointY="5" />
         <AssociationConnector Association="CarServiceFormsModel.ServiceItemServiceItemServiceType" />
         <EntityTypeShape EntityType="CarServiceFormsModel.Settings" Width="1.5" PointX="0.75" PointY="1.25" />
@@ -35,6 +34,7 @@
           <ConnectorPoint PointX="9" PointY="5.9901432291666659" />
           <ConnectorPoint PointX="9.375" PointY="5.9901432291666659" />
         </AssociationConnector>
+        <AssociationConnector Association="CarServiceFormsModel.AppliedServiceItemServiceItem" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

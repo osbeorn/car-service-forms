@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace CarServiceForms.Forms
         private void InitializeComponents()
         {
             DBContext = new CarServiceFormsDBContext();
+
+            repairmanTextBox.Text = ConfigurationManager.AppSettings["repairman"];
         }
 
         private void CleanupComponents()
@@ -34,6 +37,16 @@ namespace CarServiceForms.Forms
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             CleanupComponents();
+        }
+
+        private void ConfirmButton_Click(object sender, EventArgs e)
+        {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+            config.AppSettings.Settings["repairman"].Value = repairmanTextBox.Text;
+
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection(config.AppSettings.SectionInformation.Name);
         }
     }
 }

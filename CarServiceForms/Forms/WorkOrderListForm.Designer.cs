@@ -30,7 +30,13 @@
         {
             this.createButton = new System.Windows.Forms.Button();
             this.workOrdersDataGridView = new System.Windows.Forms.DataGridView();
-            this.printButton = new System.Windows.Forms.Button();
+            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Created = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Deadline = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Customer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Vehicle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Service = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Invoice = new System.Windows.Forms.DataGridViewButtonColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,13 +47,6 @@
             this.serviceItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serviceTypesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Created = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Deadline = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Customer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Vehicle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Service = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Invoice = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.workOrdersDataGridView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -86,15 +85,63 @@
             this.workOrdersDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.WorkOrdersDataGridView_CellMouseDoubleClick);
             this.workOrdersDataGridView.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.WorkOrdersDataGridView_CellPainting);
             // 
-            // printButton
+            // Number
             // 
-            this.printButton.Location = new System.Drawing.Point(906, 27);
-            this.printButton.Name = "printButton";
-            this.printButton.Size = new System.Drawing.Size(75, 23);
-            this.printButton.TabIndex = 2;
-            this.printButton.Text = "Tiskaj";
-            this.printButton.UseVisualStyleBackColor = true;
-            this.printButton.Click += new System.EventHandler(this.PrintButton_Click);
+            this.Number.DataPropertyName = "Number";
+            this.Number.FillWeight = 8F;
+            this.Number.HeaderText = "Št. DN";
+            this.Number.Name = "Number";
+            this.Number.ReadOnly = true;
+            // 
+            // Created
+            // 
+            this.Created.DataPropertyName = "Created";
+            this.Created.FillWeight = 11F;
+            this.Created.HeaderText = "Ustvarjen";
+            this.Created.Name = "Created";
+            this.Created.ReadOnly = true;
+            // 
+            // Deadline
+            // 
+            this.Deadline.DataPropertyName = "Deadline";
+            this.Deadline.FillWeight = 11F;
+            this.Deadline.HeaderText = "Rok izdelave";
+            this.Deadline.Name = "Deadline";
+            this.Deadline.ReadOnly = true;
+            // 
+            // Customer
+            // 
+            this.Customer.DataPropertyName = "Customer";
+            this.Customer.FillWeight = 33F;
+            this.Customer.HeaderText = "Stranka";
+            this.Customer.Name = "Customer";
+            this.Customer.ReadOnly = true;
+            // 
+            // Vehicle
+            // 
+            this.Vehicle.DataPropertyName = "Vehicle";
+            this.Vehicle.FillWeight = 27F;
+            this.Vehicle.HeaderText = "Vozilo";
+            this.Vehicle.Name = "Vehicle";
+            this.Vehicle.ReadOnly = true;
+            // 
+            // Service
+            // 
+            this.Service.FillWeight = 5F;
+            this.Service.HeaderText = "Pregled";
+            this.Service.Name = "Service";
+            this.Service.ReadOnly = true;
+            this.Service.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Service.Text = "";
+            // 
+            // Invoice
+            // 
+            this.Invoice.FillWeight = 5F;
+            this.Invoice.HeaderText = "Račun";
+            this.Invoice.Name = "Invoice";
+            this.Invoice.ReadOnly = true;
+            this.Invoice.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Invoice.Text = "";
             // 
             // menuStrip1
             // 
@@ -178,72 +225,11 @@
             this.settingsToolStripMenuItem.Text = "Nastavitve";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
             // 
-            // Number
-            // 
-            this.Number.DataPropertyName = "Number";
-            this.Number.FillWeight = 8F;
-            this.Number.HeaderText = "Št. DN";
-            this.Number.Name = "Number";
-            this.Number.ReadOnly = true;
-            // 
-            // Created
-            // 
-            this.Created.DataPropertyName = "Created";
-            this.Created.FillWeight = 11F;
-            this.Created.HeaderText = "Ustvarjen";
-            this.Created.Name = "Created";
-            this.Created.ReadOnly = true;
-            // 
-            // Deadline
-            // 
-            this.Deadline.DataPropertyName = "Deadline";
-            this.Deadline.FillWeight = 11F;
-            this.Deadline.HeaderText = "Rok izdelave";
-            this.Deadline.Name = "Deadline";
-            this.Deadline.ReadOnly = true;
-            // 
-            // Customer
-            // 
-            this.Customer.DataPropertyName = "Customer";
-            this.Customer.FillWeight = 33F;
-            this.Customer.HeaderText = "Stranka";
-            this.Customer.Name = "Customer";
-            this.Customer.ReadOnly = true;
-            // 
-            // Vehicle
-            // 
-            this.Vehicle.DataPropertyName = "Vehicle";
-            this.Vehicle.FillWeight = 27F;
-            this.Vehicle.HeaderText = "Vozilo";
-            this.Vehicle.Name = "Vehicle";
-            this.Vehicle.ReadOnly = true;
-            // 
-            // Service
-            // 
-            this.Service.FillWeight = 5F;
-            this.Service.HeaderText = "Pregled";
-            this.Service.Name = "Service";
-            this.Service.ReadOnly = true;
-            this.Service.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Service.Text = "...";
-            this.Service.UseColumnTextForButtonValue = true;
-            // 
-            // Invoice
-            // 
-            this.Invoice.FillWeight = 5F;
-            this.Invoice.HeaderText = "Račun";
-            this.Invoice.Name = "Invoice";
-            this.Invoice.ReadOnly = true;
-            this.Invoice.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Invoice.Text = "...";
-            this.Invoice.UseColumnTextForButtonValue = true;
-            // 
             // WorkOrderListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1074, 581);
-            this.Controls.Add(this.printButton);
             this.Controls.Add(this.workOrdersDataGridView);
             this.Controls.Add(this.createButton);
             this.Controls.Add(this.menuStrip1);
@@ -265,7 +251,6 @@
 
         private System.Windows.Forms.Button createButton;
         private System.Windows.Forms.DataGridView workOrdersDataGridView;
-        private System.Windows.Forms.Button printButton;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;

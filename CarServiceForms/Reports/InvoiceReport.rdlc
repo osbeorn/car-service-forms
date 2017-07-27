@@ -243,7 +243,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Oznaka</Value>
+                              <Value>Opis</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -481,8 +481,11 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=FormatNumber(Fields!InvoiceItemDiscount.Value, 0) + "%"</Value>
-                              <Style />
+                              <Value>=Fields!InvoiceItemDiscount.Value / 100</Value>
+                              <Style>
+                                <Format>P2</Format>
+                                <Language>sl-SI</Language>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -617,7 +620,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Sum((Fields!InvoiceItemQuantity.Value * Fields!InvoiceItemPrice.Value) - (Fields!InvoiceItemQuantity.Value * Fields!InvoiceItemPrice.Value * Fields!InvoiceItemDiscount.Value / 100), "InvoiceItemsDataSet")</Value>
+                <Value>=Sum(Fields!InvoiceItemFinalPrice.Value, "InvoiceItemsDataSet")</Value>
                 <Style>
                   <FontSize>11pt</FontSize>
                   <FontWeight>Bold</FontWeight>

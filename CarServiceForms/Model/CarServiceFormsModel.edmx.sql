@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/22/2017 14:17:16
+-- Date Created: 07/27/2017 16:06:54
 -- Generated from EDMX file: F:\Development\car-service-forms\CarServiceForms\Model\CarServiceFormsModel.edmx
 -- --------------------------------------------------
 
@@ -227,10 +227,10 @@ GO
 CREATE TABLE [dbo].[InvoiceItem] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Description] nvarchar(max)  NOT NULL,
-    [Quantity] decimal(18,0)  NOT NULL,
-    [Price] decimal(18,0)  NOT NULL,
-    [Discount] decimal(18,0)  NOT NULL,
-    [FinalPrice] decimal(18,0)  NOT NULL,
+    [Quantity] decimal(18,2)  NOT NULL,
+    [Price] decimal(18,4)  NOT NULL,
+    [Discount] decimal(18,2)  NOT NULL,
+    [FinalPrice] decimal(18,2)  NOT NULL,
     [Invoice_Id] bigint  NOT NULL
 );
 GO
@@ -426,21 +426,6 @@ ON [dbo].[AppliedServiceItem]
     ([Service_Id]);
 GO
 
--- Creating foreign key on [ServiceItem_Id] in table 'AppliedServiceItem'
-ALTER TABLE [dbo].[AppliedServiceItem]
-ADD CONSTRAINT [FK_ServiceItemAppliedServiceItem]
-    FOREIGN KEY ([ServiceItem_Id])
-    REFERENCES [dbo].[ServiceItem]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ServiceItemAppliedServiceItem'
-CREATE INDEX [IX_FK_ServiceItemAppliedServiceItem]
-ON [dbo].[AppliedServiceItem]
-    ([ServiceItem_Id]);
-GO
-
 -- Creating foreign key on [ServiceItem_Id] in table 'ServiceItemServiceType'
 ALTER TABLE [dbo].[ServiceItemServiceType]
 ADD CONSTRAINT [FK_ServiceItemServiceItemServiceType]
@@ -484,6 +469,21 @@ GO
 CREATE INDEX [IX_FK_WorkOrderInvoice]
 ON [dbo].[Invoice]
     ([WorkOrder_Id]);
+GO
+
+-- Creating foreign key on [ServiceItem_Id] in table 'AppliedServiceItem'
+ALTER TABLE [dbo].[AppliedServiceItem]
+ADD CONSTRAINT [FK_AppliedServiceItemServiceItem]
+    FOREIGN KEY ([ServiceItem_Id])
+    REFERENCES [dbo].[ServiceItem]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_AppliedServiceItemServiceItem'
+CREATE INDEX [IX_FK_AppliedServiceItemServiceItem]
+ON [dbo].[AppliedServiceItem]
+    ([ServiceItem_Id]);
 GO
 
 -- --------------------------------------------------

@@ -47,10 +47,6 @@
       <End Role="Service" EntitySet="Service" />
       <End Role="AppliedServiceItem" EntitySet="AppliedServiceItem" />
     </AssociationSet>
-    <AssociationSet Name="ServiceItemAppliedServiceItem" Association="CarServiceFormsModel.Store.ServiceItemAppliedServiceItem">
-      <End Role="ServiceItem" EntitySet="ServiceItem" />
-      <End Role="AppliedServiceItem" EntitySet="AppliedServiceItem" />
-    </AssociationSet>
     <AssociationSet Name="ServiceItemServiceItemServiceType" Association="CarServiceFormsModel.Store.ServiceItemServiceItemServiceType">
       <End Role="ServiceItem" EntitySet="ServiceItem" />
       <End Role="ServiceItemServiceType" EntitySet="ServiceItemServiceType" />
@@ -62,6 +58,10 @@
     <AssociationSet Name="WorkOrderInvoice" Association="CarServiceFormsModel.Store.WorkOrderInvoice">
       <End Role="WorkOrder" EntitySet="WorkOrder" />
       <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="AppliedServiceItemServiceItem" Association="CarServiceFormsModel.Store.AppliedServiceItemServiceItem">
+      <End Role="AppliedServiceItems" EntitySet="AppliedServiceItem" />
+      <End Role="ServiceItem" EntitySet="ServiceItem" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Customer">
@@ -194,10 +194,10 @@
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Quantity" Type="decimal" Nullable="false" />
-    <Property Name="Price" Type="decimal" Nullable="false" />
-    <Property Name="Discount" Type="decimal" Nullable="false" />
-    <Property Name="FinalPrice" Type="decimal" Nullable="false" />
+    <Property Name="Quantity" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Price" Type="decimal" Nullable="false" Precision="18" Scale="4" />
+    <Property Name="Discount" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="FinalPrice" Type="decimal" Nullable="false" Precision="18" Scale="2" />
     <Property Name="Invoice_Id" Type="bigint" Nullable="false" />
   </EntityType>
   <Association Name="CustomerVehicle">
@@ -284,18 +284,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="ServiceItemAppliedServiceItem">
-    <End Role="ServiceItem" Type="CarServiceFormsModel.Store.ServiceItem" Multiplicity="1" />
-    <End Role="AppliedServiceItem" Type="CarServiceFormsModel.Store.AppliedServiceItem" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ServiceItem">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="AppliedServiceItem">
-        <PropertyRef Name="ServiceItem_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="ServiceItemServiceItemServiceType">
     <End Role="ServiceItem" Type="CarServiceFormsModel.Store.ServiceItem" Multiplicity="1" />
     <End Role="ServiceItemServiceType" Type="CarServiceFormsModel.Store.ServiceItemServiceType" Multiplicity="*" />
@@ -329,6 +317,18 @@
       </Principal>
       <Dependent Role="Invoice">
         <PropertyRef Name="WorkOrder_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AppliedServiceItemServiceItem">
+    <End Role="AppliedServiceItems" Type="CarServiceFormsModel.Store.AppliedServiceItem" Multiplicity="*" />
+    <End Role="ServiceItem" Type="CarServiceFormsModel.Store.ServiceItem" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="ServiceItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AppliedServiceItems">
+        <PropertyRef Name="ServiceItem_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -374,10 +374,6 @@
             <End Role="Service" EntitySet="Service" />
             <End Role="AppliedServiceItem" EntitySet="AppliedServiceItem" />
           </AssociationSet>
-          <AssociationSet Name="ServiceItemAppliedServiceItem" Association="CarServiceFormsModel.ServiceItemAppliedServiceItem">
-            <End Role="ServiceItem" EntitySet="ServiceItem" />
-            <End Role="AppliedServiceItem" EntitySet="AppliedServiceItem" />
-          </AssociationSet>
           <EntitySet Name="ServiceItemServiceType" EntityType="CarServiceFormsModel.ServiceItemServiceType" />
           <AssociationSet Name="ServiceItemServiceItemServiceType" Association="CarServiceFormsModel.ServiceItemServiceItemServiceType">
             <End Role="ServiceItem" EntitySet="ServiceItem" />
@@ -393,6 +389,10 @@
           <AssociationSet Name="WorkOrderInvoice" Association="CarServiceFormsModel.WorkOrderInvoice">
             <End Role="WorkOrder" EntitySet="WorkOrder" />
             <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="AppliedServiceItemServiceItem" Association="CarServiceFormsModel.AppliedServiceItemServiceItem">
+            <End Role="AppliedServiceItems" EntitySet="AppliedServiceItem" />
+            <End Role="ServiceItem" EntitySet="ServiceItem" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Customer">
@@ -437,7 +437,7 @@
           <NavigationProperty Name="WordOrderInformation" Relationship="CarServiceFormsModel.WorkOrderWordOrderInformation" FromRole="WorkOrder" ToRole="WordOrderInformation" />
           <NavigationProperty Name="WorkOrderInstructions" Relationship="CarServiceFormsModel.WorkOrderWorkOrderInstruction" FromRole="WorkOrder" ToRole="WorkOrderInstruction" />
           <Property Name="Deadline" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="Services" Relationship="CarServiceFormsModel.WorkOrderService" FromRole="WorkOrder" ToRole="Service" />
+          <NavigationProperty Name="Service" Relationship="CarServiceFormsModel.WorkOrderService" FromRole="WorkOrder" ToRole="Service" />
           <Property Name="Finished" Type="DateTime" Nullable="true" />
           <NavigationProperty Name="Invoice" Relationship="CarServiceFormsModel.WorkOrderInvoice" FromRole="WorkOrder" ToRole="Invoice" />
         </EntityType>
@@ -488,7 +488,7 @@
         </EntityType>
         <Association Name="WorkOrderService">
           <End Type="CarServiceFormsModel.WorkOrder" Role="WorkOrder" Multiplicity="1" />
-          <End Type="CarServiceFormsModel.Service" Role="Service" Multiplicity="*" />
+          <End Type="CarServiceFormsModel.Service" Role="Service" Multiplicity="0..1" />
         </Association>
         <EnumType Name="ServiceType">
           <Member Name="Interval" />
@@ -512,11 +512,11 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="ServiceItemGroup" Relationship="CarServiceFormsModel.ServiceItemGroupServiceItem" FromRole="ServiceItem" ToRole="ServiceItemGroup" />
           <Property Name="Name" Type="String" Nullable="true" />
-          <NavigationProperty Name="AppliedServiceItem" Relationship="CarServiceFormsModel.ServiceItemAppliedServiceItem" FromRole="ServiceItem" ToRole="AppliedServiceItem" />
           <NavigationProperty Name="ServiceTypes" Relationship="CarServiceFormsModel.ServiceItemServiceItemServiceType" FromRole="ServiceItem" ToRole="ServiceItemServiceType" />
           <Property Name="HasRemarks" Type="Boolean" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <Property Name="Enabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AppliedServiceItems" Relationship="CarServiceFormsModel.AppliedServiceItemServiceItem" FromRole="ServiceItem" ToRole="AppliedServiceItems" />
         </EntityType>
         <Association Name="ServiceItemGroupServiceItem">
           <End Type="CarServiceFormsModel.ServiceItemGroup" Role="ServiceItemGroup" Multiplicity="1" />
@@ -528,16 +528,12 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Service" Relationship="CarServiceFormsModel.ServiceAppliedServiceItem" FromRole="AppliedServiceItem" ToRole="Service" />
-          <NavigationProperty Name="ServiceItem" Relationship="CarServiceFormsModel.ServiceItemAppliedServiceItem" FromRole="AppliedServiceItem" ToRole="ServiceItem" />
           <Property Name="Remark" Type="String" Nullable="true" />
           <Property Name="Resolution" Type="CarServiceFormsModel.AppliedServiceItemResolution" Nullable="true" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="ServiceItem" Relationship="CarServiceFormsModel.AppliedServiceItemServiceItem" FromRole="AppliedServiceItems" ToRole="ServiceItem" />
         </EntityType>
         <Association Name="ServiceAppliedServiceItem">
           <End Type="CarServiceFormsModel.Service" Role="Service" Multiplicity="1" />
-          <End Type="CarServiceFormsModel.AppliedServiceItem" Role="AppliedServiceItem" Multiplicity="*" />
-        </Association>
-        <Association Name="ServiceItemAppliedServiceItem">
-          <End Type="CarServiceFormsModel.ServiceItem" Role="ServiceItem" Multiplicity="1" />
           <End Type="CarServiceFormsModel.AppliedServiceItem" Role="AppliedServiceItem" Multiplicity="*" />
         </Association>
         <EnumType Name="AppliedServiceItemStatus">
@@ -596,10 +592,10 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Invoice" Relationship="CarServiceFormsModel.InvoiceInvoiceItem" FromRole="InvoiceItem" ToRole="Invoice" />
           <Property Name="Description" Type="String" Nullable="false" />
-          <Property Name="Quantity" Type="Decimal" Nullable="false" />
-          <Property Name="Price" Type="Decimal" Nullable="false" />
-          <Property Name="Discount" Type="Decimal" Nullable="false" />
-          <Property Name="FinalPrice" Type="Decimal" Nullable="false" />
+          <Property Name="Quantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Scale="4" Precision="18" />
+          <Property Name="Discount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="FinalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
         </EntityType>
         <Association Name="InvoiceInvoiceItem">
           <End Type="CarServiceFormsModel.Invoice" Role="Invoice" Multiplicity="1" />
@@ -608,6 +604,10 @@
         <Association Name="WorkOrderInvoice">
           <End Type="CarServiceFormsModel.WorkOrder" Role="WorkOrder" Multiplicity="1" />
           <End Type="CarServiceFormsModel.Invoice" Role="Invoice" Multiplicity="0..1" />
+        </Association>
+        <Association Name="AppliedServiceItemServiceItem">
+          <End Type="CarServiceFormsModel.AppliedServiceItem" Role="AppliedServiceItems" Multiplicity="*" />
+          <End Type="CarServiceFormsModel.ServiceItem" Role="ServiceItem" Multiplicity="1" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -809,14 +809,6 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="ServiceItemAppliedServiceItem" TypeName="CarServiceFormsModel.ServiceItemAppliedServiceItem" StoreEntitySet="AppliedServiceItem">
-      <EndProperty Name="ServiceItem">
-        <ScalarProperty Name="Id" ColumnName="ServiceItem_Id" />
-      </EndProperty>
-      <EndProperty Name="AppliedServiceItem">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
     <AssociationSetMapping Name="ServiceItemServiceItemServiceType" TypeName="CarServiceFormsModel.ServiceItemServiceItemServiceType" StoreEntitySet="ServiceItemServiceType">
       <EndProperty Name="ServiceItem">
         <ScalarProperty Name="Id" ColumnName="ServiceItem_Id" />
@@ -840,7 +832,14 @@
       <EndProperty Name="Invoice">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
-            <Condition ColumnName="WorkOrder_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AppliedServiceItemServiceItem" TypeName="CarServiceFormsModel.AppliedServiceItemServiceItem" StoreEntitySet="AppliedServiceItem">
+      <EndProperty Name="ServiceItem">
+        <ScalarProperty Name="Id" ColumnName="ServiceItem_Id" />
+      </EndProperty>
+      <EndProperty Name="AppliedServiceItems">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>

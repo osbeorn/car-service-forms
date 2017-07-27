@@ -62,56 +62,6 @@ namespace CarServiceForms.Forms
             workOrdersDataGridView.DataSource = new SortableBindingList<WorkOrderDTO>(workOrders);
         }
 
-        private void PrintButton_Click(object sender, EventArgs e)
-        {
-            var serviceItems = DBContext.ServiceItem
-                .Where(si => si.ServiceTypes.Any(sist => sist.ServiceType == ServiceType.Inspection))
-                .Select(si =>
-                    new ServiceItemWithServiceItemGroupDTO()
-                    {
-                        Id = si.Id,
-                        Name = si.Name,
-                        Order = si.Order,
-                        HasRemarks = si.HasRemarks,
-                        ServiceItemGroupId = si.ServiceItemGroup.Id,
-                        ServiceItemGroupName = si.ServiceItemGroup.Name,
-                        ServiceItemGroupOrder = si.ServiceItemGroup.Order
-                    }
-                )
-                .ToList();
-
-            var serviceFormReport = new List<CarServiceFormReportDTO>()
-            {
-                new CarServiceFormReportDTO()
-                {
-                    WorkOrderNumber = "1234567890",
-                    VehicleIdentificationNumber = "",
-                    VehicleType = "",
-                    VehicleTypeCode = "",
-                    VehicleMKBCode = "",
-                    VehicleGKBCode = "",
-                    VehicleRegistrationNumber = "",
-                    VehicleMileage = "21223",
-                    VehicleRegistrationDate = DateTime.Now,
-                    VehicleModelYear = DateTime.Now.Year.ToString(),
-                    ServiceType = ServiceType.Inspection
-                }
-            };  
-
-            var datasources = new List<ReportDataSource>()
-            {
-                new ReportDataSource("HeaderDataSet", serviceFormReport),
-                new ReportDataSource("BodyDataSet", serviceItems)
-            };
-
-            var form = new ReportViewerForm();
-            form.SetReport(
-                "CarServiceForms.Reports.CarServiceFormReport.rdlc",
-                datasources
-            );
-            form.Show();
-        }
-
         private void WorkOrdersDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var workOrdersDataGridView = (DataGridView) sender;
@@ -125,7 +75,7 @@ namespace CarServiceForms.Forms
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        workOrdersDataGridView.Refresh();
+                        LoadWorkOrders();
                     }
                 }
             }
@@ -137,7 +87,7 @@ namespace CarServiceForms.Forms
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        workOrdersDataGridView.Refresh();
+                        LoadWorkOrders();
                     }
                 }
             }
@@ -215,24 +165,34 @@ namespace CarServiceForms.Forms
                 return;
 
             var workOrderDTO = workOrdersDataGridView.Rows[e.RowIndex].DataBoundItem as WorkOrderDTO;
+            var workOrder = DBContext.WorkOrder.Find(workOrderDTO.Id);
 
             var dataGridViewColumn = workOrdersDataGridView.Columns[e.ColumnIndex];
+            var dataGridViewCell = workOrdersDataGridView[e.ColumnIndex, e.RowIndex];
             if (dataGridViewColumn.Name == "Service")
             {
-                var servicesExist = DBContext.WorkOrder.Find(workOrderDTO.Id).Services.Any();
-                if (servicesExist)
+                var serviceExist = workOrder.Service != null;
+                var dataGridViewButtonCell = (DataGridViewButtonCell)dataGridViewCell;
+                if (serviceExist)
                 {
-                    var dataGridViewButtonColumn = (DataGridViewButtonColumn) dataGridViewColumn;
-                    dataGridViewButtonColumn.Text = "✔";
+                    dataGridViewButtonCell.Value = "✔";
+                }
+                else
+                {
+                    dataGridViewButtonCell.Value = "...";
                 }
             }
             else if (dataGridViewColumn.Name == "Invoice")
             {
-                var invoiceExist = DBContext.WorkOrder.Find(workOrderDTO.Id).Invoice != null;
+                var invoiceExist = workOrder.Invoice != null;
+                var dataGridViewButtonCell = (DataGridViewButtonCell)dataGridViewCell;
                 if (invoiceExist)
                 {
-                    var dataGridViewButtonColumn = (DataGridViewButtonColumn) dataGridViewColumn;
-                    dataGridViewButtonColumn.Text = "✔";
+                    dataGridViewButtonCell.Value = "✔";
+                }
+                else
+                {
+                    dataGridViewButtonCell.Value = "...";
                 }
             }
         }

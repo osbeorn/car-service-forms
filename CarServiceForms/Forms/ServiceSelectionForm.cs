@@ -132,7 +132,7 @@ namespace CarServiceForms.Forms
                 "CarServiceForms.Reports.CarServiceFormReport.rdlc",
                 datasources
             );
-            form.Show();
+            form.ShowDialog();
         }
 
         private void ServiceSelectionForm_FormClosing(object sender, FormClosingEventArgs e)

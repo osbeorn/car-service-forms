@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             this.invoiceItemsDataGridView = new System.Windows.Forms.DataGridView();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Discount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cancelButton = new System.Windows.Forms.Button();
             this.confirmButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -41,7 +37,11 @@
             this.totalSalePriceLabel = new System.Windows.Forms.Label();
             this.totalDiscountLabel = new System.Windows.Forms.Label();
             this.totalFinalPriceLabel = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.printButton = new System.Windows.Forms.Button();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Discount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceItemsDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,34 +61,6 @@
             this.invoiceItemsDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.InvoiceItemsDataGridView_CellValueChanged);
             this.invoiceItemsDataGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.InvoiceItemsDataGridView_EditingControlShowing);
             this.invoiceItemsDataGridView.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.InvoiceItemsDataGridView_UserDeletedRow);
-            // 
-            // Description
-            // 
-            this.Description.DataPropertyName = "Description";
-            this.Description.FillWeight = 40F;
-            this.Description.HeaderText = "Opis";
-            this.Description.Name = "Description";
-            // 
-            // Quantity
-            // 
-            this.Quantity.DataPropertyName = "Quantity";
-            this.Quantity.FillWeight = 20F;
-            this.Quantity.HeaderText = "Količina";
-            this.Quantity.Name = "Quantity";
-            // 
-            // Price
-            // 
-            this.Price.DataPropertyName = "Price";
-            this.Price.FillWeight = 20F;
-            this.Price.HeaderText = "Cena [EUR]";
-            this.Price.Name = "Price";
-            // 
-            // Discount
-            // 
-            this.Discount.DataPropertyName = "Discount";
-            this.Discount.FillWeight = 20F;
-            this.Discount.HeaderText = "Popust [%]";
-            this.Discount.Name = "Discount";
             // 
             // cancelButton
             // 
@@ -172,15 +144,43 @@
             this.totalFinalPriceLabel.Text = "0 €";
             this.totalFinalPriceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // button1
+            // printButton
             // 
-            this.button1.Location = new System.Drawing.Point(445, 352);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.printButton.Location = new System.Drawing.Point(636, 352);
+            this.printButton.Name = "printButton";
+            this.printButton.Size = new System.Drawing.Size(75, 23);
+            this.printButton.TabIndex = 14;
+            this.printButton.Text = "Natisni";
+            this.printButton.UseVisualStyleBackColor = true;
+            this.printButton.Click += new System.EventHandler(this.PrintButton_Click);
+            // 
+            // Description
+            // 
+            this.Description.DataPropertyName = "Description";
+            this.Description.FillWeight = 55F;
+            this.Description.HeaderText = "Opis";
+            this.Description.Name = "Description";
+            // 
+            // Quantity
+            // 
+            this.Quantity.DataPropertyName = "Quantity";
+            this.Quantity.FillWeight = 15F;
+            this.Quantity.HeaderText = "Količina";
+            this.Quantity.Name = "Quantity";
+            // 
+            // Price
+            // 
+            this.Price.DataPropertyName = "Price";
+            this.Price.FillWeight = 15F;
+            this.Price.HeaderText = "Cena [EUR]";
+            this.Price.Name = "Price";
+            // 
+            // Discount
+            // 
+            this.Discount.DataPropertyName = "Discount";
+            this.Discount.FillWeight = 15F;
+            this.Discount.HeaderText = "Popust [%]";
+            this.Discount.Name = "Discount";
             // 
             // InvoiceForm
             // 
@@ -188,7 +188,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(723, 387);
             this.ControlBox = false;
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.printButton);
             this.Controls.Add(this.totalFinalPriceLabel);
             this.Controls.Add(this.totalDiscountLabel);
             this.Controls.Add(this.totalSalePriceLabel);
@@ -222,10 +222,10 @@
         private System.Windows.Forms.Label totalSalePriceLabel;
         private System.Windows.Forms.Label totalDiscountLabel;
         private System.Windows.Forms.Label totalFinalPriceLabel;
+        private System.Windows.Forms.Button printButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewTextBoxColumn Discount;
-        private System.Windows.Forms.Button button1;
     }
 }

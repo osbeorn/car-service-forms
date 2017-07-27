@@ -17,13 +17,15 @@ namespace CarServiceForms.Forms
 {
     public partial class InvoiceForm : Form
     {
+        private const string INVOICE_NUMBER_FORMAT = "{0}-{1}";
+
         private static KeyPressEventHandler NumericCheckHandler = new KeyPressEventHandler(NumericCheck);
 
         private CarServiceFormsDBContext DBContext { get; set; }
 
+        private WorkOrder WorkOrder { get; set; }
+        private Invoice Invoice { get; set; }
         private IList<InvoiceItem> InvoiceItems { get; set; }
-
-        private long WorkOrderId { get; set; }
 
         public InvoiceForm(long workOrderId)
         {
@@ -34,13 +36,26 @@ namespace CarServiceForms.Forms
         private void InitializeComponents(long workOrderId)
         {
             DBContext = new CarServiceFormsDBContext();
-
             invoiceItemsDataGridView.AutoGenerateColumns = false;
+            SetupInvoiceData(workOrderId);
+        }
 
-            WorkOrderId = workOrderId;
+        private void SetupInvoiceData(long workOrderId)
+        {
+            WorkOrder = DBContext.WorkOrder.Find(workOrderId);
+            if (WorkOrder.Invoice != null)
+            {
+                Invoice = WorkOrder.Invoice;
+                InvoiceItems = Invoice.InvoiceItems.ToList();
+            }
+            else
+            {
+                InvoiceItems = new List<InvoiceItem>();
+            }
 
-            InvoiceItems = new List<InvoiceItem>();
             invoiceItemsDataGridView.DataSource = new BindingList<InvoiceItem>(InvoiceItems);
+
+            UpdateTotalLabels();
         }
 
         private void CleanupComponents()
@@ -93,11 +108,76 @@ namespace CarServiceForms.Forms
             totalFinalPriceLabel.Text = string.Format("{0:c}", totalFinalPrice);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void PrintButton_Click(object sender, EventArgs e)
         {
-            var workOrder = DBContext.WorkOrder.Find(WorkOrderId);
+            SaveInvoice();
+            PrintInvoice();
+        }
+
+        private void InvoiceItemsDataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            string columnName = invoiceItemsDataGridView.CurrentCell.OwningColumn.Name;
+            if (columnName == "Quantity" || columnName == "Price" || columnName == "Discount")
+            {
+                e.Control.KeyPress -= NumericCheckHandler;
+                e.Control.KeyPress += NumericCheckHandler;
+            }
+            else
+            {
+                e.Control.KeyPress -= NumericCheckHandler;
+            }
+        }
+
+        private static void NumericCheck(object sender, KeyPressEventArgs e)
+        {
+            DataGridViewTextBoxEditingControl s = sender as DataGridViewTextBoxEditingControl;
+            if (s != null && (e.KeyChar == '.' || e.KeyChar == ','))
+            {
+                e.KeyChar = Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+                e.Handled = s.Text.Contains(e.KeyChar);
+            }
+            else
+            {
+                e.Handled = !char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar);
+            }
+        }
+
+        private void ConfirmButton_Click(object sender, EventArgs e)
+        {
+            SaveInvoice();            
+        }
+
+        private void SaveInvoice()
+        {
+            if (Invoice != null)
+            {
+                Invoice.InvoiceItems = InvoiceItems;
+            }
+            else
+            {
+                var invoiceNumber = string.Format(INVOICE_NUMBER_FORMAT, DateTime.Now.Year, GetNextInvoiceNumber());
+
+                Invoice = new Invoice()
+                {
+                    Created = DateTime.Now,
+                    WorkOrder = WorkOrder,
+                    InvoiceItems = InvoiceItems,
+                    Number = invoiceNumber
+                };
+                DBContext.Invoice.Add(Invoice);
+            }
+
+            DBContext.SaveChanges();
+        }
+
+        private void PrintInvoice()
+        {
+            var workOrder = DBContext.WorkOrder.Find(WorkOrder.Id);
             var invoice = new InvoiceReportDTO()
             {
+                InvoiceNumber = workOrder.Invoice.Number,
+                InvoiceCreated = workOrder.Invoice.Created,
+
                 WorkOrderNumber = workOrder.Number,
                 WorkOrderCreated = workOrder.Created,
                 WorkOrderDeadline = workOrder.Deadline,
@@ -145,51 +225,30 @@ namespace CarServiceForms.Forms
                 "CarServiceForms.Reports.InvoiceReport.rdlc",
                 datasources
             );
-            form.Show();
+            form.ShowDialog();
         }
 
-        private void InvoiceItemsDataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        private string GetNextInvoiceNumber()
         {
-            string columnName = invoiceItemsDataGridView.CurrentCell.OwningColumn.Name;
-            if (columnName == "Quantity" || columnName == "Price" || columnName == "Discount")
-            {
-                e.Control.KeyPress -= NumericCheckHandler;
-                e.Control.KeyPress += NumericCheckHandler;
-            }
-            else
-            {
-                e.Control.KeyPress -= NumericCheckHandler;
-            }
-        }
+            var maxInvoiceNumber = DBContext.Invoice
+                    .Where(wo => wo.Created.Year == DateTime.Now.Year)
+                    .Select(wo => wo.Number.ToString())
+                    .ToList()
+                    .Select(n =>
+                    {
+                        var split = n.Split('-');
+                        if (split.Length == 2)
+                        {
+                            int result;
+                            bool success = Int32.TryParse(split[1], out result);
+                            return success ? result : 0;
+                        }
+                        return 0;
+                    })
+                    .DefaultIfEmpty()
+                    .Max();
 
-        private static void NumericCheck(object sender, KeyPressEventArgs e)
-        {
-            DataGridViewTextBoxEditingControl s = sender as DataGridViewTextBoxEditingControl;
-            if (s != null && (e.KeyChar == '.' || e.KeyChar == ','))
-            {
-                e.KeyChar = Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
-                e.Handled = s.Text.Contains(e.KeyChar);
-            }
-            else
-            {
-                e.Handled = !char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar);
-            }
-        }
-
-        private void ConfirmButton_Click(object sender, EventArgs e)
-        {
-            var workOrder = DBContext.WorkOrder.Find(WorkOrderId);
-
-            var invoice = new Invoice()
-            {
-                Created = DateTime.Now,
-                WorkOrder = workOrder,
-                InvoiceItems = InvoiceItems,
-                Number = "1"
-            };
-
-            DBContext.Invoice.Add(invoice);
-            DBContext.SaveChanges();
+            return (++maxInvoiceNumber).ToString("D4");
         }
     }
 }

@@ -45,8 +45,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(860, 644);
             this.Controls.Add(this.reportViewer);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MinimizeBox = false;
             this.Name = "ReportViewerForm";
-            this.Text = "ReportViewerForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Predogled tiskanja";
             this.ResumeLayout(false);
 
         }

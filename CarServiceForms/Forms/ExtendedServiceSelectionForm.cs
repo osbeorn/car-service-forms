@@ -1,16 +1,11 @@
 ﻿using CarServiceForms.Classes;
 using CarServiceForms.Core.Collections;
-using CarServiceForms.Core.Helpers;
 using CarServiceForms.Model;
 using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CarServiceForms.Forms
@@ -19,6 +14,8 @@ namespace CarServiceForms.Forms
     {
         private CarServiceFormsDBContext DBContext { get; set; }
         private WorkOrder WorkOrder { get; set; }
+
+        private bool Initializing { get; set; }
 
         public ExtendedServiceSelectionForm(long workOrderId)
         {
@@ -29,10 +26,11 @@ namespace CarServiceForms.Forms
         private void InitializeComponents(long workOrderId)
         {
             DBContext = new CarServiceFormsDBContext();
-            GetWorkOrderData(workOrderId);
 
             SetupListViews();
             SetupServiceTypeComboBoxDatasource();
+
+            GetWorkOrderData(workOrderId);
         }
 
         public void CleanupComponents()
@@ -43,6 +41,15 @@ namespace CarServiceForms.Forms
         private void GetWorkOrderData(long workOrderId)
         {
             WorkOrder = DBContext.WorkOrder.Find(workOrderId);
+            if (WorkOrder.Service != null)
+            {
+                PresetListViews();
+            }
+            else
+            {
+                serviceTypeComboBox.SelectedIndexChanged += ServiceTypeComboBox_SelectedIndexChanged;
+                ServiceTypeComboBox_SelectedIndexChanged(serviceTypeComboBox, null);
+            }
         }
 
         private void SetupListViews()
@@ -53,6 +60,8 @@ namespace CarServiceForms.Forms
 
         private void SetupServiceTypeComboBoxDatasource()
         {
+            serviceTypeComboBox.SelectedIndexChanged -= ServiceTypeComboBox_SelectedIndexChanged;
+
             var serviceTypes = new List<dynamic>()
             {
                 new
@@ -74,6 +83,71 @@ namespace CarServiceForms.Forms
             serviceTypeComboBox.DataSource = serviceTypes;
         }
 
+        private void PresetListViews()
+        {
+            serviceTypeComboBox.Enabled = false;
+            transferLeftButton.Enabled = false;
+            transferRightButton.Enabled = false;
+
+            serviceTypeComboBox.SelectedValue = WorkOrder.Service.Type;
+
+            var appliedServiceItemIds = WorkOrder.Service.AppliedServiceItems
+                .Select(asi => asi.ServiceItem.Id)
+                .ToList();
+
+            var serviceItemGroups = DBContext.ServiceItem
+                .Where(si =>
+                    appliedServiceItemIds.Contains(si.Id) &&
+                    si.Enabled &&
+                    si.ServiceItemGroup.Enabled
+                )
+                .Select(si =>
+                    new ServiceItemWithServiceItemGroupDTO()
+                    {
+                        Id = si.Id,
+                        Name = si.Name,
+                        Order = si.Order,
+                        HasRemarks = si.HasRemarks,
+                        ServiceItemGroupId = si.ServiceItemGroup.Id,
+                        ServiceItemGroupName = si.ServiceItemGroup.Name,
+                        ServiceItemGroupOrder = si.ServiceItemGroup.Order
+                    }
+                )
+                .OrderBy(si => si.ServiceItemGroupOrder)
+                .ThenBy(si => si.Order)
+                .GroupBy(si => si.ServiceItemGroupId)
+                .ToList();
+
+            var remainingServiceItemGroups = DBContext.ServiceItem
+                .Where(si =>
+                    !appliedServiceItemIds.Contains(si.Id) &&
+                    si.Enabled &&
+                    si.ServiceItemGroup.Enabled
+                )
+                .Select(si =>
+                    new ServiceItemWithServiceItemGroupDTO()
+                    {
+                        Id = si.Id,
+                        Name = si.Name,
+                        Order = si.Order,
+                        HasRemarks = si.HasRemarks,
+                        ServiceItemGroupId = si.ServiceItemGroup.Id,
+                        ServiceItemGroupName = si.ServiceItemGroup.Name,
+                        ServiceItemGroupOrder = si.ServiceItemGroup.Order
+                    }
+                )
+                .OrderBy(si => si.ServiceItemGroupOrder)
+                .ThenBy(si => si.Order)
+                .GroupBy(si => si.ServiceItemGroupId)
+                .ToList();
+
+            ClearListView(leftListView);
+            ClearListView(rightListView);
+
+            SetupListViewItems(remainingServiceItemGroups, leftListView);
+            SetupListViewItems(serviceItemGroups, rightListView);
+        }
+
         private string GetServiceTypeDescription(ServiceType serviceType)
         {
             switch (serviceType)
@@ -85,7 +159,7 @@ namespace CarServiceForms.Forms
                 case ServiceType.OilChange:
                     return "servis z menjavo olja";
                 default:
-                    return "Neveljaven tip servisa.";
+                    return "neveljaven tip servisa.";
             }
         }
 
@@ -310,7 +384,28 @@ namespace CarServiceForms.Forms
 
         private void ConfirmButton_Click(object sender, EventArgs e)
         {
-            var selectedServiceType = (ServiceType) serviceTypeComboBox.SelectedValue;
+            SaveService();
+        }
+
+        private void ExtendedServiceSelectionForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CleanupComponents();
+        }
+
+        private void PrintButton_Click(object sender, EventArgs e)
+        {
+            SaveService();
+            PrintService();
+        }
+
+        private void SaveService()
+        {
+            if (WorkOrder.Service != null)
+            {
+                return;
+            }
+
+            var selectedServiceType = (ServiceType)serviceTypeComboBox.SelectedValue;
 
             var serviceItems = rightListView.Items.OfType<ListViewItem>()
                 .Select(si => si.Tag as ServiceItemWithServiceItemGroupDTO)
@@ -336,6 +431,15 @@ namespace CarServiceForms.Forms
 
             DBContext.Service.Add(service);
             DBContext.SaveChanges();
+        }
+
+        private void PrintService()
+        {
+            var selectedServiceType = (ServiceType)serviceTypeComboBox.SelectedValue;
+
+            var serviceItems = rightListView.Items.OfType<ListViewItem>()
+                .Select(si => si.Tag as ServiceItemWithServiceItemGroupDTO)
+                .ToList();
 
             var serviceFormReport = new List<CarServiceFormReportDTO>()
             {
@@ -366,12 +470,7 @@ namespace CarServiceForms.Forms
                 "CarServiceForms.Reports.CarServiceFormReport.rdlc",
                 datasources
             );
-            form.Show();
-        }
-
-        private void ExtendedServiceSelectionForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            CleanupComponents();
+            form.ShowDialog();
         }
     }
 }
