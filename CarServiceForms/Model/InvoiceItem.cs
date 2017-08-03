@@ -18,7 +18,10 @@ namespace CarServiceForms.Model
         public string Description { get; set; }
         public decimal Quantity { get; set; }
         public decimal Price { get; set; }
+        public decimal SalePrice { get; set; }
         public decimal Discount { get; set; }
+        public decimal TaxPercentage { get; set; }
+        public decimal TaxBase { get; set; }
         public decimal FinalPrice { get; set; }
     
         public virtual Invoice Invoice { get; set; }

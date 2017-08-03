@@ -11,7 +11,10 @@ namespace CarServiceForms.Classes
         public string InvoiceItemDescription { get; set; }
         public decimal InvoiceItemQuantity { get; set; }
         public decimal InvoiceItemPrice { get; set; }
+        public decimal InvoiceItemSalePrice { get; set; }
         public decimal InvoiceItemDiscount { get; set; }
+        public decimal InvoiceItemTaxPercentage { get; set; }
+        public decimal InvoiceItemTaxBase { get; set; }
         public decimal InvoiceItemFinalPrice { get; set; }
     }
 }

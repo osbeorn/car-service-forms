@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.invoiceItemsDataGridView = new System.Windows.Forms.DataGridView();
             this.cancelButton = new System.Windows.Forms.Button();
             this.confirmButton = new System.Windows.Forms.Button();
@@ -38,10 +41,17 @@
             this.totalDiscountLabel = new System.Windows.Forms.Label();
             this.totalFinalPriceLabel = new System.Windows.Forms.Label();
             this.printButton = new System.Windows.Forms.Button();
+            this.totalTaxBaseLabel = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.totalTaxLabel = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SalePrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Discount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaxPercentage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaxBase = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceItemsDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,12 +63,16 @@
             this.Description,
             this.Quantity,
             this.Price,
-            this.Discount});
+            this.SalePrice,
+            this.Discount,
+            this.TaxPercentage,
+            this.TaxBase});
             this.invoiceItemsDataGridView.Location = new System.Drawing.Point(12, 12);
             this.invoiceItemsDataGridView.Name = "invoiceItemsDataGridView";
             this.invoiceItemsDataGridView.Size = new System.Drawing.Size(699, 252);
             this.invoiceItemsDataGridView.TabIndex = 0;
             this.invoiceItemsDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.InvoiceItemsDataGridView_CellValueChanged);
+            this.invoiceItemsDataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.InvoiceItemsDataGridView_DefaultValuesNeeded);
             this.invoiceItemsDataGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.InvoiceItemsDataGridView_EditingControlShowing);
             this.invoiceItemsDataGridView.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.InvoiceItemsDataGridView_UserDeletedRow);
             // 
@@ -66,7 +80,7 @@
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(364, 352);
+            this.cancelButton.Location = new System.Drawing.Point(364, 412);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 6;
@@ -77,7 +91,7 @@
             // 
             this.confirmButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.confirmButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.confirmButton.Location = new System.Drawing.Point(283, 352);
+            this.confirmButton.Location = new System.Drawing.Point(283, 412);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(75, 23);
             this.confirmButton.TabIndex = 5;
@@ -89,7 +103,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(520, 322);
+            this.label2.Location = new System.Drawing.Point(520, 365);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 13);
             this.label2.TabIndex = 8;
@@ -136,7 +150,7 @@
             // totalFinalPriceLabel
             // 
             this.totalFinalPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.totalFinalPriceLabel.Location = new System.Drawing.Point(639, 322);
+            this.totalFinalPriceLabel.Location = new System.Drawing.Point(639, 365);
             this.totalFinalPriceLabel.Name = "totalFinalPriceLabel";
             this.totalFinalPriceLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.totalFinalPriceLabel.Size = new System.Drawing.Size(72, 13);
@@ -146,7 +160,7 @@
             // 
             // printButton
             // 
-            this.printButton.Location = new System.Drawing.Point(636, 352);
+            this.printButton.Location = new System.Drawing.Point(636, 412);
             this.printButton.Name = "printButton";
             this.printButton.Size = new System.Drawing.Size(75, 23);
             this.printButton.TabIndex = 14;
@@ -154,40 +168,112 @@
             this.printButton.UseVisualStyleBackColor = true;
             this.printButton.Click += new System.EventHandler(this.PrintButton_Click);
             // 
+            // totalTaxBaseLabel
+            // 
+            this.totalTaxBaseLabel.Location = new System.Drawing.Point(639, 321);
+            this.totalTaxBaseLabel.Name = "totalTaxBaseLabel";
+            this.totalTaxBaseLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.totalTaxBaseLabel.Size = new System.Drawing.Size(72, 13);
+            this.totalTaxBaseLabel.TabIndex = 16;
+            this.totalTaxBaseLabel.Text = "0 €";
+            this.totalTaxBaseLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(544, 321);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(86, 13);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Davčna osnova:";
+            // 
+            // totalTaxLabel
+            // 
+            this.totalTaxLabel.Location = new System.Drawing.Point(639, 343);
+            this.totalTaxLabel.Name = "totalTaxLabel";
+            this.totalTaxLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.totalTaxLabel.Size = new System.Drawing.Size(72, 13);
+            this.totalTaxLabel.TabIndex = 18;
+            this.totalTaxLabel.Text = "0 €";
+            this.totalTaxLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(597, 343);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(33, 13);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "DDV:";
+            // 
             // Description
             // 
             this.Description.DataPropertyName = "Description";
-            this.Description.FillWeight = 55F;
+            this.Description.FillWeight = 40F;
             this.Description.HeaderText = "Opis";
             this.Description.Name = "Description";
             // 
             // Quantity
             // 
             this.Quantity.DataPropertyName = "Quantity";
-            this.Quantity.FillWeight = 15F;
+            this.Quantity.FillWeight = 10F;
             this.Quantity.HeaderText = "Količina";
             this.Quantity.Name = "Quantity";
             // 
             // Price
             // 
             this.Price.DataPropertyName = "Price";
-            this.Price.FillWeight = 15F;
-            this.Price.HeaderText = "Cena [EUR]";
+            dataGridViewCellStyle1.Format = "N4";
+            this.Price.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Price.FillWeight = 10F;
+            this.Price.HeaderText = "Cena[€]";
             this.Price.Name = "Price";
+            // 
+            // SalePrice
+            // 
+            this.SalePrice.DataPropertyName = "SalePrice";
+            dataGridViewCellStyle2.Format = "N2";
+            this.SalePrice.DefaultCellStyle = dataGridViewCellStyle2;
+            this.SalePrice.FillWeight = 10F;
+            this.SalePrice.HeaderText = "Vrednost[€]";
+            this.SalePrice.Name = "SalePrice";
+            this.SalePrice.ReadOnly = true;
             // 
             // Discount
             // 
             this.Discount.DataPropertyName = "Discount";
-            this.Discount.FillWeight = 15F;
-            this.Discount.HeaderText = "Popust [%]";
+            this.Discount.FillWeight = 10F;
+            this.Discount.HeaderText = "Popust[%]";
             this.Discount.Name = "Discount";
+            // 
+            // TaxPercentage
+            // 
+            this.TaxPercentage.DataPropertyName = "TaxPercentage";
+            this.TaxPercentage.FillWeight = 10F;
+            this.TaxPercentage.HeaderText = "DDV[%]";
+            this.TaxPercentage.Name = "TaxPercentage";
+            this.TaxPercentage.ReadOnly = true;
+            // 
+            // TaxBase
+            // 
+            this.TaxBase.DataPropertyName = "TaxBase";
+            dataGridViewCellStyle3.Format = "N2";
+            this.TaxBase.DefaultCellStyle = dataGridViewCellStyle3;
+            this.TaxBase.FillWeight = 10F;
+            this.TaxBase.HeaderText = "Davčna osnova[€]";
+            this.TaxBase.Name = "TaxBase";
+            this.TaxBase.ReadOnly = true;
             // 
             // InvoiceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(723, 387);
+            this.ClientSize = new System.Drawing.Size(723, 467);
             this.ControlBox = false;
+            this.Controls.Add(this.totalTaxLabel);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.totalTaxBaseLabel);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.printButton);
             this.Controls.Add(this.totalFinalPriceLabel);
             this.Controls.Add(this.totalDiscountLabel);
@@ -223,9 +309,16 @@
         private System.Windows.Forms.Label totalDiscountLabel;
         private System.Windows.Forms.Label totalFinalPriceLabel;
         private System.Windows.Forms.Button printButton;
+        private System.Windows.Forms.Label totalTaxBaseLabel;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label totalTaxLabel;
+        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SalePrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn Discount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaxPercentage;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaxBase;
     }
 }

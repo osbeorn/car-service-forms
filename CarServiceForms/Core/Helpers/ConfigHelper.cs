@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarServiceForms.Model;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
@@ -8,20 +9,42 @@ namespace CarServiceForms.Core.Helpers
 {
     public enum ConfigFields
     {
-        REPAIRMAN
+        COMPANY_NAME,
+        COMPANY_ADDRESS_1,
+        COMPANY_ADDRESS_2,
+        COMPANY_BANK_ACCOUNT,
+        REPAIRMAN,
     }
 
     public class ConfigHelper
     {
         private static Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
+        private CarServiceFormsDBContext DBContext { get; set; }
+
         #region mapper
         private static readonly Dictionary<ConfigFields, string> configFieldsMapper = new Dictionary<ConfigFields, string>
         {
             {
+                ConfigFields.COMPANY_NAME,
+                "company_name"
+            },
+            {
+                ConfigFields.COMPANY_ADDRESS_1,
+                "company_address_1"
+            },
+            {
+                ConfigFields.COMPANY_ADDRESS_2,
+                "company_address_2"
+            },
+            {
+                ConfigFields.COMPANY_BANK_ACCOUNT,
+                "company_bank_account"
+            },
+            {
                 ConfigFields.REPAIRMAN,
                 "repairman"
-            },
+            }
         };
         #endregion mapper
 

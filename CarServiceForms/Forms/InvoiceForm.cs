@@ -82,6 +82,8 @@ namespace CarServiceForms.Forms
         {
             var totalSalePrice = 0m;
             var totalDiscount = 0m;
+            var totalTaxBase = 0m;
+            var totalTax = 0m;
             var totalFinalPrice = 0m;
 
             foreach (DataGridViewRow invoiceItemsDataGridViewRow in invoiceItemsDataGridView.Rows)
@@ -94,17 +96,28 @@ namespace CarServiceForms.Forms
 
                 var salePrice = invoiceItem.Quantity * invoiceItem.Price;
                 var discount = (salePrice * invoiceItem.Discount) / 100m;
-                var finalPrice = salePrice - discount;
+                var taxBase = salePrice - discount;
+                var tax = (taxBase * invoiceItem.TaxPercentage) / 100m;
+                var finalPrice = salePrice - discount + tax;
 
+                invoiceItem.SalePrice = salePrice;
+                invoiceItem.TaxBase = taxBase;
                 invoiceItem.FinalPrice = finalPrice;
 
                 totalSalePrice += salePrice;
                 totalDiscount += discount;
+                totalTaxBase += taxBase;
+                totalTax += tax;
                 totalFinalPrice += finalPrice;
+
+                invoiceItemsDataGridView.UpdateCellValue(invoiceItemsDataGridViewRow.Cells["SalePrice"].ColumnIndex, invoiceItemsDataGridViewRow.Index);
+                invoiceItemsDataGridView.UpdateCellValue(invoiceItemsDataGridViewRow.Cells["TaxBase"].ColumnIndex, invoiceItemsDataGridViewRow.Index);
             }
 
             totalSalePriceLabel.Text = string.Format("{0:c}", totalSalePrice);
             totalDiscountLabel.Text = string.Format("{0:c}", totalDiscount);
+            totalTaxBaseLabel.Text = string.Format("{0:c}", totalTaxBase);
+            totalTaxLabel.Text = string.Format("{0:c}", totalTax); ;
             totalFinalPriceLabel.Text = string.Format("{0:c}", totalFinalPrice);
         }
 
@@ -209,7 +222,10 @@ namespace CarServiceForms.Forms
                     InvoiceItemDescription = invoiceItem.Description,
                     InvoiceItemQuantity = invoiceItem.Quantity,
                     InvoiceItemPrice = invoiceItem.Price,
+                    InvoiceItemSalePrice = invoiceItem.SalePrice,
                     InvoiceItemDiscount = invoiceItem.Discount,
+                    InvoiceItemTaxPercentage = invoiceItem.TaxPercentage,
+                    InvoiceItemTaxBase = invoiceItem.TaxBase,
                     InvoiceItemFinalPrice = invoiceItem.FinalPrice
                 });
             }
@@ -249,6 +265,11 @@ namespace CarServiceForms.Forms
                     .Max();
 
             return (++maxInvoiceNumber).ToString("D4");
+        }
+
+        private void InvoiceItemsDataGridView_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells["TaxPercentage"].Value = 22.0m;
         }
     }
 }

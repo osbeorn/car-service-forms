@@ -119,6 +119,14 @@ namespace CarServiceForms.Forms
                     serviceItemGroup.Enabled = true;
                     DBContext.ServiceItemGroup.Add(serviceItemGroup);
                 }
+                else
+                {
+                    var originalServiceItemGroup = DBContext.ServiceItemGroup.Find(serviceItemGroup.Id);
+                    if (originalServiceItemGroup != null)
+                    {
+                        DBContext.Entry(originalServiceItemGroup).CurrentValues.SetValues(serviceItemGroup);
+                    }
+                }
             }
 
             foreach (var serviceItemGroupId in DeletedServiceItemGroups)
@@ -141,24 +149,30 @@ namespace CarServiceForms.Forms
         {
             foreach (var serviceItemDTO in ServiceItems)
             {
+                var serviceItem = new ServiceItem()
+                {
+                    Id = serviceItemDTO.Id,
+                    Name = serviceItemDTO.Name,
+                    Order = serviceItemDTO.Order,
+                    Enabled = true,
+                    HasRemarks = false,
+                    ServiceItemGroup = new ServiceItemGroup()
+                    {
+                        Id = serviceItemDTO.ServiceItemGroupId
+                    }
+                };
+
                 if (serviceItemDTO.Id <= 0)
                 {
-                    var serviceItem = new ServiceItem()
-                    {
-                        Name = serviceItemDTO.Name,
-                        Order = serviceItemDTO.Order,
-                        Enabled = true,
-                        HasRemarks = false,
-                        ServiceItemGroup = new ServiceItemGroup()
-                        {
-                            Id = serviceItemDTO.ServiceItemGroupId
-                        }
-                    };
                     DBContext.ServiceItem.Add(serviceItem);
                 }
                 else
                 {
-
+                    var originalServiceItem = DBContext.ServiceItem.Find(serviceItemDTO.Id);
+                    if (originalServiceItem != null)
+                    {
+                        DBContext.Entry(originalServiceItem).CurrentValues.SetValues(serviceItem);
+                    }
                 }
             }
 

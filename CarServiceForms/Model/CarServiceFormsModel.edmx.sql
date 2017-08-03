@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/27/2017 16:06:54
+-- Date Created: 08/02/2017 19:11:59
 -- Generated from EDMX file: F:\Development\car-service-forms\CarServiceForms\Model\CarServiceFormsModel.edmx
 -- --------------------------------------------------
 
@@ -38,9 +38,6 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ServiceAppliedServiceItem]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AppliedServiceItem] DROP CONSTRAINT [FK_ServiceAppliedServiceItem];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ServiceItemAppliedServiceItem]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[AppliedServiceItem] DROP CONSTRAINT [FK_ServiceItemAppliedServiceItem];
-GO
 IF OBJECT_ID(N'[dbo].[FK_ServiceItemServiceItemServiceType]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ServiceItemServiceType] DROP CONSTRAINT [FK_ServiceItemServiceItemServiceType];
 GO
@@ -49,6 +46,9 @@ IF OBJECT_ID(N'[dbo].[FK_InvoiceInvoiceItem]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_WorkOrderInvoice]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Invoice] DROP CONSTRAINT [FK_WorkOrderInvoice];
+GO
+IF OBJECT_ID(N'[dbo].[FK_AppliedServiceItemServiceItem]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[AppliedServiceItem] DROP CONSTRAINT [FK_AppliedServiceItemServiceItem];
 GO
 
 -- --------------------------------------------------
@@ -229,7 +229,10 @@ CREATE TABLE [dbo].[InvoiceItem] (
     [Description] nvarchar(max)  NOT NULL,
     [Quantity] decimal(18,2)  NOT NULL,
     [Price] decimal(18,4)  NOT NULL,
+    [SalePrice] decimal(18,2)  NOT NULL,
     [Discount] decimal(18,2)  NOT NULL,
+    [TaxPercentage] decimal(18,1)  NOT NULL,
+    [TaxBase] decimal(18,2)  NOT NULL,
     [FinalPrice] decimal(18,2)  NOT NULL,
     [Invoice_Id] bigint  NOT NULL
 );
