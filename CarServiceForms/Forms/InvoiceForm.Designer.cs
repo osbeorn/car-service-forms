@@ -32,6 +32,13 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.invoiceItemsDataGridView = new System.Windows.Forms.DataGridView();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SalePrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Discount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaxPercentage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaxBase = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cancelButton = new System.Windows.Forms.Button();
             this.confirmButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -45,13 +52,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.totalTaxLabel = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SalePrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Discount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TaxPercentage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TaxBase = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.paymentDeadlineDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceItemsDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,6 +77,64 @@
             this.invoiceItemsDataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.InvoiceItemsDataGridView_DefaultValuesNeeded);
             this.invoiceItemsDataGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.InvoiceItemsDataGridView_EditingControlShowing);
             this.invoiceItemsDataGridView.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.InvoiceItemsDataGridView_UserDeletedRow);
+            // 
+            // Description
+            // 
+            this.Description.DataPropertyName = "Description";
+            this.Description.FillWeight = 40F;
+            this.Description.HeaderText = "Opis";
+            this.Description.Name = "Description";
+            // 
+            // Quantity
+            // 
+            this.Quantity.DataPropertyName = "Quantity";
+            this.Quantity.FillWeight = 10F;
+            this.Quantity.HeaderText = "Količina";
+            this.Quantity.Name = "Quantity";
+            // 
+            // Price
+            // 
+            this.Price.DataPropertyName = "Price";
+            dataGridViewCellStyle1.Format = "N4";
+            this.Price.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Price.FillWeight = 10F;
+            this.Price.HeaderText = "Cena[€]";
+            this.Price.Name = "Price";
+            // 
+            // SalePrice
+            // 
+            this.SalePrice.DataPropertyName = "SalePrice";
+            dataGridViewCellStyle2.Format = "N2";
+            this.SalePrice.DefaultCellStyle = dataGridViewCellStyle2;
+            this.SalePrice.FillWeight = 10F;
+            this.SalePrice.HeaderText = "Vrednost[€]";
+            this.SalePrice.Name = "SalePrice";
+            this.SalePrice.ReadOnly = true;
+            // 
+            // Discount
+            // 
+            this.Discount.DataPropertyName = "Discount";
+            this.Discount.FillWeight = 10F;
+            this.Discount.HeaderText = "Popust[%]";
+            this.Discount.Name = "Discount";
+            // 
+            // TaxPercentage
+            // 
+            this.TaxPercentage.DataPropertyName = "TaxPercentage";
+            this.TaxPercentage.FillWeight = 10F;
+            this.TaxPercentage.HeaderText = "DDV[%]";
+            this.TaxPercentage.Name = "TaxPercentage";
+            this.TaxPercentage.ReadOnly = true;
+            // 
+            // TaxBase
+            // 
+            this.TaxBase.DataPropertyName = "TaxBase";
+            dataGridViewCellStyle3.Format = "N2";
+            this.TaxBase.DefaultCellStyle = dataGridViewCellStyle3;
+            this.TaxBase.FillWeight = 10F;
+            this.TaxBase.HeaderText = "Davčna osnova[€]";
+            this.TaxBase.Name = "TaxBase";
+            this.TaxBase.ReadOnly = true;
             // 
             // cancelButton
             // 
@@ -206,70 +266,33 @@
             this.label7.TabIndex = 17;
             this.label7.Text = "DDV:";
             // 
-            // Description
+            // paymentDeadlineDateTimePicker
             // 
-            this.Description.DataPropertyName = "Description";
-            this.Description.FillWeight = 40F;
-            this.Description.HeaderText = "Opis";
-            this.Description.Name = "Description";
+            this.paymentDeadlineDateTimePicker.CustomFormat = "dd.MM.yyyy";
+            this.paymentDeadlineDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.paymentDeadlineDateTimePicker.Location = new System.Drawing.Point(80, 270);
+            this.paymentDeadlineDateTimePicker.Name = "paymentDeadlineDateTimePicker";
+            this.paymentDeadlineDateTimePicker.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.paymentDeadlineDateTimePicker.Size = new System.Drawing.Size(112, 20);
+            this.paymentDeadlineDateTimePicker.TabIndex = 19;
             // 
-            // Quantity
+            // label1
             // 
-            this.Quantity.DataPropertyName = "Quantity";
-            this.Quantity.FillWeight = 10F;
-            this.Quantity.HeaderText = "Količina";
-            this.Quantity.Name = "Quantity";
-            // 
-            // Price
-            // 
-            this.Price.DataPropertyName = "Price";
-            dataGridViewCellStyle1.Format = "N4";
-            this.Price.DefaultCellStyle = dataGridViewCellStyle1;
-            this.Price.FillWeight = 10F;
-            this.Price.HeaderText = "Cena[€]";
-            this.Price.Name = "Price";
-            // 
-            // SalePrice
-            // 
-            this.SalePrice.DataPropertyName = "SalePrice";
-            dataGridViewCellStyle2.Format = "N2";
-            this.SalePrice.DefaultCellStyle = dataGridViewCellStyle2;
-            this.SalePrice.FillWeight = 10F;
-            this.SalePrice.HeaderText = "Vrednost[€]";
-            this.SalePrice.Name = "SalePrice";
-            this.SalePrice.ReadOnly = true;
-            // 
-            // Discount
-            // 
-            this.Discount.DataPropertyName = "Discount";
-            this.Discount.FillWeight = 10F;
-            this.Discount.HeaderText = "Popust[%]";
-            this.Discount.Name = "Discount";
-            // 
-            // TaxPercentage
-            // 
-            this.TaxPercentage.DataPropertyName = "TaxPercentage";
-            this.TaxPercentage.FillWeight = 10F;
-            this.TaxPercentage.HeaderText = "DDV[%]";
-            this.TaxPercentage.Name = "TaxPercentage";
-            this.TaxPercentage.ReadOnly = true;
-            // 
-            // TaxBase
-            // 
-            this.TaxBase.DataPropertyName = "TaxBase";
-            dataGridViewCellStyle3.Format = "N2";
-            this.TaxBase.DefaultCellStyle = dataGridViewCellStyle3;
-            this.TaxBase.FillWeight = 10F;
-            this.TaxBase.HeaderText = "Davčna osnova[€]";
-            this.TaxBase.Name = "TaxBase";
-            this.TaxBase.ReadOnly = true;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 273);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "Rok plačila:";
             // 
             // InvoiceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(723, 467);
+            this.ClientSize = new System.Drawing.Size(723, 447);
             this.ControlBox = false;
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.paymentDeadlineDateTimePicker);
             this.Controls.Add(this.totalTaxLabel);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.totalTaxBaseLabel);
@@ -320,5 +343,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Discount;
         private System.Windows.Forms.DataGridViewTextBoxColumn TaxPercentage;
         private System.Windows.Forms.DataGridViewTextBoxColumn TaxBase;
+        private System.Windows.Forms.DateTimePicker paymentDeadlineDateTimePicker;
+        private System.Windows.Forms.Label label1;
     }
 }

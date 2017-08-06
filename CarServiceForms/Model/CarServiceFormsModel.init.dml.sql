@@ -152,3 +152,12 @@ VALUES
 (62, 2, 45);
 
 SET IDENTITY_INSERT [CarServiceForms].[dbo].[ServiceItemServiceType] OFF;
+
+-- Settings
+SET IDENTITY_INSERT [CarServiceForms].[dbo].[ServiceItemServiceType] ON;
+
+INSERT INTO [CarServiceForms].[dbo].[Settings] ([Id], [Key], [Value])
+VALUES
+(1, 'payment_deadline', '30');
+
+SET IDENTITY_INSERT [CarServiceForms].[dbo].[ServiceItemServiceType] OFF;

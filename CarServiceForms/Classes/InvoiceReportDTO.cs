@@ -11,6 +11,11 @@ namespace CarServiceForms.Classes
         // invoice
         public string InvoiceNumber { get; set; }
         public DateTime InvoiceCreated { get; set; }
+        public DateTime InvoiceDeadline { get; set; }
+        public string InvoiceCompanyName { get; set; }
+        public string InvoiceCompanyAddress1 { get; set; }
+        public string InvoiceCompanyAddress2 { get; set; }
+        public string InvoiceCompanyBankAccount { get; set; }
 
         // work order
         public string WorkOrderNumber { get; set; }

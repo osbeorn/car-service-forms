@@ -1,4 +1,5 @@
 ﻿using CarServiceForms.Classes;
+using CarServiceForms.Core.Helpers;
 using CarServiceForms.Model;
 using Microsoft.Reporting.WinForms;
 using System;
@@ -47,10 +48,13 @@ namespace CarServiceForms.Forms
             {
                 Invoice = WorkOrder.Invoice;
                 InvoiceItems = Invoice.InvoiceItems.ToList();
+                paymentDeadlineDateTimePicker.Value = Invoice.Deadline;
             }
             else
             {
                 InvoiceItems = new List<InvoiceItem>();
+                var paymentDeadline = SettingsHelper.GetConfigValue<int>(SettingsFields.PAYMENT_DEADLINE);
+                paymentDeadlineDateTimePicker.Value = DateTime.Now.AddDays(paymentDeadline);
             }
 
             invoiceItemsDataGridView.DataSource = new BindingList<InvoiceItem>(InvoiceItems);
@@ -165,6 +169,7 @@ namespace CarServiceForms.Forms
             if (Invoice != null)
             {
                 Invoice.InvoiceItems = InvoiceItems;
+                Invoice.Deadline = paymentDeadlineDateTimePicker.Value;
             }
             else
             {
@@ -175,7 +180,8 @@ namespace CarServiceForms.Forms
                     Created = DateTime.Now,
                     WorkOrder = WorkOrder,
                     InvoiceItems = InvoiceItems,
-                    Number = invoiceNumber
+                    Number = invoiceNumber,
+                    Deadline = paymentDeadlineDateTimePicker.Value
                 };
                 DBContext.Invoice.Add(Invoice);
             }
@@ -190,6 +196,12 @@ namespace CarServiceForms.Forms
             {
                 InvoiceNumber = workOrder.Invoice.Number,
                 InvoiceCreated = workOrder.Invoice.Created,
+                InvoiceDeadline = workOrder.Invoice.Deadline,
+
+                InvoiceCompanyName = SettingsHelper.GetConfigValue<string>(SettingsFields.COMPANY_NAME),
+                InvoiceCompanyAddress1 = SettingsHelper.GetConfigValue<string>(SettingsFields.COMPANY_ADDRESS_1),
+                InvoiceCompanyAddress2 = SettingsHelper.GetConfigValue<string>(SettingsFields.COMPANY_ADDRESS_2),
+                InvoiceCompanyBankAccount = SettingsHelper.GetConfigValue<string>(SettingsFields.COMPANY_BANK_ACCOUNT),
 
                 WorkOrderNumber = workOrder.Number,
                 WorkOrderCreated = workOrder.Created,

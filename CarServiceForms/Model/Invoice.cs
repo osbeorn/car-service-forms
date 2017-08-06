@@ -23,6 +23,7 @@ namespace CarServiceForms.Model
         public long Id { get; set; }
         public string Number { get; set; }
         public System.DateTime Created { get; set; }
+        public System.DateTime Deadline { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InvoiceItem> InvoiceItems { get; set; }

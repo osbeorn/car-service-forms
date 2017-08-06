@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 08/02/2017 19:11:59
+-- Date Created: 08/05/2017 13:10:34
 -- Generated from EDMX file: F:\Development\car-service-forms\CarServiceForms\Model\CarServiceFormsModel.edmx
 -- --------------------------------------------------
 
@@ -209,8 +209,7 @@ GO
 CREATE TABLE [dbo].[Settings] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Key] nvarchar(max)  NOT NULL,
-    [Value] nvarchar(max)  NOT NULL,
-    [Type] nvarchar(max)  NULL
+    [Value] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -219,6 +218,7 @@ CREATE TABLE [dbo].[Invoice] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Number] nvarchar(max)  NOT NULL,
     [Created] datetime  NOT NULL,
+    [Deadline] datetime  NOT NULL,
     [WorkOrder_Id] bigint  NOT NULL
 );
 GO

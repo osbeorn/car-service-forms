@@ -44,6 +44,10 @@
             this.customerFirstNameTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.vehicleTransmissionTextBox = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.vehicleEngineTextBox = new System.Windows.Forms.TextBox();
             this.vehicleModelYearNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -62,10 +66,6 @@
             this.vehicleIdentificationNumberTextBox = new System.Windows.Forms.TextBox();
             this.vehicleRegistrationNumberTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.vehicleEngineTextBox = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.vehicleTransmissionTextBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vehicleModelYearNumericUpDown)).BeginInit();
@@ -246,6 +246,38 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Vozilo";
             // 
+            // vehicleTransmissionTextBox
+            // 
+            this.vehicleTransmissionTextBox.Location = new System.Drawing.Point(72, 97);
+            this.vehicleTransmissionTextBox.Name = "vehicleTransmissionTextBox";
+            this.vehicleTransmissionTextBox.Size = new System.Drawing.Size(215, 20);
+            this.vehicleTransmissionTextBox.TabIndex = 13;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 100);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(52, 13);
+            this.label15.TabIndex = 12;
+            this.label15.Text = "Menjalnik";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 74);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(34, 13);
+            this.label16.TabIndex = 8;
+            this.label16.Text = "Motor";
+            // 
+            // vehicleEngineTextBox
+            // 
+            this.vehicleEngineTextBox.Location = new System.Drawing.Point(72, 71);
+            this.vehicleEngineTextBox.Name = "vehicleEngineTextBox";
+            this.vehicleEngineTextBox.Size = new System.Drawing.Size(215, 20);
+            this.vehicleEngineTextBox.TabIndex = 9;
+            // 
             // vehicleModelYearNumericUpDown
             // 
             this.vehicleModelYearNumericUpDown.Location = new System.Drawing.Point(72, 123);
@@ -290,7 +322,8 @@
             // 
             // vehicleRegistrationDateDateTimePicker
             // 
-            this.vehicleRegistrationDateDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.vehicleRegistrationDateDateTimePicker.CustomFormat = "dd.MM.yyyy";
+            this.vehicleRegistrationDateDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.vehicleRegistrationDateDateTimePicker.Location = new System.Drawing.Point(359, 123);
             this.vehicleRegistrationDateDateTimePicker.Name = "vehicleRegistrationDateDateTimePicker";
             this.vehicleRegistrationDateDateTimePicker.Size = new System.Drawing.Size(215, 20);
@@ -400,38 +433,6 @@
             this.label6.Size = new System.Drawing.Size(44, 13);
             this.label6.TabIndex = 0;
             this.label6.Text = "Reg. št.";
-            // 
-            // vehicleEngineTextBox
-            // 
-            this.vehicleEngineTextBox.Location = new System.Drawing.Point(72, 71);
-            this.vehicleEngineTextBox.Name = "vehicleEngineTextBox";
-            this.vehicleEngineTextBox.Size = new System.Drawing.Size(215, 20);
-            this.vehicleEngineTextBox.TabIndex = 9;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 74);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(34, 13);
-            this.label16.TabIndex = 8;
-            this.label16.Text = "Motor";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 100);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(52, 13);
-            this.label15.TabIndex = 12;
-            this.label15.Text = "Menjalnik";
-            // 
-            // vehicleTransmissionTextBox
-            // 
-            this.vehicleTransmissionTextBox.Location = new System.Drawing.Point(72, 97);
-            this.vehicleTransmissionTextBox.Name = "vehicleTransmissionTextBox";
-            this.vehicleTransmissionTextBox.Size = new System.Drawing.Size(215, 20);
-            this.vehicleTransmissionTextBox.TabIndex = 13;
             // 
             // NewCustomerWithVehicleForm
             // 

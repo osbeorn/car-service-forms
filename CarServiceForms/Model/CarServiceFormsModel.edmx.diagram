@@ -25,14 +25,14 @@
         <AssociationConnector Association="CarServiceFormsModel.ServiceItemServiceItemServiceType" />
         <EntityTypeShape EntityType="CarServiceFormsModel.Settings" Width="1.5" PointX="0.75" PointY="1.25" />
         <EntityTypeShape EntityType="CarServiceFormsModel.Invoice" Width="1.5" PointX="9.375" PointY="5" />
-        <EntityTypeShape EntityType="CarServiceFormsModel.InvoiceItem" Width="1.5" PointX="9.375" PointY="7.375" />
+        <EntityTypeShape EntityType="CarServiceFormsModel.InvoiceItem" Width="1.5" PointX="9.375" PointY="7.625" />
         <AssociationConnector Association="CarServiceFormsModel.InvoiceInvoiceItem" />
         <AssociationConnector Association="CarServiceFormsModel.WorkOrderInvoice" ManuallyRouted="true" >
-          <ConnectorPoint PointX="8.2258146134060972" PointY="4.1917936197916656" />
-          <ConnectorPoint PointX="8.2258146134060972" PointY="4.75" />
+          <ConnectorPoint PointX="8.2439556533515237" PointY="4.1917936197916656" />
+          <ConnectorPoint PointX="8.2439556533515237" PointY="4.75" />
           <ConnectorPoint PointX="9" PointY="4.75" />
-          <ConnectorPoint PointX="9" PointY="5.9901432291666659" />
-          <ConnectorPoint PointX="9.375" PointY="5.9901432291666659" />
+          <ConnectorPoint PointX="9" PointY="6.0862939453125" />
+          <ConnectorPoint PointX="9.375" PointY="6.0862939453125" />
         </AssociationConnector>
         <AssociationConnector Association="CarServiceFormsModel.AppliedServiceItemServiceItem" />
       </Diagram>

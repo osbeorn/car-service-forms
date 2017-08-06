@@ -1,4 +1,5 @@
-﻿using CarServiceForms.Model;
+﻿using CarServiceForms.Core.Helpers;
+using CarServiceForms.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,8 +15,6 @@ namespace CarServiceForms.Forms
 {
     public partial class SettingsForm : Form
     {
-        private CarServiceFormsDBContext DBContext { get; set; }
-
         public SettingsForm()
         {
             InitializeComponent();
@@ -24,29 +23,26 @@ namespace CarServiceForms.Forms
 
         private void InitializeComponents()
         {
-            DBContext = new CarServiceFormsDBContext();
+            companyNameTextBox.Text = SettingsHelper.GetConfigValue<string>(SettingsFields.COMPANY_NAME);
+            companyAddress1TextBox.Text = SettingsHelper.GetConfigValue<string>(SettingsFields.COMPANY_ADDRESS_1);
+            companyAddress2TextBox.Text = SettingsHelper.GetConfigValue<string>(SettingsFields.COMPANY_ADDRESS_2);
+            companyTaxIdTextBox.Text = SettingsHelper.GetConfigValue<string>(SettingsFields.COMPANY_TAX_ID);
+            companyBankAccountTextBox.Text = SettingsHelper.GetConfigValue<string>(SettingsFields.COMPANY_BANK_ACCOUNT);
 
-            repairmanTextBox.Text = ConfigurationManager.AppSettings["repairman"];
-        }
-
-        private void CleanupComponents()
-        {
-            DBContext.Dispose();
-        }
-
-        private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            CleanupComponents();
+            repairmanTextBox.Text = SettingsHelper.GetConfigValue<string>(SettingsFields.REPAIRMAN);
+            paymentDeadlineNumericUpDown.Value = SettingsHelper.GetConfigValue<int>(SettingsFields.PAYMENT_DEADLINE);
         }
 
         private void ConfirmButton_Click(object sender, EventArgs e)
         {
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            SettingsHelper.SetConfigValue(SettingsFields.COMPANY_NAME, companyNameTextBox.Text);
+            SettingsHelper.SetConfigValue(SettingsFields.COMPANY_ADDRESS_1, companyAddress1TextBox.Text);
+            SettingsHelper.SetConfigValue(SettingsFields.COMPANY_ADDRESS_2, companyAddress2TextBox.Text);
+            SettingsHelper.SetConfigValue(SettingsFields.COMPANY_TAX_ID, companyTaxIdTextBox.Text);
+            SettingsHelper.SetConfigValue(SettingsFields.COMPANY_BANK_ACCOUNT, companyBankAccountTextBox.Text);
 
-            config.AppSettings.Settings["repairman"].Value = repairmanTextBox.Text;
-
-            config.Save(ConfigurationSaveMode.Modified);
-            ConfigurationManager.RefreshSection(config.AppSettings.SectionInformation.Name);
+            SettingsHelper.SetConfigValue(SettingsFields.REPAIRMAN, repairmanTextBox.Text);
+            SettingsHelper.SetConfigValue(SettingsFields.PAYMENT_DEADLINE, (int) paymentDeadlineNumericUpDown.Value);
         }
     }
 }

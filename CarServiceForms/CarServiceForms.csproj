@@ -160,7 +160,7 @@
     <Compile Include="Core\Collections\ListViewItemComparer.cs" />
     <Compile Include="Core\Collections\PropertyComparer.cs" />
     <Compile Include="Core\Collections\SortableBindingList.cs" />
-    <Compile Include="Core\Helpers\ConfigHelper.cs" />
+    <Compile Include="Core\Helpers\SettingsHelper.cs" />
     <Compile Include="Core\Helpers\DateTimeHelper.cs" />
     <Compile Include="Core\Helpers\ControlExtensions.cs" />
     <Compile Include="Core\Helpers\ValidationHelper.cs" />
