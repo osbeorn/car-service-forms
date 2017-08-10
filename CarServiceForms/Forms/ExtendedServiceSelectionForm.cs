@@ -430,6 +430,7 @@ namespace CarServiceForms.Forms
             };
 
             DBContext.Service.Add(service);
+            WorkOrder.Service = service;
             DBContext.SaveChanges();
         }
 

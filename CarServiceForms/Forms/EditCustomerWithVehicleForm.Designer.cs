@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditCustomerWithVehicleForm));
             this.confirmButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -265,6 +266,7 @@
             this.vehicleModelYearNumericUpDown.Name = "vehicleModelYearNumericUpDown";
             this.vehicleModelYearNumericUpDown.Size = new System.Drawing.Size(215, 20);
             this.vehicleModelYearNumericUpDown.TabIndex = 17;
+            this.vehicleModelYearNumericUpDown.Enter += new System.EventHandler(this.VehicleModelYearNumericUpDown_Enter);
             // 
             // label14
             // 
@@ -295,6 +297,7 @@
             this.vehicleMileageNumericUpDown.Name = "vehicleMileageNumericUpDown";
             this.vehicleMileageNumericUpDown.Size = new System.Drawing.Size(215, 20);
             this.vehicleMileageNumericUpDown.TabIndex = 21;
+            this.vehicleMileageNumericUpDown.Enter += new System.EventHandler(this.VehicleMileageNumericUpDown_Enter);
             // 
             // vehicleRegistrationDateDateTimePicker
             // 
@@ -421,6 +424,7 @@
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.confirmButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "EditCustomerWithVehicleForm";

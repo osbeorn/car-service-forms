@@ -58,7 +58,7 @@ VALUES
 
 -- Motorni prostor
 (32, 'Akumulator in dodatni akumulator: opravite vizualno kontrolo, preverite magično oko.', 0, 4, 32, 1),
-(33, 'Motorno olje: dolijte olje (po potrebi do oznake max), normativ VW 50200. Količina polnjenja 3,2 l.', 0, 4, 33, 1),
+(33, 'Motorno olje: dolijte olje do oznake max.', 0, 4, 33, 1),
 (34, 'Motor in deli v motornem prostoru (z zgornje strani): vizualna kontrola tesnenja in morebitnih poškodb.', 0, 4, 34, 1),
 (35, 'Naprava za čiščenje stekel: dolijte tekočino.', 0, 4, 35, 1),
 (36, 'Hladilni sistem: preverite nivo hladilne tekočine in zaščito pred zamrzovanjem/predvidena vrednost -25°C (arktične države -36°C), vpišite izmerjeno dejansko vrednost: _____', 1, 4, 36, 1),
@@ -154,10 +154,21 @@ VALUES
 SET IDENTITY_INSERT [CarServiceForms].[dbo].[ServiceItemServiceType] OFF;
 
 -- Settings
-SET IDENTITY_INSERT [CarServiceForms].[dbo].[ServiceItemServiceType] ON;
+SET IDENTITY_INSERT [CarServiceForms].[dbo].[Settings] ON;
 
 INSERT INTO [CarServiceForms].[dbo].[Settings] ([Id], [Key], [Value])
 VALUES
 (1, 'payment_deadline', '30');
 
-SET IDENTITY_INSERT [CarServiceForms].[dbo].[ServiceItemServiceType] OFF;
+SET IDENTITY_INSERT [CarServiceForms].[dbo].[Settings] OFF;
+
+-- InvoiceItemDescription
+SET IDENTITY_INSERT [CarServiceForms].[dbo].[InvoiceItemDescription] ON;
+
+INSERT INTO [CarServiceForms].[dbo].[InvoiceItemDescription] ([Id], [Value])
+VALUES
+(1, 'Servis z menjavo olja'),
+(2, 'Servisni pregled (časovno ali kilometrsko pogojeni)'),
+(3, 'Intervalni servis (fiksno)');
+
+SET IDENTITY_INSERT [CarServiceForms].[dbo].[InvoiceItemDescription] OFF;

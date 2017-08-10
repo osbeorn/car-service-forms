@@ -95,5 +95,18 @@ namespace CarServiceForms.Forms
         {
             CleanupComponents();
         }
+
+        private void CustomersDataGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
+            var customer = customersDataGridView.Rows[e.RowIndex].DataBoundItem as Customer;
+            if (customer != null)
+            {
+                ReturnValue = customer.Id;
+                DialogResult = DialogResult.OK;
+            }
+        }
     }
 }

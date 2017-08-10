@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 08/05/2017 13:10:34
+-- Date Created: 08/07/2017 12:33:41
 -- Generated from EDMX file: F:\Development\car-service-forms\CarServiceForms\Model\CarServiceFormsModel.edmx
 -- --------------------------------------------------
 
@@ -238,6 +238,13 @@ CREATE TABLE [dbo].[InvoiceItem] (
 );
 GO
 
+-- Creating table 'InvoiceItemDescription'
+CREATE TABLE [dbo].[InvoiceItemDescription] (
+    [Id] bigint IDENTITY(1,1) NOT NULL,
+    [Value] nvarchar(max)  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -317,6 +324,12 @@ GO
 -- Creating primary key on [Id] in table 'InvoiceItem'
 ALTER TABLE [dbo].[InvoiceItem]
 ADD CONSTRAINT [PK_InvoiceItem]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'InvoiceItemDescription'
+ALTER TABLE [dbo].[InvoiceItemDescription]
+ADD CONSTRAINT [PK_InvoiceItemDescription]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

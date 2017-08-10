@@ -14,5 +14,8 @@ namespace CarServiceForms.Classes
         public DateTime Deadline { get; set; }
         public string Customer { get; set; }
         public string Vehicle { get; set; }
+
+        public bool HasService { get; set; }
+        public bool HasInvoice { get; set; }
     }
 }

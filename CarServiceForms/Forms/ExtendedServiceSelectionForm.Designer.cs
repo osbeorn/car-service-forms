@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExtendedServiceSelectionForm));
             this.transferRightButton = new System.Windows.Forms.Button();
             this.transferLeftButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -195,6 +196,7 @@
             this.Controls.Add(this.transferLeftButton);
             this.Controls.Add(this.transferRightButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ExtendedServiceSelectionForm";

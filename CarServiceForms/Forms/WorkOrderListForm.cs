@@ -16,8 +16,6 @@ namespace CarServiceForms.Forms
 {
     public partial class WorkOrderListForm : Form
     {
-        private CarServiceFormsDBContext DBContext { get; set; }
-
         public WorkOrderListForm()
         {
             InitializeComponent();
@@ -26,7 +24,6 @@ namespace CarServiceForms.Forms
 
         private void InitializeComponents()
         {
-            DBContext = new CarServiceFormsDBContext();
             workOrdersDataGridView.AutoGenerateColumns = false;
 
             LoadWorkOrders();
@@ -46,7 +43,9 @@ namespace CarServiceForms.Forms
 
         private void LoadWorkOrders()
         {
-            var workOrders = DBContext.WorkOrder
+            using (var dbContext = new CarServiceFormsDBContext())
+            {
+                var workOrdersDTO = dbContext.WorkOrder
                 .OrderBy(wo => wo.Created)
                 .ToList()
                 .Select(wo => new WorkOrderDTO()
@@ -56,10 +55,14 @@ namespace CarServiceForms.Forms
                     Created = wo.Created,
                     Deadline = wo.Deadline,
                     Customer = wo.Vehicle.Customer.ShortDescription,
-                    Vehicle = wo.Vehicle.ShortDescription
+                    Vehicle = wo.Vehicle.ShortDescription,
+                    HasService = wo.Service != null,
+                    HasInvoice = wo.Invoice != null
                 })
                 .ToList();
-            workOrdersDataGridView.DataSource = new SortableBindingList<WorkOrderDTO>(workOrders);
+
+                workOrdersDataGridView.DataSource = new SortableBindingList<WorkOrderDTO>(workOrdersDTO);
+            }
         }
 
         private void WorkOrdersDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -165,13 +168,12 @@ namespace CarServiceForms.Forms
                 return;
 
             var workOrderDTO = workOrdersDataGridView.Rows[e.RowIndex].DataBoundItem as WorkOrderDTO;
-            var workOrder = DBContext.WorkOrder.Find(workOrderDTO.Id);
 
             var dataGridViewColumn = workOrdersDataGridView.Columns[e.ColumnIndex];
             var dataGridViewCell = workOrdersDataGridView[e.ColumnIndex, e.RowIndex];
             if (dataGridViewColumn.Name == "Service")
             {
-                var serviceExist = workOrder.Service != null;
+                var serviceExist = workOrderDTO.HasService;
                 var dataGridViewButtonCell = (DataGridViewButtonCell)dataGridViewCell;
                 if (serviceExist)
                 {
@@ -184,7 +186,7 @@ namespace CarServiceForms.Forms
             }
             else if (dataGridViewColumn.Name == "Invoice")
             {
-                var invoiceExist = workOrder.Invoice != null;
+                var invoiceExist = workOrderDTO.HasInvoice;
                 var dataGridViewButtonCell = (DataGridViewButtonCell)dataGridViewCell;
                 if (invoiceExist)
                 {

@@ -208,5 +208,15 @@ namespace CarServiceForms.Forms
                 DeletedServiceItems.Add(serviceItem.Id);
             }
         }
+
+        private void ServiceItemGroupsDataGridView_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells["groupOrderColumn"].Value = 0;
+        }
+
+        private void ServiceItemsDataGridView_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells["itemOrderColumn"].Value = 0;
+        }
     }
 }

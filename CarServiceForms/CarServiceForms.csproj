@@ -31,6 +31,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -282,6 +288,9 @@
     <Compile Include="Model\InvoiceItem.cs">
       <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\InvoiceItemDescription.cs">
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Service.cs">
       <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
     </Compile>
@@ -364,6 +373,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Reports\CarServiceFormReport.rdlc" />
     <EmbeddedResource Include="Reports\InvoiceReport.rdlc" />
@@ -398,6 +408,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="icon.ico" />
+    <Content Include="icon_white.ico" />
     <Content Include="Model\CarServiceFormsContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CarServiceFormsContext.Context.cs</LastGenOutput>
@@ -409,6 +421,7 @@
       <DependentUpon>CarServiceFormsModel.edmx</DependentUpon>
     </Content>
     <Content Include="Model\CarServiceFormsModel.edmx.sql" />
+    <Content Include="Model\CarServiceFormsModel.reset.dml.sql" />
     <Content Include="Model\CarServiceFormsModel.init.dml.sql" />
     <Content Include="Model\CarServiceFormsModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

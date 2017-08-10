@@ -182,5 +182,10 @@ namespace CarServiceForms.Forms
         {
 
         }
+
+        private void VehicleMileageNumericUpDown_Enter(object sender, EventArgs e)
+        {
+            vehicleMileageNumericUpDown.Select(0, vehicleMileageNumericUpDown.Text.Length);
+        }
     }
 }

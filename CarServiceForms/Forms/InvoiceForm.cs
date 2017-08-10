@@ -27,6 +27,7 @@ namespace CarServiceForms.Forms
         private WorkOrder WorkOrder { get; set; }
         private Invoice Invoice { get; set; }
         private IList<InvoiceItem> InvoiceItems { get; set; }
+        private static IList<InvoiceItemDescription> InvoiceItemDescriptions { get; set; }
 
         public InvoiceForm(long workOrderId)
         {
@@ -53,9 +54,35 @@ namespace CarServiceForms.Forms
             else
             {
                 InvoiceItems = new List<InvoiceItem>();
+
+                // set service type invoice item
+                if (WorkOrder.Service != null)
+                {
+                    var serviceType = WorkOrder.Service.Type == ServiceType.Inspection
+                        ? "Servisni pregled (časovno ali kilometrsko pogojeni)'"
+                        : WorkOrder.Service.Type == ServiceType.Interval
+                            ? "Intervalni servis (fiksno)"
+                            : "Servis z menjavo olja";
+
+                    InvoiceItems.Add(new InvoiceItem()
+                    {
+                            Description = serviceType
+                    });
+                }
+
                 var paymentDeadline = SettingsHelper.GetConfigValue<int>(SettingsFields.PAYMENT_DEADLINE);
-                paymentDeadlineDateTimePicker.Value = DateTime.Now.AddDays(paymentDeadline);
+                paymentDeadlineDateTimePicker.Value = DateTime.Today.AddDays(paymentDeadline);
             }
+
+            InvoiceItemDescriptions = DBContext
+                .InvoiceItemDescription
+                .OrderBy(iid => iid.Value)
+                .ToList();
+
+            var descriptionColumn = invoiceItemsDataGridView.Columns["Description"] as DataGridViewComboBoxColumn;
+            descriptionColumn.ValueMember = "Value";
+            descriptionColumn.DisplayMember = "Value";
+            descriptionColumn.DataSource = new BindingList<InvoiceItemDescription>(InvoiceItemDescriptions);
 
             invoiceItemsDataGridView.DataSource = new BindingList<InvoiceItem>(InvoiceItems);
 
@@ -133,7 +160,7 @@ namespace CarServiceForms.Forms
 
         private void InvoiceItemsDataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            string columnName = invoiceItemsDataGridView.CurrentCell.OwningColumn.Name;
+            var columnName = invoiceItemsDataGridView.CurrentCell.OwningColumn.Name;
             if (columnName == "Quantity" || columnName == "Price" || columnName == "Discount")
             {
                 e.Control.KeyPress -= NumericCheckHandler;
@@ -141,21 +168,56 @@ namespace CarServiceForms.Forms
             }
             else
             {
+                if (columnName == "Description")
+                {
+                    var comboBox = e.Control as DataGridViewComboBoxEditingControl;
+                    if (comboBox != null)
+                    {
+                        comboBox.Validating += ValidateDropdown;
+                        comboBox.DropDownStyle = ComboBoxStyle.DropDown;
+                        comboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                        comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
+                    }
+                }
+
                 e.Control.KeyPress -= NumericCheckHandler;
             }
         }
 
         private static void NumericCheck(object sender, KeyPressEventArgs e)
         {
-            DataGridViewTextBoxEditingControl s = sender as DataGridViewTextBoxEditingControl;
-            if (s != null && (e.KeyChar == '.' || e.KeyChar == ','))
+            DataGridViewTextBoxEditingControl control = sender as DataGridViewTextBoxEditingControl;
+            if (control != null && (e.KeyChar == '.' || e.KeyChar == ','))
             {
                 e.KeyChar = Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
-                e.Handled = s.Text.Contains(e.KeyChar);
+                e.Handled = control.Text.Contains(e.KeyChar);
             }
             else
             {
                 e.Handled = !char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar);
+            }
+        }
+
+        private void ValidateDropdown(object sender, CancelEventArgs e)
+        {
+            DataGridViewComboBoxEditingControl control = sender as DataGridViewComboBoxEditingControl;
+
+            string value = control.Text;
+            var exists = control.Items
+                .Cast<InvoiceItemDescription>()
+                .Any(iid => iid.Value.ToLowerInvariant() == value.ToLowerInvariant());
+
+            if (!exists)
+            {
+                DataGridViewComboBoxCell cell = (DataGridViewComboBoxCell) invoiceItemsDataGridView.CurrentCell;
+
+                InvoiceItemDescriptions.Add(
+                    new InvoiceItemDescription()
+                    {
+                        Value = value
+                    }
+                );
+                invoiceItemsDataGridView.CurrentCell.Value = value;
             }
         }
 
@@ -186,6 +248,14 @@ namespace CarServiceForms.Forms
                 DBContext.Invoice.Add(Invoice);
             }
 
+            foreach (var invoiceItemDescription in InvoiceItemDescriptions)
+            {
+                if (invoiceItemDescription.Id <= 0)
+                {
+                    DBContext.InvoiceItemDescription.Add(invoiceItemDescription);
+                }
+            }
+
             DBContext.SaveChanges();
         }
 
@@ -202,6 +272,7 @@ namespace CarServiceForms.Forms
                 InvoiceCompanyAddress1 = SettingsHelper.GetConfigValue<string>(SettingsFields.COMPANY_ADDRESS_1),
                 InvoiceCompanyAddress2 = SettingsHelper.GetConfigValue<string>(SettingsFields.COMPANY_ADDRESS_2),
                 InvoiceCompanyBankAccount = SettingsHelper.GetConfigValue<string>(SettingsFields.COMPANY_BANK_ACCOUNT),
+                InvoiceCompanyDirector = SettingsHelper.GetConfigValue<string>(SettingsFields.COMPANY_DIRECTOR),
 
                 WorkOrderNumber = workOrder.Number,
                 WorkOrderCreated = workOrder.Created,
@@ -282,6 +353,11 @@ namespace CarServiceForms.Forms
         private void InvoiceItemsDataGridView_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
             e.Row.Cells["TaxPercentage"].Value = 22.0m;
+        }
+
+        private void InvoiceItemsDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
         }
     }
 }

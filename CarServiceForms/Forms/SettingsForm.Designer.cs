@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.paymentDeadlineNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -37,6 +38,10 @@
             this.cancelButton = new System.Windows.Forms.Button();
             this.confirmButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.companyDirectorTextBox = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.companyTaxIdTextBox = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.companyBankAccountTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.companyAddress2TextBox = new System.Windows.Forms.TextBox();
@@ -45,8 +50,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.companyNameTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.companyTaxIdTextBox = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.paymentDeadlineNumericUpDown)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -59,10 +62,10 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.repairmanTextBox);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 168);
+            this.groupBox1.Location = new System.Drawing.Point(12, 194);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(435, 72);
-            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Splošno";
             // 
@@ -86,6 +89,7 @@
             this.paymentDeadlineNumericUpDown.Name = "paymentDeadlineNumericUpDown";
             this.paymentDeadlineNumericUpDown.Size = new System.Drawing.Size(341, 20);
             this.paymentDeadlineNumericUpDown.TabIndex = 3;
+            this.paymentDeadlineNumericUpDown.Enter += new System.EventHandler(this.PaymentDeadlineNumericUpDown_Enter);
             // 
             // label6
             // 
@@ -115,26 +119,28 @@
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(232, 246);
+            this.cancelButton.Location = new System.Drawing.Point(232, 272);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 14;
+            this.cancelButton.TabIndex = 3;
             this.cancelButton.Text = "Prekliči";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
             // confirmButton
             // 
             this.confirmButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.confirmButton.Location = new System.Drawing.Point(151, 246);
+            this.confirmButton.Location = new System.Drawing.Point(151, 272);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(75, 23);
-            this.confirmButton.TabIndex = 13;
+            this.confirmButton.TabIndex = 2;
             this.confirmButton.Text = "Potrdi";
             this.confirmButton.UseVisualStyleBackColor = true;
             this.confirmButton.Click += new System.EventHandler(this.ConfirmButton_Click);
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.companyDirectorTextBox);
+            this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.companyTaxIdTextBox);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.companyBankAccountTextBox);
@@ -147,10 +153,43 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Location = new System.Drawing.Point(12, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(435, 150);
-            this.groupBox2.TabIndex = 15;
+            this.groupBox2.Size = new System.Drawing.Size(435, 176);
+            this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Podjetje";
+            // 
+            // companyDirectorTextBox
+            // 
+            this.companyDirectorTextBox.Location = new System.Drawing.Point(61, 149);
+            this.companyDirectorTextBox.Name = "companyDirectorTextBox";
+            this.companyDirectorTextBox.Size = new System.Drawing.Size(368, 20);
+            this.companyDirectorTextBox.TabIndex = 11;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 152);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(44, 13);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "Direktor";
+            // 
+            // companyTaxIdTextBox
+            // 
+            this.companyTaxIdTextBox.Location = new System.Drawing.Point(61, 97);
+            this.companyTaxIdTextBox.Name = "companyTaxIdTextBox";
+            this.companyTaxIdTextBox.Size = new System.Drawing.Size(368, 20);
+            this.companyTaxIdTextBox.TabIndex = 7;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 100);
+            this.label8.Name = "label8";
+            this.label8.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label8.Size = new System.Drawing.Size(44, 13);
+            this.label8.TabIndex = 6;
+            this.label8.Text = "Dav. št.";
             // 
             // companyBankAccountTextBox
             // 
@@ -173,7 +212,7 @@
             this.companyAddress2TextBox.Location = new System.Drawing.Point(61, 71);
             this.companyAddress2TextBox.Name = "companyAddress2TextBox";
             this.companyAddress2TextBox.Size = new System.Drawing.Size(368, 20);
-            this.companyAddress2TextBox.TabIndex = 7;
+            this.companyAddress2TextBox.TabIndex = 5;
             // 
             // label4
             // 
@@ -181,7 +220,7 @@
             this.label4.Location = new System.Drawing.Point(6, 74);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 13);
-            this.label4.TabIndex = 6;
+            this.label4.TabIndex = 4;
             this.label4.Text = "Naslov 2";
             // 
             // companyAddress1TextBox
@@ -189,7 +228,7 @@
             this.companyAddress1TextBox.Location = new System.Drawing.Point(61, 45);
             this.companyAddress1TextBox.Name = "companyAddress1TextBox";
             this.companyAddress1TextBox.Size = new System.Drawing.Size(368, 20);
-            this.companyAddress1TextBox.TabIndex = 5;
+            this.companyAddress1TextBox.TabIndex = 3;
             // 
             // label3
             // 
@@ -197,7 +236,7 @@
             this.label3.Location = new System.Drawing.Point(6, 48);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 13);
-            this.label3.TabIndex = 4;
+            this.label3.TabIndex = 2;
             this.label3.Text = "Naslov 1";
             // 
             // companyNameTextBox
@@ -205,7 +244,7 @@
             this.companyNameTextBox.Location = new System.Drawing.Point(61, 19);
             this.companyNameTextBox.Name = "companyNameTextBox";
             this.companyNameTextBox.Size = new System.Drawing.Size(368, 20);
-            this.companyNameTextBox.TabIndex = 3;
+            this.companyNameTextBox.TabIndex = 1;
             // 
             // label2
             // 
@@ -213,38 +252,22 @@
             this.label2.Location = new System.Drawing.Point(6, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 13);
-            this.label2.TabIndex = 2;
+            this.label2.TabIndex = 0;
             this.label2.Text = "Naziv";
-            // 
-            // companyTaxIdTextBox
-            // 
-            this.companyTaxIdTextBox.Location = new System.Drawing.Point(61, 97);
-            this.companyTaxIdTextBox.Name = "companyTaxIdTextBox";
-            this.companyTaxIdTextBox.Size = new System.Drawing.Size(368, 20);
-            this.companyTaxIdTextBox.TabIndex = 11;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 100);
-            this.label8.Name = "label8";
-            this.label8.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label8.Size = new System.Drawing.Size(44, 13);
-            this.label8.TabIndex = 10;
-            this.label8.Text = "Dav. št.";
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(459, 281);
+            this.ClientSize = new System.Drawing.Size(459, 307);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.confirmButton);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SettingsForm";
@@ -280,5 +303,7 @@
         private System.Windows.Forms.NumericUpDown paymentDeadlineNumericUpDown;
         private System.Windows.Forms.TextBox companyTaxIdTextBox;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox companyDirectorTextBox;
+        private System.Windows.Forms.Label label9;
     }
 }

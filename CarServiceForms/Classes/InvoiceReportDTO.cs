@@ -16,6 +16,7 @@ namespace CarServiceForms.Classes
         public string InvoiceCompanyAddress1 { get; set; }
         public string InvoiceCompanyAddress2 { get; set; }
         public string InvoiceCompanyBankAccount { get; set; }
+        public string InvoiceCompanyDirector { get; set; }
 
         // work order
         public string WorkOrderNumber { get; set; }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorkOrderListForm));
             this.createButton = new System.Windows.Forms.Button();
             this.workOrdersDataGridView = new System.Windows.Forms.DataGridView();
             this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -216,6 +217,7 @@
             this.serviceTypesToolStripMenuItem.Name = "serviceTypesToolStripMenuItem";
             this.serviceTypesToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.serviceTypesToolStripMenuItem.Text = "Tipi pregledov";
+            this.serviceTypesToolStripMenuItem.Visible = false;
             this.serviceTypesToolStripMenuItem.Click += new System.EventHandler(this.ServiceTypesToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
@@ -234,6 +236,7 @@
             this.Controls.Add(this.createButton);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "WorkOrderListForm";

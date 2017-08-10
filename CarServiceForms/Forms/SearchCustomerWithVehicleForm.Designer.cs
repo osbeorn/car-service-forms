@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchCustomerWithVehicleForm));
             this.customerFirstNameTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.customerLastNameTextBox = new System.Windows.Forms.TextBox();
@@ -39,9 +40,6 @@
             this.searchButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.customersDataGridView = new System.Windows.Forms.DataGridView();
-            this.newButton = new System.Windows.Forms.Button();
-            this.cancelButton = new System.Windows.Forms.Button();
-            this.confirmButton = new System.Windows.Forms.Button();
             this.customerFirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerLastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerStreet = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,6 +55,9 @@
             this.vehicleGKBCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vehicleModelYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vehicleMileage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.newButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.confirmButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customersDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -100,7 +101,7 @@
             this.vehicleRegistrationNumberTextBox.Name = "vehicleRegistrationNumberTextBox";
             this.vehicleRegistrationNumberTextBox.Size = new System.Drawing.Size(530, 20);
             this.vehicleRegistrationNumberTextBox.TabIndex = 7;
-            this.vehicleRegistrationNumberTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.vehicleRegistrationNumberTextBox_KeyPress);
+            this.vehicleRegistrationNumberTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.VehicleRegistrationNumberTextBox_KeyPress);
             // 
             // label2
             // 
@@ -177,38 +178,7 @@
             this.customersDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.customersDataGridView.Size = new System.Drawing.Size(608, 248);
             this.customersDataGridView.TabIndex = 0;
-            // 
-            // newButton
-            // 
-            this.newButton.Location = new System.Drawing.Point(551, 116);
-            this.newButton.Name = "newButton";
-            this.newButton.Size = new System.Drawing.Size(75, 23);
-            this.newButton.TabIndex = 9;
-            this.newButton.Text = "Nova";
-            this.newButton.UseVisualStyleBackColor = true;
-            this.newButton.Click += new System.EventHandler(this.NewButton_Click);
-            // 
-            // cancelButton
-            // 
-            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(323, 418);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 12;
-            this.cancelButton.Text = "Prekliči";
-            this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
-            // 
-            // confirmButton
-            // 
-            this.confirmButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.confirmButton.Location = new System.Drawing.Point(242, 418);
-            this.confirmButton.Name = "confirmButton";
-            this.confirmButton.Size = new System.Drawing.Size(75, 23);
-            this.confirmButton.TabIndex = 11;
-            this.confirmButton.Text = "Potrdi";
-            this.confirmButton.UseVisualStyleBackColor = true;
-            this.confirmButton.Click += new System.EventHandler(this.ConfirmButton_Click);
+            this.customersDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.CustomersDataGridView_CellMouseDoubleClick);
             // 
             // customerFirstName
             // 
@@ -316,6 +286,38 @@
             this.vehicleMileage.Name = "vehicleMileage";
             this.vehicleMileage.ReadOnly = true;
             // 
+            // newButton
+            // 
+            this.newButton.Location = new System.Drawing.Point(551, 116);
+            this.newButton.Name = "newButton";
+            this.newButton.Size = new System.Drawing.Size(75, 23);
+            this.newButton.TabIndex = 9;
+            this.newButton.Text = "Nova";
+            this.newButton.UseVisualStyleBackColor = true;
+            this.newButton.Click += new System.EventHandler(this.NewButton_Click);
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.Location = new System.Drawing.Point(323, 418);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 12;
+            this.cancelButton.Text = "Prekliči";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            // 
+            // confirmButton
+            // 
+            this.confirmButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.confirmButton.Location = new System.Drawing.Point(242, 418);
+            this.confirmButton.Name = "confirmButton";
+            this.confirmButton.Size = new System.Drawing.Size(75, 23);
+            this.confirmButton.TabIndex = 11;
+            this.confirmButton.Text = "Potrdi";
+            this.confirmButton.UseVisualStyleBackColor = true;
+            this.confirmButton.Click += new System.EventHandler(this.ConfirmButton_Click);
+            // 
             // SearchCustomerWithVehicleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -337,6 +339,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.customerFirstNameTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SearchCustomerWithVehicleForm";

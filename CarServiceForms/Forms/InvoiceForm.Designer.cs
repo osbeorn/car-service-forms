@@ -31,8 +31,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvoiceForm));
             this.invoiceItemsDataGridView = new System.Windows.Forms.DataGridView();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SalePrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -84,6 +85,8 @@
             this.Description.FillWeight = 40F;
             this.Description.HeaderText = "Opis";
             this.Description.Name = "Description";
+            this.Description.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Description.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // Quantity
             // 
@@ -308,6 +311,7 @@
             this.Controls.Add(this.confirmButton);
             this.Controls.Add(this.invoiceItemsDataGridView);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "InvoiceForm";
@@ -336,14 +340,14 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label totalTaxLabel;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.DateTimePicker paymentDeadlineDateTimePicker;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewTextBoxColumn SalePrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn Discount;
         private System.Windows.Forms.DataGridViewTextBoxColumn TaxPercentage;
         private System.Windows.Forms.DataGridViewTextBoxColumn TaxBase;
-        private System.Windows.Forms.DateTimePicker paymentDeadlineDateTimePicker;
-        private System.Windows.Forms.Label label1;
     }
 }

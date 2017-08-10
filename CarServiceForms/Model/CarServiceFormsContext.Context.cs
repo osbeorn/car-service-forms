@@ -38,5 +38,6 @@ namespace CarServiceForms.Model
         public virtual DbSet<Settings> Settings { get; set; }
         public virtual DbSet<Invoice> Invoice { get; set; }
         public virtual DbSet<InvoiceItem> InvoiceItem { get; set; }
+        public virtual DbSet<InvoiceItemDescription> InvoiceItemDescription { get; set; }
     }
 }

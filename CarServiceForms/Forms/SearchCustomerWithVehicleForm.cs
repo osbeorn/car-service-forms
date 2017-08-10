@@ -61,7 +61,7 @@ namespace CarServiceForms.Forms
             var vehicleIdentificationNumber = vehicleIdentificationNumberTextBox.Text;
             var vehicleRegistrationNumber = vehicleRegistrationNumberTextBox.Text;
 
-            var customerDTOs = DbContext
+            var customerWithVehiclesDTO = DbContext
                 .Vehicle
                 .Where(v =>
                     !string.IsNullOrEmpty(customerFirstName) && v.Customer.FirstName.Contains(customerFirstName) ||
@@ -93,7 +93,7 @@ namespace CarServiceForms.Forms
                 })
                 .ToList();
 
-            customersDataGridView.DataSource = new SortableBindingList<CustomerWithVehicleDTO>(customerDTOs);
+            customersDataGridView.DataSource = new SortableBindingList<CustomerWithVehicleDTO>(customerWithVehiclesDTO);
         }
 
         private void SearchCustomerWithVehicleForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -111,11 +111,11 @@ namespace CarServiceForms.Forms
         {
             if (customersDataGridView.SelectedRows.Count > 0)
             {
-                var selectedCustomer = customersDataGridView.SelectedRows[0].DataBoundItem as CustomerWithVehicleDTO;
-                if (selectedCustomer != null)
+                var selectedCustomerWithVehicle = customersDataGridView.SelectedRows[0].DataBoundItem as CustomerWithVehicleDTO;
+                if (selectedCustomerWithVehicle != null)
                 {
-                    ReturnValue1 = selectedCustomer.CustomerId;
-                    ReturnValue2 = selectedCustomer.VehicleId;
+                    ReturnValue1 = selectedCustomerWithVehicle.CustomerId;
+                    ReturnValue2 = selectedCustomerWithVehicle.VehicleId;
                 }
             }
         }
@@ -147,12 +147,26 @@ namespace CarServiceForms.Forms
             }
         }
 
-        private void vehicleRegistrationNumberTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void VehicleRegistrationNumberTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
                 SearchCustomersWithVehicles();
                 e.Handled = true;
+            }
+        }
+
+        private void CustomersDataGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
+            var customerWithVehicle = customersDataGridView.Rows[e.RowIndex].DataBoundItem as CustomerWithVehicleDTO;
+            if (customerWithVehicle != null)
+            {
+                ReturnValue1 = customerWithVehicle.CustomerId;
+                ReturnValue2 = customerWithVehicle.VehicleId;
+                DialogResult = DialogResult.OK;
             }
         }
     }

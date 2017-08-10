@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorkOrderForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.vehicleTransmissionTextBox = new System.Windows.Forms.TextBox();
@@ -68,6 +69,7 @@
             this.confirmButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.deleteButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vehicleModelYearNumericUpDown)).BeginInit();
@@ -199,6 +201,7 @@
             this.vehicleMileageNumericUpDown.Name = "vehicleMileageNumericUpDown";
             this.vehicleMileageNumericUpDown.Size = new System.Drawing.Size(215, 20);
             this.vehicleMileageNumericUpDown.TabIndex = 21;
+            this.vehicleMileageNumericUpDown.Enter += new System.EventHandler(this.VehicleMileageNumericUpDown_Enter);
             // 
             // vehicleRegistrationDateDateTimePicker
             // 
@@ -461,18 +464,30 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // deleteButton
+            // 
+            this.deleteButton.Location = new System.Drawing.Point(520, 563);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(75, 23);
+            this.deleteButton.TabIndex = 5;
+            this.deleteButton.Text = "Briši";
+            this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Visible = false;
+            // 
             // WorkOrderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(607, 598);
             this.ControlBox = false;
+            this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.confirmButton);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "WorkOrderForm";
@@ -535,5 +550,6 @@
         private System.Windows.Forms.TextBox vehicleEngineTextBox;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.Button deleteButton;
     }
 }

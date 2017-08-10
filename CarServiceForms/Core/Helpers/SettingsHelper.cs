@@ -12,6 +12,7 @@ namespace CarServiceForms.Core.Helpers
         COMPANY_ADDRESS_2,
         COMPANY_TAX_ID,
         COMPANY_BANK_ACCOUNT,
+        COMPANY_DIRECTOR,
         REPAIRMAN,
         PAYMENT_DEADLINE // [days]
     }
@@ -44,6 +45,10 @@ namespace CarServiceForms.Core.Helpers
                 "company_bank_account"
             },
             {
+                SettingsFields.COMPANY_DIRECTOR,
+                "company_director"
+            },
+            {
                 SettingsFields.REPAIRMAN,
                 "repairman"
             },
@@ -68,6 +73,7 @@ namespace CarServiceForms.Core.Helpers
                 case SettingsFields.COMPANY_ADDRESS_2:
                 case SettingsFields.COMPANY_TAX_ID:
                 case SettingsFields.COMPANY_BANK_ACCOUNT:
+                case SettingsFields.COMPANY_DIRECTOR:
                 case SettingsFields.REPAIRMAN:
                     return (T)Convert.ChangeType(GetStringValue(settingsFieldsMapper[field]), typeof(T));
                 case SettingsFields.PAYMENT_DEADLINE:

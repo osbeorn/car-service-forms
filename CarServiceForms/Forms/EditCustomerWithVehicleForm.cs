@@ -99,5 +99,15 @@ namespace CarServiceForms.Forms
         {
             CleanupComponents();
         }
+
+        private void VehicleModelYearNumericUpDown_Enter(object sender, EventArgs e)
+        {
+            vehicleModelYearNumericUpDown.Select(0, vehicleModelYearNumericUpDown.Text.Length);
+        }
+
+        private void VehicleMileageNumericUpDown_Enter(object sender, EventArgs e)
+        {
+            vehicleMileageNumericUpDown.Select(0, vehicleMileageNumericUpDown.Text.Length);
+        }
     }
 }

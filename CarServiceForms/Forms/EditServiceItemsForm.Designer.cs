@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditServiceItemsForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.revertServiceItemGroupChangesButton = new System.Windows.Forms.Button();
             this.saveServiceItemGroupChangesButton = new System.Windows.Forms.Button();
@@ -92,6 +93,7 @@
             this.serviceItemGroupsDataGridView.Name = "serviceItemGroupsDataGridView";
             this.serviceItemGroupsDataGridView.Size = new System.Drawing.Size(915, 201);
             this.serviceItemGroupsDataGridView.TabIndex = 0;
+            this.serviceItemGroupsDataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.ServiceItemGroupsDataGridView_DefaultValuesNeeded);
             this.serviceItemGroupsDataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.ServiceItemGroupsDataGridView_UserDeletingRow);
             // 
             // groupNameColumn
@@ -107,6 +109,7 @@
             this.groupOrderColumn.FillWeight = 9F;
             this.groupOrderColumn.HeaderText = "Vrstni red";
             this.groupOrderColumn.Name = "groupOrderColumn";
+            this.groupOrderColumn.Visible = false;
             // 
             // groupBox2
             // 
@@ -152,6 +155,7 @@
             this.serviceItemsDataGridView.Name = "serviceItemsDataGridView";
             this.serviceItemsDataGridView.Size = new System.Drawing.Size(912, 313);
             this.serviceItemsDataGridView.TabIndex = 0;
+            this.serviceItemsDataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.ServiceItemsDataGridView_DefaultValuesNeeded);
             this.serviceItemsDataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.ServiceItemsDataGridView_UserDeletingRow);
             // 
             // itemNameColumn
@@ -167,6 +171,7 @@
             this.itemOrderColumn.FillWeight = 9F;
             this.itemOrderColumn.HeaderText = "Vrstni red";
             this.itemOrderColumn.Name = "itemOrderColumn";
+            this.itemOrderColumn.Visible = false;
             // 
             // itemGroupColumn
             // 
@@ -206,6 +211,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "EditServiceItemsForm";
@@ -228,14 +234,14 @@
         private System.Windows.Forms.DataGridView serviceItemsDataGridView;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button confirmButton;
+        private System.Windows.Forms.Button revertServiceItemGroupChangesButton;
+        private System.Windows.Forms.Button saveServiceItemGroupChangesButton;
+        private System.Windows.Forms.Button revertServiceItemChangesButton;
+        private System.Windows.Forms.Button saveServiceItemChangesButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn groupNameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn groupOrderColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn itemNameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn itemOrderColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn itemGroupColumn;
-        private System.Windows.Forms.Button revertServiceItemGroupChangesButton;
-        private System.Windows.Forms.Button saveServiceItemGroupChangesButton;
-        private System.Windows.Forms.Button revertServiceItemChangesButton;
-        private System.Windows.Forms.Button saveServiceItemChangesButton;
     }
 }

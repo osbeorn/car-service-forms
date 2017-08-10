@@ -19,6 +19,7 @@
     <EntitySet Name="Settings" EntityType="CarServiceFormsModel.Store.Settings" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Invoice" EntityType="CarServiceFormsModel.Store.Invoice" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="InvoiceItem" EntityType="CarServiceFormsModel.Store.InvoiceItem" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="InvoiceItemDescription" EntityType="CarServiceFormsModel.Store.InvoiceItemDescription" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="CustomerVehicle" Association="CarServiceFormsModel.Store.CustomerVehicle">
       <End Role="Customer" EntitySet="Customer" />
       <End Role="Vehicle" EntitySet="Vehicle" />
@@ -202,6 +203,13 @@
     <Property Name="TaxBase" Type="decimal" Nullable="false" Precision="18" Scale="2" />
     <Property Name="FinalPrice" Type="decimal" Nullable="false" Precision="18" Scale="2" />
     <Property Name="Invoice_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InvoiceItemDescription">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <Association Name="CustomerVehicle">
     <End Role="Customer" Type="CarServiceFormsModel.Store.Customer" Multiplicity="1" />
@@ -397,6 +405,7 @@
             <End Role="AppliedServiceItems" EntitySet="AppliedServiceItem" />
             <End Role="ServiceItem" EntitySet="ServiceItem" />
           </AssociationSet>
+          <EntitySet Name="InvoiceItemDescription" EntityType="CarServiceFormsModel.InvoiceItemDescription" />
         </EntityContainer>
         <EntityType Name="Customer">
           <Key>
@@ -615,6 +624,13 @@
           <End Type="CarServiceFormsModel.AppliedServiceItem" Role="AppliedServiceItems" Multiplicity="*" />
           <End Type="CarServiceFormsModel.ServiceItem" Role="ServiceItem" Multiplicity="1" />
         </Association>
+        <EntityType Name="InvoiceItemDescription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="String" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -759,6 +775,14 @@
           <ScalarProperty Name="TaxPercentage" ColumnName="TaxPercentage" />
           <ScalarProperty Name="TaxBase" ColumnName="TaxBase" />
           <ScalarProperty Name="FinalPrice" ColumnName="FinalPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InvoiceItemDescription">
+      <EntityTypeMapping TypeName="IsTypeOf(CarServiceFormsModel.InvoiceItemDescription)">
+        <MappingFragment StoreEntitySet="InvoiceItemDescription">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
