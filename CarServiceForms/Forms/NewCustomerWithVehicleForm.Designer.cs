@@ -118,6 +118,7 @@
             // 
             // customerPhoneTextBox
             // 
+            this.customerPhoneTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.customerPhoneTextBox.Location = new System.Drawing.Point(359, 71);
             this.customerPhoneTextBox.Name = "customerPhoneTextBox";
             this.customerPhoneTextBox.Size = new System.Drawing.Size(215, 20);
@@ -154,6 +155,7 @@
             // 
             // customerPostTextBox
             // 
+            this.customerPostTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.customerPostTextBox.Location = new System.Drawing.Point(72, 71);
             this.customerPostTextBox.Name = "customerPostTextBox";
             this.customerPostTextBox.Size = new System.Drawing.Size(213, 20);
@@ -161,6 +163,7 @@
             // 
             // customerLastNameTextBox
             // 
+            this.customerLastNameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.customerLastNameTextBox.Location = new System.Drawing.Point(359, 19);
             this.customerLastNameTextBox.Name = "customerLastNameTextBox";
             this.customerLastNameTextBox.Size = new System.Drawing.Size(215, 20);
@@ -168,6 +171,7 @@
             // 
             // customerStreetTextBox
             // 
+            this.customerStreetTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.customerStreetTextBox.Location = new System.Drawing.Point(72, 45);
             this.customerStreetTextBox.Name = "customerStreetTextBox";
             this.customerStreetTextBox.Size = new System.Drawing.Size(502, 20);
@@ -202,6 +206,7 @@
             // 
             // customerFirstNameTextBox
             // 
+            this.customerFirstNameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.customerFirstNameTextBox.Location = new System.Drawing.Point(72, 19);
             this.customerFirstNameTextBox.Name = "customerFirstNameTextBox";
             this.customerFirstNameTextBox.Size = new System.Drawing.Size(215, 20);
@@ -249,6 +254,7 @@
             // 
             // vehicleTransmissionTextBox
             // 
+            this.vehicleTransmissionTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.vehicleTransmissionTextBox.Location = new System.Drawing.Point(72, 97);
             this.vehicleTransmissionTextBox.Name = "vehicleTransmissionTextBox";
             this.vehicleTransmissionTextBox.Size = new System.Drawing.Size(215, 20);
@@ -274,6 +280,7 @@
             // 
             // vehicleEngineTextBox
             // 
+            this.vehicleEngineTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.vehicleEngineTextBox.Location = new System.Drawing.Point(72, 71);
             this.vehicleEngineTextBox.Name = "vehicleEngineTextBox";
             this.vehicleEngineTextBox.Size = new System.Drawing.Size(215, 20);
@@ -343,6 +350,7 @@
             // 
             // vehicleGKBTextBox
             // 
+            this.vehicleGKBTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.vehicleGKBTextBox.Location = new System.Drawing.Point(359, 97);
             this.vehicleGKBTextBox.Name = "vehicleGKBTextBox";
             this.vehicleGKBTextBox.Size = new System.Drawing.Size(215, 20);
@@ -350,6 +358,7 @@
             // 
             // vehicleMKBTextBox
             // 
+            this.vehicleMKBTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.vehicleMKBTextBox.Location = new System.Drawing.Point(359, 71);
             this.vehicleMKBTextBox.Name = "vehicleMKBTextBox";
             this.vehicleMKBTextBox.Size = new System.Drawing.Size(215, 20);
@@ -393,6 +402,7 @@
             // 
             // vehicleTypeTextBox
             // 
+            this.vehicleTypeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.vehicleTypeTextBox.Location = new System.Drawing.Point(208, 45);
             this.vehicleTypeTextBox.Name = "vehicleTypeTextBox";
             this.vehicleTypeTextBox.Size = new System.Drawing.Size(366, 20);
@@ -400,6 +410,7 @@
             // 
             // vehicleTypeCodeTextBox
             // 
+            this.vehicleTypeCodeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.vehicleTypeCodeTextBox.Location = new System.Drawing.Point(72, 45);
             this.vehicleTypeCodeTextBox.Name = "vehicleTypeCodeTextBox";
             this.vehicleTypeCodeTextBox.Size = new System.Drawing.Size(72, 20);
@@ -416,6 +427,7 @@
             // 
             // vehicleIdentificationNumberTextBox
             // 
+            this.vehicleIdentificationNumberTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.vehicleIdentificationNumberTextBox.Location = new System.Drawing.Point(359, 19);
             this.vehicleIdentificationNumberTextBox.Name = "vehicleIdentificationNumberTextBox";
             this.vehicleIdentificationNumberTextBox.Size = new System.Drawing.Size(215, 20);
@@ -423,6 +435,7 @@
             // 
             // vehicleRegistrationNumberTextBox
             // 
+            this.vehicleRegistrationNumberTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.vehicleRegistrationNumberTextBox.Location = new System.Drawing.Point(72, 19);
             this.vehicleRegistrationNumberTextBox.Name = "vehicleRegistrationNumberTextBox";
             this.vehicleRegistrationNumberTextBox.Size = new System.Drawing.Size(215, 20);

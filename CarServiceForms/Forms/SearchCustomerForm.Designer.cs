@@ -49,6 +49,7 @@
             // 
             // customerFirstNameTextBox
             // 
+            this.customerFirstNameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.customerFirstNameTextBox.Location = new System.Drawing.Point(96, 12);
             this.customerFirstNameTextBox.Name = "customerFirstNameTextBox";
             this.customerFirstNameTextBox.Size = new System.Drawing.Size(530, 20);
@@ -66,6 +67,7 @@
             // 
             // customerLastNameTextBox
             // 
+            this.customerLastNameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.customerLastNameTextBox.Location = new System.Drawing.Point(96, 38);
             this.customerLastNameTextBox.Name = "customerLastNameTextBox";
             this.customerLastNameTextBox.Size = new System.Drawing.Size(530, 20);

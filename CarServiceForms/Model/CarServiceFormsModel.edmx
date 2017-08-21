@@ -20,6 +20,7 @@
     <EntitySet Name="Invoice" EntityType="CarServiceFormsModel.Store.Invoice" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="InvoiceItem" EntityType="CarServiceFormsModel.Store.InvoiceItem" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="InvoiceItemDescription" EntityType="CarServiceFormsModel.Store.InvoiceItemDescription" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Supplies" EntityType="CarServiceFormsModel.Store.Supplies" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="CustomerVehicle" Association="CarServiceFormsModel.Store.CustomerVehicle">
       <End Role="Customer" EntitySet="Customer" />
       <End Role="Vehicle" EntitySet="Vehicle" />
@@ -194,6 +195,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Quantity" Type="decimal" Nullable="false" Precision="18" Scale="2" />
     <Property Name="Price" Type="decimal" Nullable="false" Precision="18" Scale="4" />
@@ -210,6 +212,15 @@
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Supplies">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Quantity" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Updated" Type="datetime" Nullable="false" />
   </EntityType>
   <Association Name="CustomerVehicle">
     <End Role="Customer" Type="CarServiceFormsModel.Store.Customer" Multiplicity="1" />
@@ -406,6 +417,7 @@
             <End Role="ServiceItem" EntitySet="ServiceItem" />
           </AssociationSet>
           <EntitySet Name="InvoiceItemDescription" EntityType="CarServiceFormsModel.InvoiceItemDescription" />
+          <EntitySet Name="Supplies" EntityType="CarServiceFormsModel.Supplies" />
         </EntityContainer>
         <EntityType Name="Customer">
           <Key>
@@ -603,6 +615,7 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Invoice" Relationship="CarServiceFormsModel.InvoiceInvoiceItem" FromRole="InvoiceItem" ToRole="Invoice" />
+          <Property Name="Code" Type="String" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" />
           <Property Name="Quantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="Price" Type="Decimal" Nullable="false" Scale="4" Precision="18" />
@@ -630,6 +643,15 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Value" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Supplies">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Quantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Updated" Type="DateTime" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -767,6 +789,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(CarServiceFormsModel.InvoiceItem)">
         <MappingFragment StoreEntitySet="InvoiceItem">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="Price" ColumnName="Price" />
@@ -783,6 +806,16 @@
         <MappingFragment StoreEntitySet="InvoiceItemDescription">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Supplies">
+      <EntityTypeMapping TypeName="IsTypeOf(CarServiceFormsModel.Supplies)">
+        <MappingFragment StoreEntitySet="Supplies">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Updated" ColumnName="Updated" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

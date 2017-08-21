@@ -17,6 +17,13 @@ namespace CarServiceForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            MessageBoxManager.OK = "V redu";
+            MessageBoxManager.Yes = "Da";
+            MessageBoxManager.No = "Ne";
+            MessageBoxManager.Cancel = "Prekliči";
+            MessageBoxManager.Register();
+
             Application.Run(new WorkOrderListForm());
         }
     }

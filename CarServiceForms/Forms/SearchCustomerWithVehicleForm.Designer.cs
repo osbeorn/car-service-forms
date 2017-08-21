@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchCustomerWithVehicleForm));
             this.customerFirstNameTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,6 +41,9 @@
             this.searchButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.customersDataGridView = new System.Windows.Forms.DataGridView();
+            this.newButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.confirmButton = new System.Windows.Forms.Button();
             this.customerFirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerLastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerStreet = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,15 +59,13 @@
             this.vehicleGKBCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vehicleModelYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vehicleMileage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.newButton = new System.Windows.Forms.Button();
-            this.cancelButton = new System.Windows.Forms.Button();
-            this.confirmButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customersDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // customerFirstNameTextBox
             // 
+            this.customerFirstNameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.customerFirstNameTextBox.Location = new System.Drawing.Point(96, 12);
             this.customerFirstNameTextBox.Name = "customerFirstNameTextBox";
             this.customerFirstNameTextBox.Size = new System.Drawing.Size(530, 20);
@@ -81,6 +83,7 @@
             // 
             // customerLastNameTextBox
             // 
+            this.customerLastNameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.customerLastNameTextBox.Location = new System.Drawing.Point(96, 38);
             this.customerLastNameTextBox.Name = "customerLastNameTextBox";
             this.customerLastNameTextBox.Size = new System.Drawing.Size(530, 20);
@@ -89,6 +92,7 @@
             // 
             // vehicleIdentificationNumberTextBox
             // 
+            this.vehicleIdentificationNumberTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.vehicleIdentificationNumberTextBox.Location = new System.Drawing.Point(96, 64);
             this.vehicleIdentificationNumberTextBox.Name = "vehicleIdentificationNumberTextBox";
             this.vehicleIdentificationNumberTextBox.Size = new System.Drawing.Size(530, 20);
@@ -97,6 +101,7 @@
             // 
             // vehicleRegistrationNumberTextBox
             // 
+            this.vehicleRegistrationNumberTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.vehicleRegistrationNumberTextBox.Location = new System.Drawing.Point(96, 90);
             this.vehicleRegistrationNumberTextBox.Name = "vehicleRegistrationNumberTextBox";
             this.vehicleRegistrationNumberTextBox.Size = new System.Drawing.Size(530, 20);
@@ -180,6 +185,38 @@
             this.customersDataGridView.TabIndex = 0;
             this.customersDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.CustomersDataGridView_CellMouseDoubleClick);
             // 
+            // newButton
+            // 
+            this.newButton.Location = new System.Drawing.Point(551, 116);
+            this.newButton.Name = "newButton";
+            this.newButton.Size = new System.Drawing.Size(75, 23);
+            this.newButton.TabIndex = 9;
+            this.newButton.Text = "Nova";
+            this.newButton.UseVisualStyleBackColor = true;
+            this.newButton.Click += new System.EventHandler(this.NewButton_Click);
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.Location = new System.Drawing.Point(323, 418);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 12;
+            this.cancelButton.Text = "Prekliči";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            // 
+            // confirmButton
+            // 
+            this.confirmButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.confirmButton.Location = new System.Drawing.Point(242, 418);
+            this.confirmButton.Name = "confirmButton";
+            this.confirmButton.Size = new System.Drawing.Size(75, 23);
+            this.confirmButton.TabIndex = 11;
+            this.confirmButton.Text = "Potrdi";
+            this.confirmButton.UseVisualStyleBackColor = true;
+            this.confirmButton.Click += new System.EventHandler(this.ConfirmButton_Click);
+            // 
             // customerFirstName
             // 
             this.customerFirstName.DataPropertyName = "FirstName";
@@ -226,6 +263,8 @@
             // vehicleRegistrationDate
             // 
             this.vehicleRegistrationDate.DataPropertyName = "RegistrationDate";
+            dataGridViewCellStyle1.Format = "dd.MM.yyyy";
+            this.vehicleRegistrationDate.DefaultCellStyle = dataGridViewCellStyle1;
             this.vehicleRegistrationDate.HeaderText = "Dat. 1. reg.";
             this.vehicleRegistrationDate.Name = "vehicleRegistrationDate";
             this.vehicleRegistrationDate.ReadOnly = true;
@@ -285,38 +324,6 @@
             this.vehicleMileage.HeaderText = "Št. km.";
             this.vehicleMileage.Name = "vehicleMileage";
             this.vehicleMileage.ReadOnly = true;
-            // 
-            // newButton
-            // 
-            this.newButton.Location = new System.Drawing.Point(551, 116);
-            this.newButton.Name = "newButton";
-            this.newButton.Size = new System.Drawing.Size(75, 23);
-            this.newButton.TabIndex = 9;
-            this.newButton.Text = "Nova";
-            this.newButton.UseVisualStyleBackColor = true;
-            this.newButton.Click += new System.EventHandler(this.NewButton_Click);
-            // 
-            // cancelButton
-            // 
-            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(323, 418);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 12;
-            this.cancelButton.Text = "Prekliči";
-            this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
-            // 
-            // confirmButton
-            // 
-            this.confirmButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.confirmButton.Location = new System.Drawing.Point(242, 418);
-            this.confirmButton.Name = "confirmButton";
-            this.confirmButton.Size = new System.Drawing.Size(75, 23);
-            this.confirmButton.TabIndex = 11;
-            this.confirmButton.Text = "Potrdi";
-            this.confirmButton.UseVisualStyleBackColor = true;
-            this.confirmButton.Click += new System.EventHandler(this.ConfirmButton_Click);
             // 
             // SearchCustomerWithVehicleForm
             // 

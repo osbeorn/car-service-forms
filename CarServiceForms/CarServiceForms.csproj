@@ -158,6 +158,7 @@
   <ItemGroup>
     <Compile Include="Classes\CustomerWithVehicleDTO.cs" />
     <Compile Include="Classes\CarServiceFormReportDTO.cs" />
+    <Compile Include="Classes\InvoiceItemDescriptionDTO.cs" />
     <Compile Include="Classes\InvoiceItemReportDTO.cs" />
     <Compile Include="Classes\ServiceItemWithServiceItemGroupDTO.cs" />
     <Compile Include="Classes\WorkOrderDTO.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="Core\Collections\ListViewItemComparer.cs" />
     <Compile Include="Core\Collections\PropertyComparer.cs" />
     <Compile Include="Core\Collections\SortableBindingList.cs" />
+    <Compile Include="Core\Helpers\MessageBoxManager.cs" />
     <Compile Include="Core\Helpers\SettingsHelper.cs" />
     <Compile Include="Core\Helpers\DateTimeHelper.cs" />
     <Compile Include="Core\Helpers\ControlExtensions.cs" />
@@ -235,6 +237,12 @@
     </Compile>
     <Compile Include="Forms\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SuppliesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SuppliesForm.Designer.cs">
+      <DependentUpon>SuppliesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\WorkOrderForm.cs">
       <SubType>Form</SubType>
@@ -312,6 +320,9 @@
     <Compile Include="Model\Settings.cs">
       <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Supplies.cs">
+      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Vehicle.cs">
       <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
     </Compile>
@@ -358,6 +369,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SuppliesForm.resx">
+      <DependentUpon>SuppliesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\WorkOrderForm.resx">
       <DependentUpon>WorkOrderForm.cs</DependentUpon>
@@ -409,7 +423,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
-    <Content Include="icon_white.ico" />
     <Content Include="Model\CarServiceFormsContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CarServiceFormsContext.Context.cs</LastGenOutput>

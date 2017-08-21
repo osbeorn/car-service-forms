@@ -198,5 +198,17 @@ namespace CarServiceForms.Forms
                 }
             }
         }
+
+        private void SuppliesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var form = new SuppliesForm())
+            {
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+
+                }
+            }
+        }
     }
 }

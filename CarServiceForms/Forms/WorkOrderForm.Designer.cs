@@ -414,6 +414,7 @@
             this.workOrderInstructionsDataGridView.Name = "workOrderInstructionsDataGridView";
             this.workOrderInstructionsDataGridView.Size = new System.Drawing.Size(580, 172);
             this.workOrderInstructionsDataGridView.TabIndex = 0;
+            this.workOrderInstructionsDataGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.WorkOrderInstructionsDataGridView_EditingControlShowing);
             // 
             // position
             // 
@@ -472,7 +473,6 @@
             this.deleteButton.TabIndex = 5;
             this.deleteButton.Text = "Briši";
             this.deleteButton.UseVisualStyleBackColor = true;
-            this.deleteButton.Visible = false;
             // 
             // WorkOrderForm
             // 

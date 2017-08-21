@@ -28,9 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorkOrderListForm));
             this.createButton = new System.Windows.Forms.Button();
             this.workOrdersDataGridView = new System.Windows.Forms.DataGridView();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.suppliesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.codelistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.servicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.serviceItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.serviceTypesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Created = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Deadline = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -38,16 +51,6 @@
             this.Vehicle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Service = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Invoice = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.customersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.codelistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.servicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.serviceItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.serviceTypesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.workOrdersDataGridView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -86,64 +89,6 @@
             this.workOrdersDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.WorkOrdersDataGridView_CellMouseDoubleClick);
             this.workOrdersDataGridView.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.WorkOrdersDataGridView_CellPainting);
             // 
-            // Number
-            // 
-            this.Number.DataPropertyName = "Number";
-            this.Number.FillWeight = 8F;
-            this.Number.HeaderText = "Št. DN";
-            this.Number.Name = "Number";
-            this.Number.ReadOnly = true;
-            // 
-            // Created
-            // 
-            this.Created.DataPropertyName = "Created";
-            this.Created.FillWeight = 11F;
-            this.Created.HeaderText = "Ustvarjen";
-            this.Created.Name = "Created";
-            this.Created.ReadOnly = true;
-            // 
-            // Deadline
-            // 
-            this.Deadline.DataPropertyName = "Deadline";
-            this.Deadline.FillWeight = 11F;
-            this.Deadline.HeaderText = "Rok izdelave";
-            this.Deadline.Name = "Deadline";
-            this.Deadline.ReadOnly = true;
-            // 
-            // Customer
-            // 
-            this.Customer.DataPropertyName = "Customer";
-            this.Customer.FillWeight = 33F;
-            this.Customer.HeaderText = "Stranka";
-            this.Customer.Name = "Customer";
-            this.Customer.ReadOnly = true;
-            // 
-            // Vehicle
-            // 
-            this.Vehicle.DataPropertyName = "Vehicle";
-            this.Vehicle.FillWeight = 27F;
-            this.Vehicle.HeaderText = "Vozilo";
-            this.Vehicle.Name = "Vehicle";
-            this.Vehicle.ReadOnly = true;
-            // 
-            // Service
-            // 
-            this.Service.FillWeight = 5F;
-            this.Service.HeaderText = "Pregled";
-            this.Service.Name = "Service";
-            this.Service.ReadOnly = true;
-            this.Service.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Service.Text = "";
-            // 
-            // Invoice
-            // 
-            this.Invoice.FillWeight = 5F;
-            this.Invoice.HeaderText = "Račun";
-            this.Invoice.Name = "Invoice";
-            this.Invoice.ReadOnly = true;
-            this.Invoice.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Invoice.Text = "";
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -175,6 +120,7 @@
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.customersToolStripMenuItem,
+            this.suppliesToolStripMenuItem,
             this.codelistsToolStripMenuItem,
             this.settingsToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
@@ -187,6 +133,13 @@
             this.customersToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.customersToolStripMenuItem.Text = "Stranke";
             this.customersToolStripMenuItem.Click += new System.EventHandler(this.CustomersToolStripMenuItem_Click);
+            // 
+            // suppliesToolStripMenuItem
+            // 
+            this.suppliesToolStripMenuItem.Name = "suppliesToolStripMenuItem";
+            this.suppliesToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.suppliesToolStripMenuItem.Text = "Zaloga";
+            this.suppliesToolStripMenuItem.Click += new System.EventHandler(this.SuppliesToolStripMenuItem_Click);
             // 
             // codelistsToolStripMenuItem
             // 
@@ -227,6 +180,68 @@
             this.settingsToolStripMenuItem.Text = "Nastavitve";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
             // 
+            // Number
+            // 
+            this.Number.DataPropertyName = "Number";
+            this.Number.FillWeight = 8F;
+            this.Number.HeaderText = "Št. DN";
+            this.Number.Name = "Number";
+            this.Number.ReadOnly = true;
+            // 
+            // Created
+            // 
+            this.Created.DataPropertyName = "Created";
+            dataGridViewCellStyle1.Format = "dd.MM.yyyy HH:mm";
+            this.Created.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Created.FillWeight = 11F;
+            this.Created.HeaderText = "Ustvarjen";
+            this.Created.Name = "Created";
+            this.Created.ReadOnly = true;
+            // 
+            // Deadline
+            // 
+            this.Deadline.DataPropertyName = "Deadline";
+            dataGridViewCellStyle2.Format = "dd.MM.yyyy";
+            this.Deadline.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Deadline.FillWeight = 8F;
+            this.Deadline.HeaderText = "Rok izdelave";
+            this.Deadline.Name = "Deadline";
+            this.Deadline.ReadOnly = true;
+            // 
+            // Customer
+            // 
+            this.Customer.DataPropertyName = "Customer";
+            this.Customer.FillWeight = 36F;
+            this.Customer.HeaderText = "Stranka";
+            this.Customer.Name = "Customer";
+            this.Customer.ReadOnly = true;
+            // 
+            // Vehicle
+            // 
+            this.Vehicle.DataPropertyName = "Vehicle";
+            this.Vehicle.FillWeight = 27F;
+            this.Vehicle.HeaderText = "Vozilo";
+            this.Vehicle.Name = "Vehicle";
+            this.Vehicle.ReadOnly = true;
+            // 
+            // Service
+            // 
+            this.Service.FillWeight = 5F;
+            this.Service.HeaderText = "Pregled";
+            this.Service.Name = "Service";
+            this.Service.ReadOnly = true;
+            this.Service.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Service.Text = "";
+            // 
+            // Invoice
+            // 
+            this.Invoice.FillWeight = 5F;
+            this.Invoice.HeaderText = "Račun";
+            this.Invoice.Name = "Invoice";
+            this.Invoice.ReadOnly = true;
+            this.Invoice.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Invoice.Text = "";
+            // 
             // WorkOrderListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -264,6 +279,7 @@
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem serviceItemsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem serviceTypesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem suppliesToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Number;
         private System.Windows.Forms.DataGridViewTextBoxColumn Created;
         private System.Windows.Forms.DataGridViewTextBoxColumn Deadline;

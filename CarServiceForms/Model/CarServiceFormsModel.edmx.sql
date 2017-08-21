@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 08/07/2017 12:33:41
+-- Date Created: 08/21/2017 22:25:46
 -- Generated from EDMX file: F:\Development\car-service-forms\CarServiceForms\Model\CarServiceFormsModel.edmx
 -- --------------------------------------------------
 
@@ -93,6 +93,12 @@ IF OBJECT_ID(N'[dbo].[Invoice]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[InvoiceItem]', 'U') IS NOT NULL
     DROP TABLE [dbo].[InvoiceItem];
+GO
+IF OBJECT_ID(N'[dbo].[InvoiceItemDescription]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[InvoiceItemDescription];
+GO
+IF OBJECT_ID(N'[dbo].[Supplies]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Supplies];
 GO
 
 -- --------------------------------------------------
@@ -226,6 +232,7 @@ GO
 -- Creating table 'InvoiceItem'
 CREATE TABLE [dbo].[InvoiceItem] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
+    [Code] nvarchar(max)  NOT NULL,
     [Description] nvarchar(max)  NOT NULL,
     [Quantity] decimal(18,2)  NOT NULL,
     [Price] decimal(18,4)  NOT NULL,
@@ -242,6 +249,15 @@ GO
 CREATE TABLE [dbo].[InvoiceItemDescription] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Value] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'Supplies'
+CREATE TABLE [dbo].[Supplies] (
+    [Id] bigint IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(max)  NOT NULL,
+    [Quantity] decimal(18,2)  NOT NULL,
+    [Updated] datetime  NOT NULL
 );
 GO
 
@@ -330,6 +346,12 @@ GO
 -- Creating primary key on [Id] in table 'InvoiceItemDescription'
 ALTER TABLE [dbo].[InvoiceItemDescription]
 ADD CONSTRAINT [PK_InvoiceItemDescription]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Supplies'
+ALTER TABLE [dbo].[Supplies]
+ADD CONSTRAINT [PK_Supplies]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

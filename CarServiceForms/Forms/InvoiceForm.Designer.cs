@@ -31,6 +31,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvoiceForm));
             this.invoiceItemsDataGridView = new System.Windows.Forms.DataGridView();
             this.Description = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -55,6 +56,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.paymentDeadlineDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
+            this.deleteButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceItemsDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,10 +76,12 @@
             this.invoiceItemsDataGridView.Name = "invoiceItemsDataGridView";
             this.invoiceItemsDataGridView.Size = new System.Drawing.Size(699, 252);
             this.invoiceItemsDataGridView.TabIndex = 0;
+            this.invoiceItemsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.InvoiceItemsDataGridView_CellClick);
             this.invoiceItemsDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.InvoiceItemsDataGridView_CellValueChanged);
             this.invoiceItemsDataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.InvoiceItemsDataGridView_DefaultValuesNeeded);
             this.invoiceItemsDataGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.InvoiceItemsDataGridView_EditingControlShowing);
             this.invoiceItemsDataGridView.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.InvoiceItemsDataGridView_UserDeletedRow);
+            this.invoiceItemsDataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.InvoiceItemsDataGridView_UserDeletingRow);
             // 
             // Description
             // 
@@ -107,6 +111,7 @@
             // SalePrice
             // 
             this.SalePrice.DataPropertyName = "SalePrice";
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle2.Format = "N2";
             this.SalePrice.DefaultCellStyle = dataGridViewCellStyle2;
             this.SalePrice.FillWeight = 10F;
@@ -124,6 +129,8 @@
             // TaxPercentage
             // 
             this.TaxPercentage.DataPropertyName = "TaxPercentage";
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.TaxPercentage.DefaultCellStyle = dataGridViewCellStyle3;
             this.TaxPercentage.FillWeight = 10F;
             this.TaxPercentage.HeaderText = "DDV[%]";
             this.TaxPercentage.Name = "TaxPercentage";
@@ -132,8 +139,9 @@
             // TaxBase
             // 
             this.TaxBase.DataPropertyName = "TaxBase";
-            dataGridViewCellStyle3.Format = "N2";
-            this.TaxBase.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle4.Format = "N2";
+            this.TaxBase.DefaultCellStyle = dataGridViewCellStyle4;
             this.TaxBase.FillWeight = 10F;
             this.TaxBase.HeaderText = "Davčna osnova[€]";
             this.TaxBase.Name = "TaxBase";
@@ -146,7 +154,7 @@
             this.cancelButton.Location = new System.Drawing.Point(364, 412);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 6;
+            this.cancelButton.TabIndex = 14;
             this.cancelButton.Text = "Prekliči";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
@@ -157,7 +165,7 @@
             this.confirmButton.Location = new System.Drawing.Point(283, 412);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(75, 23);
-            this.confirmButton.TabIndex = 5;
+            this.confirmButton.TabIndex = 13;
             this.confirmButton.Text = "Potrdi";
             this.confirmButton.UseVisualStyleBackColor = true;
             this.confirmButton.Click += new System.EventHandler(this.ConfirmButton_Click);
@@ -169,7 +177,7 @@
             this.label2.Location = new System.Drawing.Point(520, 365);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 13);
-            this.label2.TabIndex = 8;
+            this.label2.TabIndex = 11;
             this.label2.Text = "SKUPNI ZNESEK:";
             // 
             // label3
@@ -178,7 +186,7 @@
             this.label3.Location = new System.Drawing.Point(591, 299);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(39, 13);
-            this.label3.TabIndex = 9;
+            this.label3.TabIndex = 5;
             this.label3.Text = "Rabat:";
             // 
             // label4
@@ -187,7 +195,7 @@
             this.label4.Location = new System.Drawing.Point(512, 276);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(118, 13);
-            this.label4.TabIndex = 10;
+            this.label4.TabIndex = 3;
             this.label4.Text = "Skupna prodajna cena:";
             // 
             // totalSalePriceLabel
@@ -196,7 +204,7 @@
             this.totalSalePriceLabel.Name = "totalSalePriceLabel";
             this.totalSalePriceLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.totalSalePriceLabel.Size = new System.Drawing.Size(75, 13);
-            this.totalSalePriceLabel.TabIndex = 11;
+            this.totalSalePriceLabel.TabIndex = 4;
             this.totalSalePriceLabel.Text = "0 €";
             this.totalSalePriceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -206,7 +214,7 @@
             this.totalDiscountLabel.Name = "totalDiscountLabel";
             this.totalDiscountLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.totalDiscountLabel.Size = new System.Drawing.Size(72, 13);
-            this.totalDiscountLabel.TabIndex = 12;
+            this.totalDiscountLabel.TabIndex = 6;
             this.totalDiscountLabel.Text = "0 €";
             this.totalDiscountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -217,7 +225,7 @@
             this.totalFinalPriceLabel.Name = "totalFinalPriceLabel";
             this.totalFinalPriceLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.totalFinalPriceLabel.Size = new System.Drawing.Size(72, 13);
-            this.totalFinalPriceLabel.TabIndex = 13;
+            this.totalFinalPriceLabel.TabIndex = 12;
             this.totalFinalPriceLabel.Text = "0 €";
             this.totalFinalPriceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -226,7 +234,7 @@
             this.printButton.Location = new System.Drawing.Point(636, 412);
             this.printButton.Name = "printButton";
             this.printButton.Size = new System.Drawing.Size(75, 23);
-            this.printButton.TabIndex = 14;
+            this.printButton.TabIndex = 16;
             this.printButton.Text = "Natisni";
             this.printButton.UseVisualStyleBackColor = true;
             this.printButton.Click += new System.EventHandler(this.PrintButton_Click);
@@ -237,7 +245,7 @@
             this.totalTaxBaseLabel.Name = "totalTaxBaseLabel";
             this.totalTaxBaseLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.totalTaxBaseLabel.Size = new System.Drawing.Size(72, 13);
-            this.totalTaxBaseLabel.TabIndex = 16;
+            this.totalTaxBaseLabel.TabIndex = 8;
             this.totalTaxBaseLabel.Text = "0 €";
             this.totalTaxBaseLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -247,7 +255,7 @@
             this.label5.Location = new System.Drawing.Point(544, 321);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(86, 13);
-            this.label5.TabIndex = 15;
+            this.label5.TabIndex = 7;
             this.label5.Text = "Davčna osnova:";
             // 
             // totalTaxLabel
@@ -256,7 +264,7 @@
             this.totalTaxLabel.Name = "totalTaxLabel";
             this.totalTaxLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.totalTaxLabel.Size = new System.Drawing.Size(72, 13);
-            this.totalTaxLabel.TabIndex = 18;
+            this.totalTaxLabel.TabIndex = 10;
             this.totalTaxLabel.Text = "0 €";
             this.totalTaxLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -266,7 +274,7 @@
             this.label7.Location = new System.Drawing.Point(597, 343);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(33, 13);
-            this.label7.TabIndex = 17;
+            this.label7.TabIndex = 9;
             this.label7.Text = "DDV:";
             // 
             // paymentDeadlineDateTimePicker
@@ -277,7 +285,7 @@
             this.paymentDeadlineDateTimePicker.Name = "paymentDeadlineDateTimePicker";
             this.paymentDeadlineDateTimePicker.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.paymentDeadlineDateTimePicker.Size = new System.Drawing.Size(112, 20);
-            this.paymentDeadlineDateTimePicker.TabIndex = 19;
+            this.paymentDeadlineDateTimePicker.TabIndex = 2;
             // 
             // label1
             // 
@@ -285,8 +293,18 @@
             this.label1.Location = new System.Drawing.Point(12, 273);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
-            this.label1.TabIndex = 20;
+            this.label1.TabIndex = 1;
             this.label1.Text = "Rok plačila:";
+            // 
+            // deleteButton
+            // 
+            this.deleteButton.Location = new System.Drawing.Point(555, 412);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(75, 23);
+            this.deleteButton.TabIndex = 15;
+            this.deleteButton.Text = "Storno";
+            this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // InvoiceForm
             // 
@@ -294,6 +312,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(723, 447);
             this.ControlBox = false;
+            this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.paymentDeadlineDateTimePicker);
             this.Controls.Add(this.totalTaxLabel);
@@ -349,5 +368,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Discount;
         private System.Windows.Forms.DataGridViewTextBoxColumn TaxPercentage;
         private System.Windows.Forms.DataGridViewTextBoxColumn TaxBase;
+        private System.Windows.Forms.Button deleteButton;
     }
 }

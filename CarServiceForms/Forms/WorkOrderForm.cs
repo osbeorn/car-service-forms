@@ -187,5 +187,14 @@ namespace CarServiceForms.Forms
         {
             vehicleMileageNumericUpDown.Select(0, vehicleMileageNumericUpDown.Text.Length);
         }
+
+        private void WorkOrderInstructionsDataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            if (e.Control is TextBox)
+            {
+                var textBoxControl = (TextBox)e.Control;
+                textBoxControl.CharacterCasing = CharacterCasing.Upper;
+            }
+        }
     }
 }

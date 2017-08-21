@@ -36,6 +36,7 @@
         </AssociationConnector>
         <AssociationConnector Association="CarServiceFormsModel.AppliedServiceItemServiceItem" />
         <EntityTypeShape EntityType="CarServiceFormsModel.InvoiceItemDescription" Width="1.5" PointX="0.75" PointY="3" />
+        <EntityTypeShape EntityType="CarServiceFormsModel.Supplies" Width="1.5" PointX="0.75" PointY="4.625" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -167,8 +167,8 @@ SET IDENTITY_INSERT [CarServiceForms].[dbo].[InvoiceItemDescription] ON;
 
 INSERT INTO [CarServiceForms].[dbo].[InvoiceItemDescription] ([Id], [Value])
 VALUES
-(1, 'Servis z menjavo olja'),
-(2, 'Servisni pregled (časovno ali kilometrsko pogojeni)'),
-(3, 'Intervalni servis (fiksno)');
+(1, 'SERVIS Z MENJAVO OLJA'),
+(2, 'SERVISNI PREGLED (ČASOVNO ALI KILOMETRSKO POGOJENI)'),
+(3, 'INTERVALNI SERVIS (FIKSNO)');
 
 SET IDENTITY_INSERT [CarServiceForms].[dbo].[InvoiceItemDescription] OFF;

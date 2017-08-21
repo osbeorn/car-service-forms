@@ -102,6 +102,7 @@
             // 
             // repairmanTextBox
             // 
+            this.repairmanTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.repairmanTextBox.Location = new System.Drawing.Point(61, 19);
             this.repairmanTextBox.Name = "repairmanTextBox";
             this.repairmanTextBox.Size = new System.Drawing.Size(368, 20);
@@ -160,6 +161,7 @@
             // 
             // companyDirectorTextBox
             // 
+            this.companyDirectorTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.companyDirectorTextBox.Location = new System.Drawing.Point(61, 149);
             this.companyDirectorTextBox.Name = "companyDirectorTextBox";
             this.companyDirectorTextBox.Size = new System.Drawing.Size(368, 20);
@@ -176,6 +178,7 @@
             // 
             // companyTaxIdTextBox
             // 
+            this.companyTaxIdTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.companyTaxIdTextBox.Location = new System.Drawing.Point(61, 97);
             this.companyTaxIdTextBox.Name = "companyTaxIdTextBox";
             this.companyTaxIdTextBox.Size = new System.Drawing.Size(368, 20);
@@ -193,6 +196,7 @@
             // 
             // companyBankAccountTextBox
             // 
+            this.companyBankAccountTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.companyBankAccountTextBox.Location = new System.Drawing.Point(61, 123);
             this.companyBankAccountTextBox.Name = "companyBankAccountTextBox";
             this.companyBankAccountTextBox.Size = new System.Drawing.Size(368, 20);
@@ -209,6 +213,7 @@
             // 
             // companyAddress2TextBox
             // 
+            this.companyAddress2TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.companyAddress2TextBox.Location = new System.Drawing.Point(61, 71);
             this.companyAddress2TextBox.Name = "companyAddress2TextBox";
             this.companyAddress2TextBox.Size = new System.Drawing.Size(368, 20);
@@ -225,6 +230,7 @@
             // 
             // companyAddress1TextBox
             // 
+            this.companyAddress1TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.companyAddress1TextBox.Location = new System.Drawing.Point(61, 45);
             this.companyAddress1TextBox.Name = "companyAddress1TextBox";
             this.companyAddress1TextBox.Size = new System.Drawing.Size(368, 20);
@@ -241,6 +247,7 @@
             // 
             // companyNameTextBox
             // 
+            this.companyNameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.companyNameTextBox.Location = new System.Drawing.Point(61, 19);
             this.companyNameTextBox.Name = "companyNameTextBox";
             this.companyNameTextBox.Size = new System.Drawing.Size(368, 20);

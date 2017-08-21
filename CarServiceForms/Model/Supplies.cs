@@ -12,19 +12,11 @@ namespace CarServiceForms.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class InvoiceItem
+    public partial class Supplies
     {
         public long Id { get; set; }
-        public string Code { get; set; }
-        public string Description { get; set; }
+        public string Name { get; set; }
         public decimal Quantity { get; set; }
-        public decimal Price { get; set; }
-        public decimal SalePrice { get; set; }
-        public decimal Discount { get; set; }
-        public decimal TaxPercentage { get; set; }
-        public decimal TaxBase { get; set; }
-        public decimal FinalPrice { get; set; }
-    
-        public virtual Invoice Invoice { get; set; }
+        public System.DateTime Updated { get; set; }
     }
 }

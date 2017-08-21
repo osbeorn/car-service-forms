@@ -46,7 +46,7 @@ namespace CarServiceForms.Forms
             serviceItemGroupsDataGridView.AutoGenerateColumns = false;
 
             SetupServiceItemGroupsDataSource();
-                        
+
 
             serviceItemsDataGridView.AutoGenerateColumns = false;
 
@@ -217,6 +217,10 @@ namespace CarServiceForms.Forms
         private void ServiceItemsDataGridView_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
             e.Row.Cells["itemOrderColumn"].Value = 0;
+            if (ServiceItemGroups.Count > 0)
+            {
+                e.Row.Cells["itemGroupColumn"].Value = ServiceItemGroups[0].Id;
+            }
         }
     }
 }

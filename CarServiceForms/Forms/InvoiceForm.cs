@@ -26,8 +26,11 @@ namespace CarServiceForms.Forms
 
         private WorkOrder WorkOrder { get; set; }
         private Invoice Invoice { get; set; }
+
         private IList<InvoiceItem> InvoiceItems { get; set; }
-        private static IList<InvoiceItemDescription> InvoiceItemDescriptions { get; set; }
+        private List<long> DeletedInvoiceItems { get; set; }
+
+        private static IList<InvoiceItemDescriptionDTO> InvoiceItemDescriptions { get; set; }
 
         public InvoiceForm(long workOrderId)
         {
@@ -53,6 +56,8 @@ namespace CarServiceForms.Forms
             }
             else
             {
+                deleteButton.Visible = false;
+
                 InvoiceItems = new List<InvoiceItem>();
 
                 // set service type invoice item
@@ -74,17 +79,36 @@ namespace CarServiceForms.Forms
                 paymentDeadlineDateTimePicker.Value = DateTime.Today.AddDays(paymentDeadline);
             }
 
-            InvoiceItemDescriptions = DBContext
+            InvoiceItemDescriptions = new List<InvoiceItemDescriptionDTO>();
+            DBContext
                 .InvoiceItemDescription
-                .OrderBy(iid => iid.Value)
-                .ToList();
+                .Select(iid => new InvoiceItemDescriptionDTO()
+                {
+                    Code = "DESC-" + iid.Id,
+                    Value = iid.Value
+                })
+                .ToList()
+                .ForEach(iid => InvoiceItemDescriptions.Add(iid));
+            DBContext
+                .Supplies
+                .Select(s => new InvoiceItemDescriptionDTO()
+                {
+                    Code = "SUPP-" + s.Id,
+                    Value = s.Name
+                })
+                .ToList()
+                .ForEach(s => InvoiceItemDescriptions.Add(s));
+
+            InvoiceItemDescriptions = InvoiceItemDescriptions.OrderBy(iid => iid.Value).ToList(); ;
 
             var descriptionColumn = invoiceItemsDataGridView.Columns["Description"] as DataGridViewComboBoxColumn;
             descriptionColumn.ValueMember = "Value";
             descriptionColumn.DisplayMember = "Value";
-            descriptionColumn.DataSource = new BindingList<InvoiceItemDescription>(InvoiceItemDescriptions);
+            descriptionColumn.DataSource = new BindingList<InvoiceItemDescriptionDTO>(InvoiceItemDescriptions);
 
             invoiceItemsDataGridView.DataSource = new BindingList<InvoiceItem>(InvoiceItems);
+
+            DeletedInvoiceItems = new List<long>();
 
             UpdateTotalLabels();
         }
@@ -161,6 +185,9 @@ namespace CarServiceForms.Forms
         private void InvoiceItemsDataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             var columnName = invoiceItemsDataGridView.CurrentCell.OwningColumn.Name;
+            var row = invoiceItemsDataGridView.CurrentCell.OwningRow;
+            var invoiceItem = invoiceItemsDataGridView.CurrentCell.OwningRow.DataBoundItem as InvoiceItem;
+
             if (columnName == "Quantity" || columnName == "Price" || columnName == "Discount")
             {
                 e.Control.KeyPress -= NumericCheckHandler;
@@ -173,6 +200,7 @@ namespace CarServiceForms.Forms
                     var comboBox = e.Control as DataGridViewComboBoxEditingControl;
                     if (comboBox != null)
                     {
+                        comboBox.KeyPress += UppercaseDropdown;
                         comboBox.Validating += ValidateDropdown;
                         comboBox.DropDownStyle = ComboBoxStyle.DropDown;
                         comboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
@@ -194,7 +222,15 @@ namespace CarServiceForms.Forms
             }
             else
             {
-                e.Handled = !char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar);
+                e.Handled = !Char.IsControl(e.KeyChar) && !Char.IsDigit(e.KeyChar);
+            }
+        }
+
+        private void UppercaseDropdown(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsLetter(e.KeyChar))
+            {
+                e.KeyChar = Char.ToUpperInvariant(e.KeyChar);
             }
         }
 
@@ -204,20 +240,29 @@ namespace CarServiceForms.Forms
 
             string value = control.Text;
             var exists = control.Items
-                .Cast<InvoiceItemDescription>()
-                .Any(iid => iid.Value.ToLowerInvariant() == value.ToLowerInvariant());
+                .Cast<InvoiceItemDescriptionDTO>()
+                .FirstOrDefault(iid => iid.Value.ToUpperInvariant() == value.Trim().ToUpperInvariant());
 
-            if (!exists)
+            if (exists == null)
             {
                 DataGridViewComboBoxCell cell = (DataGridViewComboBoxCell) invoiceItemsDataGridView.CurrentCell;
 
                 InvoiceItemDescriptions.Add(
-                    new InvoiceItemDescription()
+                    new InvoiceItemDescriptionDTO()
                     {
-                        Value = value
+                        Value = value.Trim().ToUpperInvariant()
                     }
                 );
-                invoiceItemsDataGridView.CurrentCell.Value = value;
+                invoiceItemsDataGridView.CurrentCell.Value = value.Trim().ToUpperInvariant();
+            }
+
+            if (exists != null)
+            {
+                var invoiceItem = invoiceItemsDataGridView.CurrentCell.OwningRow.DataBoundItem as InvoiceItem;
+                if (invoiceItem != null)
+                {
+                    invoiceItem.Code = exists.Code;
+                }
             }
         }
 
@@ -228,6 +273,21 @@ namespace CarServiceForms.Forms
 
         private void SaveInvoice()
         {
+            // save new InvoiceItemDescriptions
+            foreach (DataGridViewRow row in invoiceItemsDataGridView.Rows)
+            {
+                var invoiceItem = row.DataBoundItem as InvoiceItem;
+                if (invoiceItem != null && string.IsNullOrEmpty(invoiceItem.Code))
+                {
+                    var invoiceItemDescription = new InvoiceItemDescription()
+                    {
+                        Value = invoiceItem.Description
+                    };
+                    DBContext.InvoiceItemDescription.Add(invoiceItemDescription);
+                }
+            }
+            DBContext.SaveChanges();
+
             if (Invoice != null)
             {
                 Invoice.InvoiceItems = InvoiceItems;
@@ -248,12 +308,55 @@ namespace CarServiceForms.Forms
                 DBContext.Invoice.Add(Invoice);
             }
 
-            foreach (var invoiceItemDescription in InvoiceItemDescriptions)
+            // reduce supply quantity
+            foreach (InvoiceItem invoiceItem in Invoice.InvoiceItems)
             {
-                if (invoiceItemDescription.Id <= 0)
+                if (string.IsNullOrEmpty(invoiceItem.Code))
                 {
-                    DBContext.InvoiceItemDescription.Add(invoiceItemDescription);
+                    var invoiceItemDescription = DBContext.InvoiceItemDescription
+                        .Where(iid => iid.Value == invoiceItem.Description)
+                        .FirstOrDefault();
+
+                    if (invoiceItemDescription != null)
+                    {
+                        invoiceItem.Code = "DESC-" + invoiceItemDescription.Id;
+                    }
                 }
+
+                if (invoiceItem.Id <= 0) // new record
+                {
+                    
+                    if (!string.IsNullOrEmpty(invoiceItem.Code) && invoiceItem.Code.StartsWith("SUPP"))
+                    {
+                        var index = invoiceItem.Code.IndexOf("-");
+                        var id = long.Parse(invoiceItem.Code.Substring(index + 1));
+
+                        var supplies = DBContext.Supplies.Find(id);
+                        supplies.Quantity -= invoiceItem.Quantity;
+                    }
+                }
+                else // old records
+                {
+                    // compare new and old quantities
+                    // TODO - it is currently not possible to edit old records
+                }
+            }
+
+            foreach (long deletedInvoiceItemId in DeletedInvoiceItems)
+            {
+                var deletedInvoiceItem = DBContext.InvoiceItem.Find(deletedInvoiceItemId);
+                if (deletedInvoiceItem.Code.StartsWith("SUPP"))
+                {
+                    var index = deletedInvoiceItem.Code.IndexOf("-");
+                    var id = long.Parse(deletedInvoiceItem.Code.Substring(index + 1));
+
+                    var supplies = DBContext.Supplies.Find(id);
+                    if (supplies != null)
+                    {
+                        supplies.Quantity += deletedInvoiceItem.Quantity;
+                    }
+                }
+                DBContext.InvoiceItem.Remove(deletedInvoiceItem);
             }
 
             DBContext.SaveChanges();
@@ -355,9 +458,59 @@ namespace CarServiceForms.Forms
             e.Row.Cells["TaxPercentage"].Value = 22.0m;
         }
 
-        private void InvoiceItemsDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        private void InvoiceItemsDataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
+            var invoiceItem = e.Row.DataBoundItem as InvoiceItem;
+            if (invoiceItem.Id > 0)
+            {
+                DeletedInvoiceItems.Add(invoiceItem.Id);
+            }
+        }
 
+        private void InvoiceItemsDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex == 0)
+            {
+                var row = invoiceItemsDataGridView.Rows[e.RowIndex];
+                var cell = row.Cells[e.ColumnIndex];
+
+                var invoiceItem = row.DataBoundItem as InvoiceItem;
+                if (invoiceItem != null && invoiceItem.Id > 0)
+                {
+                    cell.ReadOnly = true;
+                }
+            }
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Ali res želite stornirati izbrani račun?", "Storno računa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                // reduce supply quantity
+                foreach (InvoiceItem invoiceItem in Invoice.InvoiceItems)
+                {
+                    if (invoiceItem.Code.StartsWith("SUPP"))
+                    {
+                        var index = invoiceItem.Code.IndexOf("-");
+                        var id = long.Parse(invoiceItem.Code.Substring(index + 1));
+
+                        var supplies = DBContext.Supplies.Find(id);
+                        if (supplies != null)
+                        {
+                            supplies.Quantity += invoiceItem.Quantity;
+                        }
+                    }
+                }
+                DBContext.InvoiceItem.RemoveRange(Invoice.InvoiceItems);
+                DBContext.Invoice.Remove(Invoice);
+
+                DBContext.SaveChanges();
+
+                DialogResult = DialogResult.OK;
+
+                Close();
+            }
         }
     }
 }
