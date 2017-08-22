@@ -33,6 +33,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorkOrderListForm));
             this.createButton = new System.Windows.Forms.Button();
             this.workOrdersDataGridView = new System.Windows.Forms.DataGridView();
+            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Created = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Deadline = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Customer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Vehicle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Service = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Invoice = new System.Windows.Forms.DataGridViewButtonColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,16 +48,9 @@
             this.suppliesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.codelistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.servicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.serviceItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serviceTypesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.serviceItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Created = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Deadline = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Customer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Vehicle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Service = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Invoice = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.workOrdersDataGridView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -88,97 +88,6 @@
             this.workOrdersDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.WorkOrdersDataGridView_CellContentClick);
             this.workOrdersDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.WorkOrdersDataGridView_CellMouseDoubleClick);
             this.workOrdersDataGridView.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.WorkOrdersDataGridView_CellPainting);
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.editToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.menuStrip1.Size = new System.Drawing.Size(1074, 24);
-            this.menuStrip1.TabIndex = 3;
-            this.menuStrip1.Text = "mainMenuStrip";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
-            this.fileToolStripMenuItem.Text = "Datoteka";
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.exitToolStripMenuItem.Text = "Izhod";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.customersToolStripMenuItem,
-            this.suppliesToolStripMenuItem,
-            this.codelistsToolStripMenuItem,
-            this.settingsToolStripMenuItem});
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
-            this.editToolStripMenuItem.Text = "Urejanje";
-            // 
-            // customersToolStripMenuItem
-            // 
-            this.customersToolStripMenuItem.Name = "customersToolStripMenuItem";
-            this.customersToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.customersToolStripMenuItem.Text = "Stranke";
-            this.customersToolStripMenuItem.Click += new System.EventHandler(this.CustomersToolStripMenuItem_Click);
-            // 
-            // suppliesToolStripMenuItem
-            // 
-            this.suppliesToolStripMenuItem.Name = "suppliesToolStripMenuItem";
-            this.suppliesToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.suppliesToolStripMenuItem.Text = "Zaloga";
-            this.suppliesToolStripMenuItem.Click += new System.EventHandler(this.SuppliesToolStripMenuItem_Click);
-            // 
-            // codelistsToolStripMenuItem
-            // 
-            this.codelistsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.servicesToolStripMenuItem});
-            this.codelistsToolStripMenuItem.Name = "codelistsToolStripMenuItem";
-            this.codelistsToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.codelistsToolStripMenuItem.Text = "Šifranti";
-            // 
-            // servicesToolStripMenuItem
-            // 
-            this.servicesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.serviceItemsToolStripMenuItem,
-            this.serviceTypesToolStripMenuItem});
-            this.servicesToolStripMenuItem.Name = "servicesToolStripMenuItem";
-            this.servicesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.servicesToolStripMenuItem.Text = "Servisni pregledi";
-            // 
-            // serviceItemsToolStripMenuItem
-            // 
-            this.serviceItemsToolStripMenuItem.Name = "serviceItemsToolStripMenuItem";
-            this.serviceItemsToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.serviceItemsToolStripMenuItem.Text = "Postavke";
-            this.serviceItemsToolStripMenuItem.Click += new System.EventHandler(this.ServiceItemsToolStripMenuItem_Click);
-            // 
-            // serviceTypesToolStripMenuItem
-            // 
-            this.serviceTypesToolStripMenuItem.Name = "serviceTypesToolStripMenuItem";
-            this.serviceTypesToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.serviceTypesToolStripMenuItem.Text = "Tipi pregledov";
-            this.serviceTypesToolStripMenuItem.Visible = false;
-            this.serviceTypesToolStripMenuItem.Click += new System.EventHandler(this.ServiceTypesToolStripMenuItem_Click);
-            // 
-            // settingsToolStripMenuItem
-            // 
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.settingsToolStripMenuItem.Text = "Nastavitve";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
             // 
             // Number
             // 
@@ -241,6 +150,98 @@
             this.Invoice.ReadOnly = true;
             this.Invoice.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Invoice.Text = "";
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.editToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.menuStrip1.Size = new System.Drawing.Size(1074, 24);
+            this.menuStrip1.TabIndex = 3;
+            this.menuStrip1.Text = "mainMenuStrip";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
+            this.fileToolStripMenuItem.Text = "Datoteka";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitToolStripMenuItem.Text = "Izhod";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.customersToolStripMenuItem,
+            this.suppliesToolStripMenuItem,
+            this.codelistsToolStripMenuItem,
+            this.settingsToolStripMenuItem});
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.editToolStripMenuItem.Text = "Urejanje";
+            // 
+            // customersToolStripMenuItem
+            // 
+            this.customersToolStripMenuItem.Name = "customersToolStripMenuItem";
+            this.customersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.customersToolStripMenuItem.Text = "Stranke";
+            this.customersToolStripMenuItem.Click += new System.EventHandler(this.CustomersToolStripMenuItem_Click);
+            // 
+            // suppliesToolStripMenuItem
+            // 
+            this.suppliesToolStripMenuItem.Name = "suppliesToolStripMenuItem";
+            this.suppliesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.suppliesToolStripMenuItem.Text = "Zaloga";
+            this.suppliesToolStripMenuItem.Click += new System.EventHandler(this.SuppliesToolStripMenuItem_Click);
+            // 
+            // codelistsToolStripMenuItem
+            // 
+            this.codelistsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.servicesToolStripMenuItem});
+            this.codelistsToolStripMenuItem.Name = "codelistsToolStripMenuItem";
+            this.codelistsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.codelistsToolStripMenuItem.Text = "Šifranti";
+            // 
+            // servicesToolStripMenuItem
+            // 
+            this.servicesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.serviceTypesToolStripMenuItem,
+            this.serviceItemsToolStripMenuItem});
+            this.servicesToolStripMenuItem.Name = "servicesToolStripMenuItem";
+            this.servicesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.servicesToolStripMenuItem.Text = "Servisni pregledi";
+            // 
+            // serviceTypesToolStripMenuItem
+            // 
+            this.serviceTypesToolStripMenuItem.Enabled = false;
+            this.serviceTypesToolStripMenuItem.Name = "serviceTypesToolStripMenuItem";
+            this.serviceTypesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.serviceTypesToolStripMenuItem.Text = "Tipi pregledov";
+            this.serviceTypesToolStripMenuItem.Visible = false;
+            this.serviceTypesToolStripMenuItem.Click += new System.EventHandler(this.ServiceTypesToolStripMenuItem_Click);
+            // 
+            // serviceItemsToolStripMenuItem
+            // 
+            this.serviceItemsToolStripMenuItem.Name = "serviceItemsToolStripMenuItem";
+            this.serviceItemsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.serviceItemsToolStripMenuItem.Text = "Postavke";
+            this.serviceItemsToolStripMenuItem.Click += new System.EventHandler(this.ServiceItemsToolStripMenuItem_Click);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.settingsToolStripMenuItem.Text = "Nastavitve";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
             // 
             // WorkOrderListForm
             // 

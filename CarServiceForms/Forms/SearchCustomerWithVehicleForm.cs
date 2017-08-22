@@ -17,11 +17,15 @@ namespace CarServiceForms.Forms
     {
         private CarServiceFormsDBContext DbContext { get; set; }
 
+        private bool ActiveOnly { get; set; }
+
         public long? ReturnValue1 { get; set; }
         public long? ReturnValue2 { get; set; }
 
-        public SearchCustomerWithVehicleForm()
+        public SearchCustomerWithVehicleForm(bool activeOnly)
         {
+            ActiveOnly = activeOnly;
+
             InitializeComponent();
             InitializeComponents();
         }
@@ -70,6 +74,7 @@ namespace CarServiceForms.Forms
                     !string.IsNullOrEmpty(vehicleRegistrationNumber) && v.RegistrationNumber.Contains(vehicleRegistrationNumber) ||
                     (string.IsNullOrEmpty(customerFirstName) && string.IsNullOrEmpty(customerLastName) && string.IsNullOrEmpty(vehicleIdentificationNumber) && string.IsNullOrEmpty(vehicleRegistrationNumber))
                 )
+                .Where(v => (ActiveOnly && v.Active && v.Customer.Active) || !ActiveOnly)
                 .Select(v => new CustomerWithVehicleDTO
                 {
                     CustomerId = v.Customer.Id,
@@ -77,6 +82,7 @@ namespace CarServiceForms.Forms
                     LastName = v.Customer.LastName,
                     Street = v.Customer.Street,
                     Post = v.Customer.Post,
+                    Phone = v.Customer.Phone,
 
                     VehicleId = v.Id,
                     IdentificationNumber = v.IdentificationNumber,

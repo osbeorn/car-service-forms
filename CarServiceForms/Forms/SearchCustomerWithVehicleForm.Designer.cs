@@ -48,6 +48,7 @@
             this.customerLastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerStreet = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerPost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.customerPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vehicleIdentificationNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vehicleRegistrationNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vehicleRegistrationDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -165,6 +166,7 @@
             this.customerLastName,
             this.customerStreet,
             this.customerPost,
+            this.customerPhone,
             this.vehicleIdentificationNumber,
             this.vehicleRegistrationNumber,
             this.vehicleRegistrationDate,
@@ -245,6 +247,13 @@
             this.customerPost.HeaderText = "Pošta";
             this.customerPost.Name = "customerPost";
             this.customerPost.ReadOnly = true;
+            // 
+            // customerPhone
+            // 
+            this.customerPhone.DataPropertyName = "Phone";
+            this.customerPhone.HeaderText = "Telefon";
+            this.customerPhone.Name = "customerPhone";
+            this.customerPhone.ReadOnly = true;
             // 
             // vehicleIdentificationNumber
             // 
@@ -380,6 +389,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn customerLastName;
         private System.Windows.Forms.DataGridViewTextBoxColumn customerStreet;
         private System.Windows.Forms.DataGridViewTextBoxColumn customerPost;
+        private System.Windows.Forms.DataGridViewTextBoxColumn customerPhone;
         private System.Windows.Forms.DataGridViewTextBoxColumn vehicleIdentificationNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn vehicleRegistrationNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn vehicleRegistrationDate;

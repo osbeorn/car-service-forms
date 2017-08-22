@@ -13,6 +13,7 @@ namespace CarServiceForms.Classes
         public string LastName { get; set; }
         public string Street { get; set; }
         public string Post { get; set; }
+        public string Phone { get; set; }
 
         public long VehicleId { get; set; }
         public string RegistrationNumber { get; set; }

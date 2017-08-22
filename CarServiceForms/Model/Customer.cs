@@ -26,6 +26,7 @@ namespace CarServiceForms.Model
         public string Street { get; set; }
         public string Post { get; set; }
         public string Phone { get; set; }
+        public bool Active { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Vehicle> Vehicles { get; set; }

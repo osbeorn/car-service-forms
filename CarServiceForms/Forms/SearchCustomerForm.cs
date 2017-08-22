@@ -82,9 +82,12 @@ namespace CarServiceForms.Forms
             var customers = DBContext
                 .Customer
                 .Where(c =>
-                    !string.IsNullOrEmpty(customerFirstName) && c.FirstName.Contains(customerFirstName) ||
-                    !string.IsNullOrEmpty(customerLastName) && c.LastName.Contains(customerLastName) ||
-                    (string.IsNullOrEmpty(customerFirstName) && string.IsNullOrEmpty(customerLastName))
+                    c.Active &&
+                    (
+                        !string.IsNullOrEmpty(customerFirstName) && c.FirstName.Contains(customerFirstName) ||
+                        !string.IsNullOrEmpty(customerLastName) && c.LastName.Contains(customerLastName) ||
+                        (string.IsNullOrEmpty(customerFirstName) && string.IsNullOrEmpty(customerLastName))
+                    )
                 )
                 .ToList();
 

@@ -129,7 +129,7 @@ namespace CarServiceForms.Forms
 
         private void OpenSearchCustomerWithVehicleForm()
         {
-            using (var form = new SearchCustomerWithVehicleForm())
+            using (var form = new SearchCustomerWithVehicleForm(false))
             {
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
@@ -137,12 +137,12 @@ namespace CarServiceForms.Forms
                     var selectedCustomerId = form.ReturnValue1;
                     var selectedVehicleId = form.ReturnValue2;
 
-                    using (var form2 = new EditCustomerWithVehicleForm(selectedCustomerId.Value, selectedVehicleId.Value))
+                    if (selectedCustomerId.HasValue && selectedVehicleId.HasValue)
                     {
-                        form2.ShowDialog();
-                    }
+                        new EditCustomerWithVehicleForm(selectedCustomerId.Value, selectedVehicleId.Value).ShowDialog();
 
-                    OpenSearchCustomerWithVehicleForm();
+                        OpenSearchCustomerWithVehicleForm();
+                    }
                 }
             }
         }
@@ -159,7 +159,7 @@ namespace CarServiceForms.Forms
 
         private void ServiceTypesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            new EditServiceTypesForm().ShowDialog();
         }
 
         private void WorkOrdersDataGridView_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)

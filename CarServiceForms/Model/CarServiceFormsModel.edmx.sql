@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 08/21/2017 22:25:46
+-- Date Created: 08/22/2017 17:14:52
 -- Generated from EDMX file: F:\Development\car-service-forms\CarServiceForms\Model\CarServiceFormsModel.edmx
 -- --------------------------------------------------
 
@@ -112,7 +112,8 @@ CREATE TABLE [dbo].[Customer] (
     [LastName] nvarchar(max)  NOT NULL,
     [Street] nvarchar(max)  NOT NULL,
     [Post] nvarchar(max)  NOT NULL,
-    [Phone] nvarchar(max)  NOT NULL
+    [Phone] nvarchar(max)  NOT NULL,
+    [Active] bit  NOT NULL
 );
 GO
 
@@ -130,6 +131,7 @@ CREATE TABLE [dbo].[Vehicle] (
     [ModelYear] int  NOT NULL,
     [Engine] nvarchar(max)  NOT NULL,
     [Transmission] nvarchar(max)  NOT NULL,
+    [Active] bit  NOT NULL,
     [Customer_Id] bigint  NOT NULL
 );
 GO

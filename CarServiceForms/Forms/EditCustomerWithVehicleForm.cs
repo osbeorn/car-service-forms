@@ -46,6 +46,8 @@ namespace CarServiceForms.Forms
             customerStreetTextBox.Text = SelectedCustomer.Street;
             customerPostTextBox.Text = SelectedCustomer.Post;
             customerPhoneTextBox.Text = SelectedCustomer.Phone;
+
+            SetDeActivateButtonText(deActivateCustomerButton, SelectedCustomer.Active);
         }
 
         private void SetupVehicleFields()
@@ -61,6 +63,8 @@ namespace CarServiceForms.Forms
             vehicleGKBTextBox.Text = SelectedVehicle.GKBCode;
             vehicleMileageNumericUpDown.Value = SelectedVehicle.Mileage;
             vehicleModelYearNumericUpDown.Value = SelectedVehicle.ModelYear;
+
+            SetDeActivateButtonText(deActivateVehicleButton, SelectedVehicle.Active);
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -108,6 +112,30 @@ namespace CarServiceForms.Forms
         private void VehicleMileageNumericUpDown_Enter(object sender, EventArgs e)
         {
             vehicleMileageNumericUpDown.Select(0, vehicleMileageNumericUpDown.Text.Length);
+        }
+
+        private void DeActivateButton_Click(object sender, EventArgs e)
+        {
+            SelectedCustomer.Active = !SelectedCustomer.Active;
+            SetDeActivateButtonText(deActivateCustomerButton, SelectedCustomer.Active);
+        }
+
+        private void DeActivateVehicleButton_Click(object sender, EventArgs e)
+        {
+            SelectedVehicle.Active = !SelectedVehicle.Active;
+            SetDeActivateButtonText(deActivateVehicleButton, SelectedVehicle.Active);
+        }
+
+        private void SetDeActivateButtonText(Control button, bool state)
+        {
+            if (state)
+            {
+                button.Text = "Deaktiviraj";
+            }
+            else
+            {
+                button.Text = "Aktiviraj";
+            }
         }
     }
 }

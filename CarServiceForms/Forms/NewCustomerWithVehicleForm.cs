@@ -117,7 +117,8 @@ namespace CarServiceForms.Forms
                     LastName = customerLastNameTextBox.Text,
                     Street = customerStreetTextBox.Text,
                     Post = customerPostTextBox.Text,
-                    Phone = customerPhoneTextBox.Text
+                    Phone = customerPhoneTextBox.Text,
+                    Active = true
                 };
 
                 var vehicle = new Vehicle
@@ -132,7 +133,8 @@ namespace CarServiceForms.Forms
                     Transmission = vehicleTransmissionTextBox.Text,
                     GKBCode = vehicleGKBTextBox.Text,
                     Mileage = Convert.ToInt32(vehicleMileageNumericUpDown.Value),
-                    ModelYear = Convert.ToInt32(vehicleModelYearNumericUpDown.Value)
+                    ModelYear = Convert.ToInt32(vehicleModelYearNumericUpDown.Value),
+                    Active = true
                 };
 
                 customer.Vehicles.Add(vehicle);

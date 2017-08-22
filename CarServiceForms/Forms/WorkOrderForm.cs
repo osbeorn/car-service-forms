@@ -53,7 +53,7 @@ namespace CarServiceForms.Forms
 
         private void SelectCustomerButton_Click(object sender, EventArgs e)
         {
-            using (var form = new SearchCustomerWithVehicleForm())
+            using (var form = new SearchCustomerWithVehicleForm(true))
             {
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)

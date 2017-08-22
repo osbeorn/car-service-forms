@@ -76,6 +76,7 @@
     <Property Name="Street" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Post" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Vehicle">
     <Key>
@@ -93,6 +94,7 @@
     <Property Name="ModelYear" Type="int" Nullable="false" />
     <Property Name="Engine" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Transmission" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
     <Property Name="Customer_Id" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="WorkOrder">
@@ -430,6 +432,7 @@
           <Property Name="Post" Type="String" Nullable="false" />
           <NavigationProperty Name="Vehicles" Relationship="CarServiceFormsModel.CustomerVehicle" FromRole="Customer" ToRole="Vehicle" />
           <Property Name="Phone" Type="String" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Vehicle">
           <Key>
@@ -449,6 +452,7 @@
           <Property Name="ModelYear" Type="Int32" Nullable="false" />
           <Property Name="Engine" Type="String" Nullable="false" />
           <Property Name="Transmission" Type="String" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="WorkOrder">
           <Key>
@@ -668,6 +672,7 @@
           <ScalarProperty Name="Street" ColumnName="Street" />
           <ScalarProperty Name="Post" ColumnName="Post" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -686,6 +691,7 @@
           <ScalarProperty Name="ModelYear" ColumnName="ModelYear" />
           <ScalarProperty Name="Engine" ColumnName="Engine" />
           <ScalarProperty Name="Transmission" ColumnName="Transmission" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

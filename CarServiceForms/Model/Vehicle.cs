@@ -32,6 +32,7 @@ namespace CarServiceForms.Model
         public int ModelYear { get; set; }
         public string Engine { get; set; }
         public string Transmission { get; set; }
+        public bool Active { get; set; }
     
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

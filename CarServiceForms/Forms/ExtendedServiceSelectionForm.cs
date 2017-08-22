@@ -408,7 +408,7 @@ namespace CarServiceForms.Forms
             var selectedServiceType = (ServiceType)serviceTypeComboBox.SelectedValue;
 
             var serviceItems = rightListView.Items.OfType<ListViewItem>()
-                .Select(si => si.Tag as ServiceItemWithServiceItemGroupDTO)
+                .Select(si => si.Tag as ServiceItemWithServiceTypeDTO)
                 .ToList();
 
             var appliedServiceItems = serviceItems
@@ -439,7 +439,7 @@ namespace CarServiceForms.Forms
             var selectedServiceType = (ServiceType)serviceTypeComboBox.SelectedValue;
 
             var serviceItems = rightListView.Items.OfType<ListViewItem>()
-                .Select(si => si.Tag as ServiceItemWithServiceItemGroupDTO)
+                .Select(si => si.Tag as ServiceItemWithServiceTypeDTO)
                 .ToList();
 
             var serviceFormReport = new List<CarServiceFormReportDTO>()
