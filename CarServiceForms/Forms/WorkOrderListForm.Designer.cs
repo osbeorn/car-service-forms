@@ -48,8 +48,6 @@
             this.suppliesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.codelistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.servicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.serviceTypesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.serviceItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.workOrdersDataGridView)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -213,28 +211,10 @@
             // 
             // servicesToolStripMenuItem
             // 
-            this.servicesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.serviceTypesToolStripMenuItem,
-            this.serviceItemsToolStripMenuItem});
             this.servicesToolStripMenuItem.Name = "servicesToolStripMenuItem";
             this.servicesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.servicesToolStripMenuItem.Text = "Servisni pregledi";
-            // 
-            // serviceTypesToolStripMenuItem
-            // 
-            this.serviceTypesToolStripMenuItem.Enabled = false;
-            this.serviceTypesToolStripMenuItem.Name = "serviceTypesToolStripMenuItem";
-            this.serviceTypesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.serviceTypesToolStripMenuItem.Text = "Tipi pregledov";
-            this.serviceTypesToolStripMenuItem.Visible = false;
-            this.serviceTypesToolStripMenuItem.Click += new System.EventHandler(this.ServiceTypesToolStripMenuItem_Click);
-            // 
-            // serviceItemsToolStripMenuItem
-            // 
-            this.serviceItemsToolStripMenuItem.Name = "serviceItemsToolStripMenuItem";
-            this.serviceItemsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.serviceItemsToolStripMenuItem.Text = "Postavke";
-            this.serviceItemsToolStripMenuItem.Click += new System.EventHandler(this.ServiceItemsToolStripMenuItem_Click);
+            this.servicesToolStripMenuItem.Click += new System.EventHandler(this.ServicesToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -278,8 +258,6 @@
         private System.Windows.Forms.ToolStripMenuItem codelistsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem servicesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem serviceItemsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem serviceTypesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem suppliesToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Number;
         private System.Windows.Forms.DataGridViewTextBoxColumn Created;

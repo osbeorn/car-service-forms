@@ -47,6 +47,8 @@
             this.suppliesDataGridView.Name = "suppliesDataGridView";
             this.suppliesDataGridView.Size = new System.Drawing.Size(776, 337);
             this.suppliesDataGridView.TabIndex = 0;
+            this.suppliesDataGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.SuppliesDataGridView_CellValidating);
+            this.suppliesDataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.SuppliesDataGridView_DefaultValuesNeeded);
             this.suppliesDataGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.suppliesDataGridView_EditingControlShowing);
             this.suppliesDataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.SuppliesDataGridView_UserDeletingRow);
             // 
@@ -77,6 +79,7 @@
             // 
             // cancelButton
             // 
+            this.cancelButton.CausesValidation = false;
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.Location = new System.Drawing.Point(403, 355);
             this.cancelButton.Name = "cancelButton";
@@ -84,12 +87,14 @@
             this.cancelButton.TabIndex = 2;
             this.cancelButton.Text = "Prekliči";
             this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // SuppliesForm
             // 
             this.AcceptButton = this.confirmButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(800, 390);
             this.ControlBox = false;
             this.Controls.Add(this.cancelButton);

@@ -58,14 +58,14 @@
             // 
             // serviceTypeComboBox
             // 
-            this.serviceTypeComboBox.DisplayMember = "Description";
+            this.serviceTypeComboBox.DisplayMember = "Name";
             this.serviceTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.serviceTypeComboBox.FormattingEnabled = true;
             this.serviceTypeComboBox.Location = new System.Drawing.Point(106, 12);
             this.serviceTypeComboBox.Name = "serviceTypeComboBox";
             this.serviceTypeComboBox.Size = new System.Drawing.Size(250, 21);
             this.serviceTypeComboBox.TabIndex = 3;
-            this.serviceTypeComboBox.ValueMember = "Value";
+            this.serviceTypeComboBox.ValueMember = "Id";
             // 
             // label2
             // 

@@ -7,6 +7,7 @@ using System.Data.Entity.Infrastructure;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,6 +15,8 @@ namespace CarServiceForms.Forms
 {
     public partial class SuppliesForm : Form
     {
+        private static KeyPressEventHandler NumericCheckHandler = new KeyPressEventHandler(NumericCheck);
+
         private CarServiceFormsDBContext DBContext { get; set; }
 
         private IList<Supplies> Supplies { get; set; }
@@ -50,6 +53,8 @@ namespace CarServiceForms.Forms
 
         private void ConfirmButton_Click(object sender, EventArgs e)
         {
+            suppliesDataGridView.CancelEdit();
+
             foreach (var supplies in Supplies)
             {
                 if (supplies.Id <= 0)
@@ -94,6 +99,49 @@ namespace CarServiceForms.Forms
                 var textBoxControl = (TextBox)e.Control;
                 textBoxControl.CharacterCasing = CharacterCasing.Upper;
             }
+
+            var columnName = suppliesDataGridView.CurrentCell.OwningColumn.Name;
+            if (columnName == "QuantityColumn")
+            {
+                e.Control.KeyPress -= NumericCheckHandler;
+                e.Control.KeyPress += NumericCheckHandler;
+            }
+            else
+            {
+                e.Control.KeyPress -= NumericCheckHandler;
+            }
+        }
+
+        private static void NumericCheck(object sender, KeyPressEventArgs e)
+        {
+            DataGridViewTextBoxEditingControl control = sender as DataGridViewTextBoxEditingControl;
+            if (control != null && (e.KeyChar == '.' || e.KeyChar == ','))
+            {
+                e.KeyChar = Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+                e.Handled = control.Text.Contains(e.KeyChar);
+            }
+            else
+            {
+                e.Handled = !Char.IsControl(e.KeyChar) && !Char.IsDigit(e.KeyChar);
+            }
+        }
+
+        private void SuppliesDataGridView_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells["QuantityColumn"].Value = 0m;
+        }
+
+        private void SuppliesDataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.FormattedValue.ToString() == "")
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            suppliesDataGridView.CancelEdit();
         }
     }
 }

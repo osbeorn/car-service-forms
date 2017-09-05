@@ -72,7 +72,6 @@ namespace CarServiceForms.Forms
             if (e.RowIndex >= 0 && workOrdersDataGridView.Columns[e.ColumnIndex] is DataGridViewButtonColumn && workOrdersDataGridView.Columns[e.ColumnIndex].Name == "Service")
             {
                 var workOrder = workOrdersDataGridView.Rows[e.RowIndex].DataBoundItem as WorkOrderDTO;
-                //using (var form = new ServiceSelectionForm(workOrder.Id))
                 using (var form = new ExtendedServiceSelectionForm(workOrder.Id))
                 {
                     var result = form.ShowDialog();
@@ -117,11 +116,6 @@ namespace CarServiceForms.Forms
             Close();
         }
 
-        private void ServicesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new EditServiceItemsForm().Show();
-        }
-
         private void CustomersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenSearchCustomerWithVehicleForm();
@@ -155,11 +149,6 @@ namespace CarServiceForms.Forms
         private void ServiceItemsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new EditServiceItemsForm().ShowDialog();
-        }
-
-        private void ServiceTypesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new EditServiceTypesForm().ShowDialog();
         }
 
         private void WorkOrdersDataGridView_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
@@ -197,6 +186,12 @@ namespace CarServiceForms.Forms
                     dataGridViewButtonCell.Value = "...";
                 }
             }
+
+            if (workOrderDTO.HasService || workOrderDTO.HasInvoice)
+            {
+                var row = workOrdersDataGridView.Rows[e.RowIndex];
+                row.DefaultCellStyle.BackColor = Color.LightGray;
+            }
         }
 
         private void SuppliesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -209,6 +204,11 @@ namespace CarServiceForms.Forms
 
                 }
             }
+        }
+
+        private void ServicesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new EditServiceItemsForm().ShowDialog();
         }
     }
 }

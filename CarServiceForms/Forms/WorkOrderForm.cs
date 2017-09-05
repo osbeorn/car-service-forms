@@ -1,4 +1,5 @@
 ﻿using CarServiceForms.Core.Collections;
+using CarServiceForms.Core.Helpers;
 using CarServiceForms.Model;
 using System;
 using System.Collections.Generic;
@@ -130,6 +131,11 @@ namespace CarServiceForms.Forms
                 workOrderNumberMaskedTextBox.ReadOnly = true;
 
                 workOrderDeadlineDateTimePicker.Value = WorkOrder.Deadline;
+
+                if (WorkOrder.Service == null && WorkOrder.Invoice == null)
+                {
+                    deleteButton.Visible = true;
+                }
             }
             else if (customerId.HasValue && vehicleId.HasValue)
             {
@@ -153,6 +159,11 @@ namespace CarServiceForms.Forms
             vehicleModelYearNumericUpDown.Value = Vehicle.ModelYear;
 
             workOrderInstructionsDataGridView.DataSource = new BindingList<WorkOrderInstruction>(WorkOrderInstructions);
+
+            if (Customer != null || Vehicle != null)
+            {
+                confirmButton.Enabled = true;
+            }
         }
 
         private string GetNextWorkOrderNumber()
@@ -178,11 +189,6 @@ namespace CarServiceForms.Forms
             return (++maxWorkOrderNumber).ToString("D4");
         }
 
-        private void WorkOrderNumberMaskedTextBox_Leave(object sender, EventArgs e)
-        {
-
-        }
-
         private void VehicleMileageNumericUpDown_Enter(object sender, EventArgs e)
         {
             vehicleMileageNumericUpDown.Select(0, vehicleMileageNumericUpDown.Text.Length);
@@ -195,6 +201,48 @@ namespace CarServiceForms.Forms
                 var textBoxControl = (TextBox)e.Control;
                 textBoxControl.CharacterCasing = CharacterCasing.Upper;
             }
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Ali res želite brisati izbrani delovni nalog?", "Brisanje naloga", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                DBContext.WorkOrderInformation.RemoveRange(WorkOrder.WorkOrderInformation);
+                DBContext.WorkOrderInstruction.RemoveRange(WorkOrder.WorkOrderInstructions);
+                DBContext.WorkOrder.Remove(WorkOrder);
+                DBContext.SaveChanges();
+
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+        }
+
+        private void WorkOrderNumberMaskedTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            var workOrderNumber = workOrderNumberMaskedTextBox.Text.Trim();
+
+            if (workOrderNumber == "/")
+            {
+                errorProvider.SetError(workOrderNumberMaskedTextBox, "Številka delovnega naloga je obvezen podatek.");
+                e.Cancel = true;
+                return;
+            }
+
+            var existingWorkOrder = DBContext.WorkOrder.Where(wo => wo.Number == workOrderNumber).FirstOrDefault();
+            if (existingWorkOrder != null)
+            {
+                errorProvider.SetError(workOrderNumberMaskedTextBox, "Delovni nalog s to številko že obstaja.");
+                e.Cancel = true;
+                return;
+            }
+
+            errorProvider.SetError(workOrderNumberMaskedTextBox, "");
+        }
+
+        private void VehicleMileageNumericUpDown_Validating(object sender, CancelEventArgs e)
+        {
+            //if (vehicleMileageNumericUpDown.Valu)
         }
     }
 }

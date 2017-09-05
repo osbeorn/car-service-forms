@@ -130,11 +130,11 @@ namespace CarServiceForms.Forms
         {
             if (state)
             {
-                button.Text = "Deaktiviraj";
+                button.Text = "Skrij";
             }
             else
             {
-                button.Text = "Aktiviraj";
+                button.Text = "Prikaži";
             }
         }
     }

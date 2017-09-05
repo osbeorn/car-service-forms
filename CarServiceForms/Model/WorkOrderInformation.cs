@@ -10,14 +10,14 @@
 namespace CarServiceForms.Model
 {
     using System;
+    using System.Collections.Generic;
     
-    public enum ServiceItemGroupType : int
+    public partial class WorkOrderInformation
     {
-        Electricity = 0,
-        Tires = 1,
-        Underside = 2,
-        EngineBay = 3,
-        FinishingWork = 4,
-        Exterior = 5
+        public long Id { get; set; }
+        public string Info { get; set; }
+        public string Description { get; set; }
+    
+        public virtual WorkOrder WorkOrder { get; set; }
     }
 }

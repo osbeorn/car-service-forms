@@ -43,6 +43,8 @@ namespace CarServiceForms.Forms
             WorkOrder = DBContext.WorkOrder.Find(workOrderId);
             if (WorkOrder.Service != null)
             {
+                deleteButton.Enabled = true;
+
                 PresetListViews();
             }
             else
@@ -62,24 +64,9 @@ namespace CarServiceForms.Forms
         {
             serviceTypeComboBox.SelectedIndexChanged -= ServiceTypeComboBox_SelectedIndexChanged;
 
-            var serviceTypes = new List<dynamic>()
-            {
-                new
-                {
-                    Value = ServiceType.OilChange,
-                    Description = GetServiceTypeDescription(ServiceType.OilChange)
-                },
-                new
-                {
-                    Value = ServiceType.Inspection,
-                    Description = GetServiceTypeDescription(ServiceType.Inspection)
-                },
-                new
-                {
-                    Value = ServiceType.Interval,
-                    Description = GetServiceTypeDescription(ServiceType.Interval)
-                }
-            };
+            var serviceTypes = DBContext.ServiceType
+                .Where(st => st.Active && !st.Deleted)
+                .ToList();
             serviceTypeComboBox.DataSource = serviceTypes;
         }
 
@@ -89,7 +76,7 @@ namespace CarServiceForms.Forms
             transferLeftButton.Enabled = false;
             transferRightButton.Enabled = false;
 
-            serviceTypeComboBox.SelectedValue = WorkOrder.Service.Type;
+            serviceTypeComboBox.SelectedValue = WorkOrder.Service.ServiceType.Id;
 
             var appliedServiceItemIds = WorkOrder.Service.AppliedServiceItems
                 .Select(asi => asi.ServiceItem.Id)
@@ -98,8 +85,10 @@ namespace CarServiceForms.Forms
             var serviceItemGroups = DBContext.ServiceItem
                 .Where(si =>
                     appliedServiceItemIds.Contains(si.Id) &&
-                    si.Enabled &&
-                    si.ServiceItemGroup.Enabled
+                    si.Active &&
+                    !si.Deleted &&
+                    si.ServiceItemGroup.Active &&
+                    !si.ServiceItemGroup.Deleted
                 )
                 .Select(si =>
                     new ServiceItemWithServiceItemGroupDTO()
@@ -121,8 +110,10 @@ namespace CarServiceForms.Forms
             var remainingServiceItemGroups = DBContext.ServiceItem
                 .Where(si =>
                     !appliedServiceItemIds.Contains(si.Id) &&
-                    si.Enabled &&
-                    si.ServiceItemGroup.Enabled
+                    si.Active &&
+                    !si.Deleted &&
+                    si.ServiceItemGroup.Active &&
+                    !si.ServiceItemGroup.Deleted
                 )
                 .Select(si =>
                     new ServiceItemWithServiceItemGroupDTO()
@@ -148,30 +139,17 @@ namespace CarServiceForms.Forms
             SetupListViewItems(serviceItemGroups, rightListView);
         }
 
-        private string GetServiceTypeDescription(ServiceType serviceType)
-        {
-            switch (serviceType)
-            {
-                case ServiceType.Inspection:
-                    return "servisni pregled (časovno ali kilometrsko pogojeni)";
-                case ServiceType.Interval:
-                    return "intervalni servis (fiksno)";
-                case ServiceType.OilChange:
-                    return "servis z menjavo olja";
-                default:
-                    return "neveljaven tip servisa.";
-            }
-        }
-
         private void ServiceTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedServiceType = (ServiceType) serviceTypeComboBox.SelectedValue;
+            var selectedServiceTypeId = (long) serviceTypeComboBox.SelectedValue;
 
             var serviceItemGroups = DBContext.ServiceItem
                 .Where(si => 
-                    si.ServiceTypes.Any(sist => sist.ServiceType == selectedServiceType) &&
-                    si.Enabled &&
-                    si.ServiceItemGroup.Enabled
+                    si.ServiceItemGroup.ServiceType.Id == selectedServiceTypeId &&
+                    si.Active &&
+                    !si.Deleted &&
+                    si.ServiceItemGroup.Active &&
+                    !si.ServiceItemGroup.Deleted
                 )
                 .Select(si =>
                     new ServiceItemWithServiceItemGroupDTO()
@@ -192,9 +170,11 @@ namespace CarServiceForms.Forms
 
             var remainingServiceItemGroups = DBContext.ServiceItem
                 .Where(si => 
-                    si.ServiceTypes.All(sist => sist.ServiceType != selectedServiceType) &&
-                    si.Enabled &&
-                    si.ServiceItemGroup.Enabled
+                    si.ServiceItemGroup.ServiceType.Id != selectedServiceTypeId &&
+                    si.Active &&
+                    !si.Deleted &&
+                    si.ServiceItemGroup.Active &&
+                    !si.ServiceItemGroup.Deleted
                 )
                 .Select(si =>
                     new ServiceItemWithServiceItemGroupDTO()
@@ -405,10 +385,10 @@ namespace CarServiceForms.Forms
                 return;
             }
 
-            var selectedServiceType = (ServiceType)serviceTypeComboBox.SelectedValue;
+            var selectedServiceTypeId = (long)serviceTypeComboBox.SelectedValue;
 
             var serviceItems = rightListView.Items.OfType<ListViewItem>()
-                .Select(si => si.Tag as ServiceItemWithServiceTypeDTO)
+                .Select(si => si.Tag as ServiceItemWithServiceItemGroupDTO)
                 .ToList();
 
             var appliedServiceItems = serviceItems
@@ -424,7 +404,7 @@ namespace CarServiceForms.Forms
             var service = new Service()
             {
                 Created = DateTime.Now,
-                Type = selectedServiceType,
+                ServiceType = DBContext.ServiceType.Find(selectedServiceTypeId),
                 WorkOrder = WorkOrder,
                 AppliedServiceItems = appliedServiceItems
             };
@@ -436,10 +416,10 @@ namespace CarServiceForms.Forms
 
         private void PrintService()
         {
-            var selectedServiceType = (ServiceType)serviceTypeComboBox.SelectedValue;
+            var selectedServiceTypeId = (long)serviceTypeComboBox.SelectedValue;
 
             var serviceItems = rightListView.Items.OfType<ListViewItem>()
-                .Select(si => si.Tag as ServiceItemWithServiceTypeDTO)
+                .Select(si => si.Tag as ServiceItemWithServiceItemGroupDTO)
                 .ToList();
 
             var serviceFormReport = new List<CarServiceFormReportDTO>()
@@ -456,8 +436,8 @@ namespace CarServiceForms.Forms
                     VehicleMileage = WorkOrder.Vehicle.Mileage.ToString(),
                     VehicleRegistrationDate = WorkOrder.Vehicle.RegistrationDate,
                     VehicleModelYear = WorkOrder.Vehicle.ModelYear.ToString(),
-                    ServiceType = selectedServiceType
-                }
+                    ServiceType = WorkOrder.Service.ServiceType.Name
+        }
             };
 
             var datasources = new List<ReportDataSource>()
@@ -472,6 +452,22 @@ namespace CarServiceForms.Forms
                 datasources
             );
             form.ShowDialog();
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Ali res želite izbrisati izbrani pregled?", "Brisanje pregleda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                DBContext.AppliedServiceItem.RemoveRange(WorkOrder.Service.AppliedServiceItems);
+                DBContext.Service.Remove(WorkOrder.Service);
+
+                DBContext.SaveChanges();
+
+                DialogResult = DialogResult.OK;
+
+                Close();
+            }
         }
     }
 }

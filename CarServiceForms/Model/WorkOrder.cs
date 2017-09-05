@@ -17,7 +17,7 @@ namespace CarServiceForms.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public WorkOrder()
         {
-            this.WordOrderInformation = new HashSet<WordOrderInformation>();
+            this.WorkOrderInformation = new HashSet<WorkOrderInformation>();
             this.WorkOrderInstructions = new HashSet<WorkOrderInstruction>();
         }
     
@@ -26,10 +26,11 @@ namespace CarServiceForms.Model
         public System.DateTime Created { get; set; }
         public System.DateTime Deadline { get; set; }
         public Nullable<System.DateTime> Finished { get; set; }
+        public int Mileage { get; set; }
     
         public virtual Vehicle Vehicle { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WordOrderInformation> WordOrderInformation { get; set; }
+        public virtual ICollection<WorkOrderInformation> WorkOrderInformation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkOrderInstruction> WorkOrderInstructions { get; set; }
         public virtual Service Service { get; set; }

@@ -17,7 +17,6 @@ namespace CarServiceForms.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ServiceItem()
         {
-            this.ServiceTypes = new HashSet<ServiceItemServiceType>();
             this.AppliedServiceItems = new HashSet<AppliedServiceItem>();
         }
     
@@ -25,11 +24,10 @@ namespace CarServiceForms.Model
         public string Name { get; set; }
         public bool HasRemarks { get; set; }
         public int Order { get; set; }
-        public bool Enabled { get; set; }
+        public bool Active { get; set; }
+        public bool Deleted { get; set; }
     
         public virtual ServiceItemGroup ServiceItemGroup { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ServiceItemServiceType> ServiceTypes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppliedServiceItem> AppliedServiceItems { get; set; }
     }

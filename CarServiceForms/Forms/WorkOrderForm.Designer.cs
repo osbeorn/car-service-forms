@@ -202,6 +202,7 @@
             this.vehicleMileageNumericUpDown.Size = new System.Drawing.Size(215, 20);
             this.vehicleMileageNumericUpDown.TabIndex = 21;
             this.vehicleMileageNumericUpDown.Enter += new System.EventHandler(this.VehicleMileageNumericUpDown_Enter);
+            this.vehicleMileageNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.VehicleMileageNumericUpDown_Validating);
             // 
             // vehicleRegistrationDateDateTimePicker
             // 
@@ -363,6 +364,7 @@
             this.workOrderNumberMaskedTextBox.Name = "workOrderNumberMaskedTextBox";
             this.workOrderNumberMaskedTextBox.Size = new System.Drawing.Size(150, 20);
             this.workOrderNumberMaskedTextBox.TabIndex = 1;
+            this.workOrderNumberMaskedTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.WorkOrderNumberMaskedTextBox_Validating);
             // 
             // workOrderDeadlineDateTimePicker
             // 
@@ -441,6 +443,7 @@
             // 
             this.confirmButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.confirmButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.confirmButton.Enabled = false;
             this.confirmButton.Location = new System.Drawing.Point(225, 563);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(75, 23);
@@ -452,6 +455,7 @@
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cancelButton.CausesValidation = false;
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.Location = new System.Drawing.Point(306, 563);
             this.cancelButton.Name = "cancelButton";
@@ -467,12 +471,15 @@
             // 
             // deleteButton
             // 
+            this.deleteButton.CausesValidation = false;
             this.deleteButton.Location = new System.Drawing.Point(520, 563);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(75, 23);
             this.deleteButton.TabIndex = 5;
             this.deleteButton.Text = "Briši";
             this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Visible = false;
+            this.deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // WorkOrderForm
             // 

@@ -10,33 +10,31 @@
         <EntityTypeShape EntityType="CarServiceFormsModel.WorkOrder" Width="1.5" PointX="7.25" PointY="1.25" />
         <AssociationConnector Association="CarServiceFormsModel.CustomerVehicle" />
         <AssociationConnector Association="CarServiceFormsModel.VehicleWorkOrder" />
-        <EntityTypeShape EntityType="CarServiceFormsModel.WordOrderInformation" Width="1.5" PointX="9.375" PointY="2.625" />
+        <EntityTypeShape EntityType="CarServiceFormsModel.WorkOrderInformation" Width="1.5" PointX="9.375" PointY="2.625" />
         <EntityTypeShape EntityType="CarServiceFormsModel.WorkOrderInstruction" Width="1.5" PointX="9.375" PointY="0.5" />
         <AssociationConnector Association="CarServiceFormsModel.WorkOrderWordOrderInformation" />
         <AssociationConnector Association="CarServiceFormsModel.WorkOrderWorkOrderInstruction" />
         <EntityTypeShape EntityType="CarServiceFormsModel.Service" Width="1.5" PointX="7.25" PointY="5" />
         <AssociationConnector Association="CarServiceFormsModel.WorkOrderService" />
-        <EntityTypeShape EntityType="CarServiceFormsModel.ServiceItemGroup" Width="1.5" PointX="2.75" PointY="7" />
-        <EntityTypeShape EntityType="CarServiceFormsModel.ServiceItem" Width="1.5" PointX="4.875" PointY="7" />
+        <EntityTypeShape EntityType="CarServiceFormsModel.ServiceItemGroup" Width="1.5" PointX="3" PointY="7.375" />
+        <EntityTypeShape EntityType="CarServiceFormsModel.ServiceItem" Width="1.5" PointX="5.125" PointY="7.375" />
         <AssociationConnector Association="CarServiceFormsModel.ServiceItemGroupServiceItem" />
         <EntityTypeShape EntityType="CarServiceFormsModel.AppliedServiceItem" Width="1.5" PointX="7.25" PointY="7.375" />
         <AssociationConnector Association="CarServiceFormsModel.ServiceAppliedServiceItem" />
-        <EntityTypeShape EntityType="CarServiceFormsModel.ServiceItemServiceType" Width="1.5" PointX="4.875" PointY="5" />
-        <AssociationConnector Association="CarServiceFormsModel.ServiceItemServiceItemServiceType" />
         <EntityTypeShape EntityType="CarServiceFormsModel.Settings" Width="1.5" PointX="0.75" PointY="1.25" />
         <EntityTypeShape EntityType="CarServiceFormsModel.Invoice" Width="1.5" PointX="9.375" PointY="5" />
         <EntityTypeShape EntityType="CarServiceFormsModel.InvoiceItem" Width="1.5" PointX="9.375" PointY="7.625" />
         <AssociationConnector Association="CarServiceFormsModel.InvoiceInvoiceItem" />
         <AssociationConnector Association="CarServiceFormsModel.WorkOrderInvoice" ManuallyRouted="true" >
-          <ConnectorPoint PointX="8.2439556533515237" PointY="4.1917936197916656" />
-          <ConnectorPoint PointX="8.2439556533515237" PointY="4.75" />
-          <ConnectorPoint PointX="9" PointY="4.75" />
-          <ConnectorPoint PointX="9" PointY="6.0862939453125" />
-          <ConnectorPoint PointX="9.375" PointY="6.0862939453125" />
+          <ConnectorPoint PointX="8.75" PointY="4.3840950520833326" />
+          <ConnectorPoint PointX="9.375" PointY="5" />
         </AssociationConnector>
         <AssociationConnector Association="CarServiceFormsModel.AppliedServiceItemServiceItem" />
         <EntityTypeShape EntityType="CarServiceFormsModel.InvoiceItemDescription" Width="1.5" PointX="0.75" PointY="3" />
         <EntityTypeShape EntityType="CarServiceFormsModel.Supplies" Width="1.5" PointX="0.75" PointY="4.625" />
+        <EntityTypeShape EntityType="CarServiceFormsModel.ServiceType" Width="1.5" PointX="3" PointY="5" />
+        <AssociationConnector Association="CarServiceFormsModel.ServiceTypeServiceItemGroup" />
+        <AssociationConnector Association="CarServiceFormsModel.ServiceTypeService" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

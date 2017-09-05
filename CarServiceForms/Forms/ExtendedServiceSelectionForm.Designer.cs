@@ -43,6 +43,7 @@
             this.cancelButton = new System.Windows.Forms.Button();
             this.confirmButton = new System.Windows.Forms.Button();
             this.printButton = new System.Windows.Forms.Button();
+            this.deleteButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // transferRightButton
@@ -76,14 +77,14 @@
             // 
             // serviceTypeComboBox
             // 
-            this.serviceTypeComboBox.DisplayMember = "Description";
+            this.serviceTypeComboBox.DisplayMember = "Name";
             this.serviceTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.serviceTypeComboBox.FormattingEnabled = true;
             this.serviceTypeComboBox.Location = new System.Drawing.Point(103, 12);
             this.serviceTypeComboBox.Name = "serviceTypeComboBox";
             this.serviceTypeComboBox.Size = new System.Drawing.Size(250, 21);
             this.serviceTypeComboBox.TabIndex = 1;
-            this.serviceTypeComboBox.ValueMember = "Value";
+            this.serviceTypeComboBox.ValueMember = "Id";
             this.serviceTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.ServiceTypeComboBox_SelectedIndexChanged);
             // 
             // label1
@@ -177,12 +178,24 @@
             this.printButton.UseVisualStyleBackColor = true;
             this.printButton.Click += new System.EventHandler(this.PrintButton_Click);
             // 
+            // deleteButton
+            // 
+            this.deleteButton.Enabled = false;
+            this.deleteButton.Location = new System.Drawing.Point(469, 594);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(75, 23);
+            this.deleteButton.TabIndex = 12;
+            this.deleteButton.Text = "Briši";
+            this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
+            // 
             // ExtendedServiceSelectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(637, 629);
             this.ControlBox = false;
+            this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.printButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.confirmButton);
@@ -223,5 +236,6 @@
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button confirmButton;
         private System.Windows.Forms.Button printButton;
+        private System.Windows.Forms.Button deleteButton;
     }
 }

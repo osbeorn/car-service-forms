@@ -63,15 +63,11 @@ namespace CarServiceForms.Forms
                 // set service type invoice item
                 if (WorkOrder.Service != null)
                 {
-                    var serviceType = WorkOrder.Service.Type == ServiceType.Inspection
-                        ? "Servisni pregled (časovno ali kilometrsko pogojeni)'"
-                        : WorkOrder.Service.Type == ServiceType.Interval
-                            ? "Intervalni servis (fiksno)"
-                            : "Servis z menjavo olja";
+                    var serviceType = WorkOrder.Service.ServiceType;
 
                     InvoiceItems.Add(new InvoiceItem()
                     {
-                            Description = serviceType
+                        Description = serviceType.Name.ToUpperInvariant()
                     });
                 }
 
@@ -268,6 +264,8 @@ namespace CarServiceForms.Forms
 
         private void ConfirmButton_Click(object sender, EventArgs e)
         {
+            invoiceItemsDataGridView.CancelEdit();
+
             SaveInvoice();            
         }
 
@@ -279,11 +277,18 @@ namespace CarServiceForms.Forms
                 var invoiceItem = row.DataBoundItem as InvoiceItem;
                 if (invoiceItem != null && string.IsNullOrEmpty(invoiceItem.Code))
                 {
-                    var invoiceItemDescription = new InvoiceItemDescription()
+                    var existingInvoiceItemDescription = DBContext.InvoiceItemDescription
+                        .Where(iid => iid.Value == invoiceItem.Description)
+                        .FirstOrDefault();
+
+                    if (existingInvoiceItemDescription == null)
                     {
-                        Value = invoiceItem.Description
-                    };
-                    DBContext.InvoiceItemDescription.Add(invoiceItemDescription);
+                        var invoiceItemDescription = new InvoiceItemDescription()
+                        {
+                            Value = invoiceItem.Description
+                        };
+                        DBContext.InvoiceItemDescription.Add(invoiceItemDescription);
+                    }
                 }
             }
             DBContext.SaveChanges();
@@ -511,6 +516,11 @@ namespace CarServiceForms.Forms
 
                 Close();
             }
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            invoiceItemsDataGridView.CancelEdit();
         }
     }
 }

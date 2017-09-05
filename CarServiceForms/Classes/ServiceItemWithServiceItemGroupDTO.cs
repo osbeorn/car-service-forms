@@ -12,6 +12,8 @@ namespace CarServiceForms.Classes
         public string Name { get; set; }
         public int Order { get; set; }
         public bool HasRemarks { get; set; }
+        public bool Active { get; set; }
+        public bool Deleted { get; set; }
 
         public long ServiceItemGroupId { get; set; }
         public string ServiceItemGroupName { get; set; }

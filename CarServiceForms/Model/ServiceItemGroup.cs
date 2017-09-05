@@ -23,9 +23,11 @@ namespace CarServiceForms.Model
         public long Id { get; set; }
         public string Name { get; set; }
         public int Order { get; set; }
-        public bool Enabled { get; set; }
+        public bool Active { get; set; }
+        public bool Deleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceItem> ServiceItems { get; set; }
+        public virtual ServiceType ServiceType { get; set; }
     }
 }

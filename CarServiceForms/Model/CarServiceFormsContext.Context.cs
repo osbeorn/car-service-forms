@@ -28,17 +28,17 @@ namespace CarServiceForms.Model
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Vehicle> Vehicle { get; set; }
         public virtual DbSet<WorkOrder> WorkOrder { get; set; }
-        public virtual DbSet<WordOrderInformation> WordOrderInformation { get; set; }
+        public virtual DbSet<WorkOrderInformation> WorkOrderInformation { get; set; }
         public virtual DbSet<WorkOrderInstruction> WorkOrderInstruction { get; set; }
         public virtual DbSet<Service> Service { get; set; }
         public virtual DbSet<ServiceItemGroup> ServiceItemGroup { get; set; }
         public virtual DbSet<ServiceItem> ServiceItem { get; set; }
         public virtual DbSet<AppliedServiceItem> AppliedServiceItem { get; set; }
-        public virtual DbSet<ServiceItemServiceType> ServiceItemServiceType { get; set; }
         public virtual DbSet<Settings> Settings { get; set; }
         public virtual DbSet<Invoice> Invoice { get; set; }
         public virtual DbSet<InvoiceItem> InvoiceItem { get; set; }
         public virtual DbSet<InvoiceItemDescription> InvoiceItemDescription { get; set; }
         public virtual DbSet<Supplies> Supplies { get; set; }
+        public virtual DbSet<ServiceType> ServiceType { get; set; }
     }
 }

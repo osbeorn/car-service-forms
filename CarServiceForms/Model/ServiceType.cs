@@ -10,11 +10,25 @@
 namespace CarServiceForms.Model
 {
     using System;
+    using System.Collections.Generic;
     
-    public enum ServiceType : int
+    public partial class ServiceType
     {
-        Interval = 0,
-        Inspection = 1,
-        OilChange = 2
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ServiceType()
+        {
+            this.ServiceItemGroups = new HashSet<ServiceItemGroup>();
+            this.Services = new HashSet<Service>();
+        }
+    
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public bool Active { get; set; }
+        public bool Deleted { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ServiceItemGroup> ServiceItemGroups { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Service> Services { get; set; }
     }
 }

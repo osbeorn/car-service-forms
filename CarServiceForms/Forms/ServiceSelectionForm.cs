@@ -43,40 +43,8 @@ namespace CarServiceForms.Forms
 
         private void SetupServiceTypeComboBoxDatasource()
         {
-            var serviceTypes = new List<dynamic>()
-            {
-                new
-                {
-                    Value = ServiceType.OilChange,
-                    Description = GetServiceTypeDescription(ServiceType.OilChange)
-                },
-                new
-                {
-                    Value = ServiceType.Inspection,
-                    Description = GetServiceTypeDescription(ServiceType.Inspection)
-                },
-                new
-                {
-                    Value = ServiceType.Interval,
-                    Description = GetServiceTypeDescription(ServiceType.Interval)
-                }
-            };
+            var serviceTypes = DBContext.ServiceType.Where(st => st.Active).ToList();
             serviceTypeComboBox.DataSource = serviceTypes;
-        }
-
-        private string GetServiceTypeDescription(ServiceType serviceType)
-        {
-            switch (serviceType)
-            {
-                case ServiceType.Inspection:
-                    return "servisni pregled (časovno ali kilometrsko pogojeni)";
-                case ServiceType.Interval:
-                    return "intervalni servis (fiksno)";
-                case ServiceType.OilChange:
-                    return "servis z menjavo olja";
-                default:
-                    return "Neveljaven tip servisa.";
-            }
         }
 
         private void ConfirmButton_Click(object sender, EventArgs e)
@@ -85,9 +53,9 @@ namespace CarServiceForms.Forms
 
             var serviceItems = DBContext.ServiceItem
                 .Where(si => 
-                    si.ServiceTypes.Any(sist => sist.ServiceType == selectedServiceType) &&
-                    si.Enabled &&
-                    si.ServiceItemGroup.Enabled
+                    si.ServiceItemGroup.ServiceType == selectedServiceType &&
+                    si.Active &&
+                    si.ServiceItemGroup.Active
                 )
                 .Select(si =>
                     new ServiceItemWithServiceItemGroupDTO()
@@ -117,7 +85,8 @@ namespace CarServiceForms.Forms
                     VehicleMileage = WorkOrder.Vehicle.Mileage.ToString(),
                     VehicleRegistrationDate = WorkOrder.Vehicle.RegistrationDate,
                     VehicleModelYear = WorkOrder.Vehicle.ModelYear.ToString(),
-                    ServiceType = selectedServiceType
+                    ServiceType = WorkOrder.Service.ServiceType.Name
+
                 }
             };
 

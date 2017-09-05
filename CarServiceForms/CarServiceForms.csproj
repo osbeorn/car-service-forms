@@ -179,12 +179,6 @@
     <Compile Include="Forms\EditCustomerForm.Designer.cs">
       <DependentUpon>EditCustomerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\EditServiceTypesForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\EditServiceTypesForm.Designer.cs">
-      <DependentUpon>EditServiceTypesForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\EditServiceItemsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -315,12 +309,6 @@
     <Compile Include="Model\ServiceItemGroup.cs">
       <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\ServiceItemGroupType.cs">
-      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ServiceItemServiceType.cs">
-      <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\ServiceType.cs">
       <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
     </Compile>
@@ -333,10 +321,10 @@
     <Compile Include="Model\Vehicle.cs">
       <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\WordOrderInformation.cs">
+    <Compile Include="Model\WorkOrder.cs">
       <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\WorkOrder.cs">
+    <Compile Include="Model\WorkOrderInformation.cs">
       <DependentUpon>CarServiceFormsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\WorkOrderInstruction.cs">
@@ -346,9 +334,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\EditCustomerForm.resx">
       <DependentUpon>EditCustomerForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EditServiceTypesForm.resx">
-      <DependentUpon>EditServiceTypesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditServiceItemsForm.resx">
       <DependentUpon>EditServiceItemsForm.cs</DependentUpon>

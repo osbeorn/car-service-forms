@@ -20,6 +20,6 @@ namespace CarServiceForms.Classes
         public string VehicleMileage { get; set; }
         public string VehicleModelYear { get; set; }
 
-        public ServiceType ServiceType { get; set; }
+        public string ServiceType { get; set; }
     }
 }

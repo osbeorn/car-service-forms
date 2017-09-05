@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 08/22/2017 17:14:52
+-- Date Created: 08/29/2017 20:42:10
 -- Generated from EDMX file: F:\Development\car-service-forms\CarServiceForms\Model\CarServiceFormsModel.edmx
 -- --------------------------------------------------
 
@@ -24,7 +24,7 @@ IF OBJECT_ID(N'[dbo].[FK_VehicleWorkOrder]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[WorkOrder] DROP CONSTRAINT [FK_VehicleWorkOrder];
 GO
 IF OBJECT_ID(N'[dbo].[FK_WorkOrderWordOrderInformation]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[WordOrderInformation] DROP CONSTRAINT [FK_WorkOrderWordOrderInformation];
+    ALTER TABLE [dbo].[WorkOrderInformation] DROP CONSTRAINT [FK_WorkOrderWordOrderInformation];
 GO
 IF OBJECT_ID(N'[dbo].[FK_WorkOrderWorkOrderInstruction]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[WorkOrderInstruction] DROP CONSTRAINT [FK_WorkOrderWorkOrderInstruction];
@@ -38,9 +38,6 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ServiceAppliedServiceItem]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AppliedServiceItem] DROP CONSTRAINT [FK_ServiceAppliedServiceItem];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ServiceItemServiceItemServiceType]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ServiceItemServiceType] DROP CONSTRAINT [FK_ServiceItemServiceItemServiceType];
-GO
 IF OBJECT_ID(N'[dbo].[FK_InvoiceInvoiceItem]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[InvoiceItem] DROP CONSTRAINT [FK_InvoiceInvoiceItem];
 GO
@@ -49,6 +46,12 @@ IF OBJECT_ID(N'[dbo].[FK_WorkOrderInvoice]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_AppliedServiceItemServiceItem]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AppliedServiceItem] DROP CONSTRAINT [FK_AppliedServiceItemServiceItem];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ServiceTypeServiceItemGroup]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ServiceItemGroup] DROP CONSTRAINT [FK_ServiceTypeServiceItemGroup];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ServiceTypeService]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Service] DROP CONSTRAINT [FK_ServiceTypeService];
 GO
 
 -- --------------------------------------------------
@@ -64,8 +67,8 @@ GO
 IF OBJECT_ID(N'[dbo].[WorkOrder]', 'U') IS NOT NULL
     DROP TABLE [dbo].[WorkOrder];
 GO
-IF OBJECT_ID(N'[dbo].[WordOrderInformation]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[WordOrderInformation];
+IF OBJECT_ID(N'[dbo].[WorkOrderInformation]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[WorkOrderInformation];
 GO
 IF OBJECT_ID(N'[dbo].[WorkOrderInstruction]', 'U') IS NOT NULL
     DROP TABLE [dbo].[WorkOrderInstruction];
@@ -82,9 +85,6 @@ GO
 IF OBJECT_ID(N'[dbo].[AppliedServiceItem]', 'U') IS NOT NULL
     DROP TABLE [dbo].[AppliedServiceItem];
 GO
-IF OBJECT_ID(N'[dbo].[ServiceItemServiceType]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ServiceItemServiceType];
-GO
 IF OBJECT_ID(N'[dbo].[Settings]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Settings];
 GO
@@ -99,6 +99,9 @@ IF OBJECT_ID(N'[dbo].[InvoiceItemDescription]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Supplies]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Supplies];
+GO
+IF OBJECT_ID(N'[dbo].[ServiceType]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ServiceType];
 GO
 
 -- --------------------------------------------------
@@ -143,12 +146,13 @@ CREATE TABLE [dbo].[WorkOrder] (
     [Created] datetime  NOT NULL,
     [Deadline] datetime  NOT NULL,
     [Finished] datetime  NULL,
+    [Mileage] int  NOT NULL,
     [Vehicle_Id] bigint  NOT NULL
 );
 GO
 
--- Creating table 'WordOrderInformation'
-CREATE TABLE [dbo].[WordOrderInformation] (
+-- Creating table 'WorkOrderInformation'
+CREATE TABLE [dbo].[WorkOrderInformation] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Info] nvarchar(max)  NULL,
     [Description] nvarchar(max)  NULL,
@@ -169,9 +173,9 @@ GO
 -- Creating table 'Service'
 CREATE TABLE [dbo].[Service] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
-    [Type] int  NOT NULL,
     [Created] datetime  NOT NULL,
-    [WorkOrder_Id] bigint  NOT NULL
+    [WorkOrder_Id] bigint  NOT NULL,
+    [ServiceType_Id] bigint  NOT NULL
 );
 GO
 
@@ -180,7 +184,9 @@ CREATE TABLE [dbo].[ServiceItemGroup] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
     [Order] int  NOT NULL,
-    [Enabled] bit  NOT NULL
+    [Active] bit  NOT NULL,
+    [Deleted] bit  NOT NULL,
+    [ServiceType_Id] bigint  NOT NULL
 );
 GO
 
@@ -190,7 +196,8 @@ CREATE TABLE [dbo].[ServiceItem] (
     [Name] nvarchar(max)  NULL,
     [HasRemarks] bit  NOT NULL,
     [Order] int  NOT NULL,
-    [Enabled] bit  NOT NULL,
+    [Active] bit  NOT NULL,
+    [Deleted] bit  NOT NULL,
     [ServiceItemGroup_Id] bigint  NOT NULL
 );
 GO
@@ -201,14 +208,6 @@ CREATE TABLE [dbo].[AppliedServiceItem] (
     [Remark] nvarchar(max)  NULL,
     [Resolution] int  NULL,
     [Service_Id] bigint  NOT NULL,
-    [ServiceItem_Id] bigint  NOT NULL
-);
-GO
-
--- Creating table 'ServiceItemServiceType'
-CREATE TABLE [dbo].[ServiceItemServiceType] (
-    [Id] bigint IDENTITY(1,1) NOT NULL,
-    [ServiceType] int  NOT NULL,
     [ServiceItem_Id] bigint  NOT NULL
 );
 GO
@@ -263,6 +262,15 @@ CREATE TABLE [dbo].[Supplies] (
 );
 GO
 
+-- Creating table 'ServiceType'
+CREATE TABLE [dbo].[ServiceType] (
+    [Id] bigint IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(max)  NOT NULL,
+    [Active] bit  NOT NULL,
+    [Deleted] bit  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -285,9 +293,9 @@ ADD CONSTRAINT [PK_WorkOrder]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'WordOrderInformation'
-ALTER TABLE [dbo].[WordOrderInformation]
-ADD CONSTRAINT [PK_WordOrderInformation]
+-- Creating primary key on [Id] in table 'WorkOrderInformation'
+ALTER TABLE [dbo].[WorkOrderInformation]
+ADD CONSTRAINT [PK_WorkOrderInformation]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -321,12 +329,6 @@ ADD CONSTRAINT [PK_AppliedServiceItem]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'ServiceItemServiceType'
-ALTER TABLE [dbo].[ServiceItemServiceType]
-ADD CONSTRAINT [PK_ServiceItemServiceType]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
 -- Creating primary key on [Id] in table 'Settings'
 ALTER TABLE [dbo].[Settings]
 ADD CONSTRAINT [PK_Settings]
@@ -354,6 +356,12 @@ GO
 -- Creating primary key on [Id] in table 'Supplies'
 ALTER TABLE [dbo].[Supplies]
 ADD CONSTRAINT [PK_Supplies]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'ServiceType'
+ALTER TABLE [dbo].[ServiceType]
+ADD CONSTRAINT [PK_ServiceType]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -391,8 +399,8 @@ ON [dbo].[WorkOrder]
     ([Vehicle_Id]);
 GO
 
--- Creating foreign key on [WorkOrder_Id] in table 'WordOrderInformation'
-ALTER TABLE [dbo].[WordOrderInformation]
+-- Creating foreign key on [WorkOrder_Id] in table 'WorkOrderInformation'
+ALTER TABLE [dbo].[WorkOrderInformation]
 ADD CONSTRAINT [FK_WorkOrderWordOrderInformation]
     FOREIGN KEY ([WorkOrder_Id])
     REFERENCES [dbo].[WorkOrder]
@@ -402,7 +410,7 @@ GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_WorkOrderWordOrderInformation'
 CREATE INDEX [IX_FK_WorkOrderWordOrderInformation]
-ON [dbo].[WordOrderInformation]
+ON [dbo].[WorkOrderInformation]
     ([WorkOrder_Id]);
 GO
 
@@ -466,21 +474,6 @@ ON [dbo].[AppliedServiceItem]
     ([Service_Id]);
 GO
 
--- Creating foreign key on [ServiceItem_Id] in table 'ServiceItemServiceType'
-ALTER TABLE [dbo].[ServiceItemServiceType]
-ADD CONSTRAINT [FK_ServiceItemServiceItemServiceType]
-    FOREIGN KEY ([ServiceItem_Id])
-    REFERENCES [dbo].[ServiceItem]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ServiceItemServiceItemServiceType'
-CREATE INDEX [IX_FK_ServiceItemServiceItemServiceType]
-ON [dbo].[ServiceItemServiceType]
-    ([ServiceItem_Id]);
-GO
-
 -- Creating foreign key on [Invoice_Id] in table 'InvoiceItem'
 ALTER TABLE [dbo].[InvoiceItem]
 ADD CONSTRAINT [FK_InvoiceInvoiceItem]
@@ -524,6 +517,36 @@ GO
 CREATE INDEX [IX_FK_AppliedServiceItemServiceItem]
 ON [dbo].[AppliedServiceItem]
     ([ServiceItem_Id]);
+GO
+
+-- Creating foreign key on [ServiceType_Id] in table 'ServiceItemGroup'
+ALTER TABLE [dbo].[ServiceItemGroup]
+ADD CONSTRAINT [FK_ServiceTypeServiceItemGroup]
+    FOREIGN KEY ([ServiceType_Id])
+    REFERENCES [dbo].[ServiceType]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ServiceTypeServiceItemGroup'
+CREATE INDEX [IX_FK_ServiceTypeServiceItemGroup]
+ON [dbo].[ServiceItemGroup]
+    ([ServiceType_Id]);
+GO
+
+-- Creating foreign key on [ServiceType_Id] in table 'Service'
+ALTER TABLE [dbo].[Service]
+ADD CONSTRAINT [FK_ServiceTypeService]
+    FOREIGN KEY ([ServiceType_Id])
+    REFERENCES [dbo].[ServiceType]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ServiceTypeService'
+CREATE INDEX [IX_FK_ServiceTypeService]
+ON [dbo].[Service]
+    ([ServiceType_Id]);
 GO
 
 -- --------------------------------------------------

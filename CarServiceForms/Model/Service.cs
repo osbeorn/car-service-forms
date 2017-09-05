@@ -21,11 +21,11 @@ namespace CarServiceForms.Model
         }
     
         public long Id { get; set; }
-        public ServiceType Type { get; set; }
         public System.DateTime Created { get; set; }
     
         public virtual WorkOrder WorkOrder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppliedServiceItem> AppliedServiceItems { get; set; }
+        public virtual ServiceType ServiceType { get; set; }
     }
 }
