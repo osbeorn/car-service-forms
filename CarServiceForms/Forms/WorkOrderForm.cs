@@ -79,6 +79,11 @@ namespace CarServiceForms.Forms
 
         private void ConfirmButton_Click(object sender, EventArgs e)
         {
+            if (ValidationHelper.HasValidationErrors(this.Controls))
+            {
+                return;
+            }
+
             Vehicle.Mileage = Convert.ToInt32(vehicleMileageNumericUpDown.Value);
 
             if (WorkOrder == null)
@@ -100,6 +105,8 @@ namespace CarServiceForms.Forms
             }
 
             DBContext.SaveChanges();
+
+            DialogResult = DialogResult.OK;
 
             CloseForm();
         }
@@ -159,11 +166,6 @@ namespace CarServiceForms.Forms
             vehicleModelYearNumericUpDown.Value = Vehicle.ModelYear;
 
             workOrderInstructionsDataGridView.DataSource = new BindingList<WorkOrderInstruction>(WorkOrderInstructions);
-
-            if (Customer != null || Vehicle != null)
-            {
-                confirmButton.Enabled = true;
-            }
         }
 
         private string GetNextWorkOrderNumber()
@@ -243,6 +245,18 @@ namespace CarServiceForms.Forms
         private void VehicleMileageNumericUpDown_Validating(object sender, CancelEventArgs e)
         {
             //if (vehicleMileageNumericUpDown.Valu)
+        }
+
+        private void CustomerDataTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            if (Customer == null || Vehicle == null)
+            {
+                errorProvider.SetError(customerDataTextBox, "Izbrati morate stranko in vozilo.");
+                e.Cancel = true;
+                return;
+            }
+
+            errorProvider.SetError(customerDataTextBox, "");
         }
     }
 }

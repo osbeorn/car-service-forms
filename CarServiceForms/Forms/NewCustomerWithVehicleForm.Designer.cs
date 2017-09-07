@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewCustomerWithVehicleForm));
             this.confirmButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
@@ -67,15 +68,16 @@
             this.vehicleIdentificationNumberTextBox = new System.Windows.Forms.TextBox();
             this.vehicleRegistrationNumberTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vehicleModelYearNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vehicleMileageNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // confirmButton
             // 
-            this.confirmButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.confirmButton.Location = new System.Drawing.Point(225, 331);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(75, 23);
@@ -86,6 +88,7 @@
             // 
             // cancelButton
             // 
+            this.cancelButton.CausesValidation = false;
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.Location = new System.Drawing.Point(306, 331);
             this.cancelButton.Name = "cancelButton";
@@ -135,6 +138,7 @@
             // 
             // clearButton
             // 
+            this.clearButton.CausesValidation = false;
             this.clearButton.Location = new System.Drawing.Point(499, 97);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(75, 23);
@@ -145,6 +149,7 @@
             // 
             // searchCustomerButton
             // 
+            this.searchCustomerButton.CausesValidation = false;
             this.searchCustomerButton.Location = new System.Drawing.Point(418, 97);
             this.searchCustomerButton.Name = "searchCustomerButton";
             this.searchCustomerButton.Size = new System.Drawing.Size(75, 23);
@@ -156,6 +161,7 @@
             // customerPostTextBox
             // 
             this.customerPostTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.errorProvider.SetIconPadding(this.customerPostTextBox, -20);
             this.customerPostTextBox.Location = new System.Drawing.Point(72, 71);
             this.customerPostTextBox.Name = "customerPostTextBox";
             this.customerPostTextBox.Size = new System.Drawing.Size(213, 20);
@@ -164,14 +170,17 @@
             // customerLastNameTextBox
             // 
             this.customerLastNameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.errorProvider.SetIconPadding(this.customerLastNameTextBox, -20);
             this.customerLastNameTextBox.Location = new System.Drawing.Point(359, 19);
             this.customerLastNameTextBox.Name = "customerLastNameTextBox";
             this.customerLastNameTextBox.Size = new System.Drawing.Size(215, 20);
             this.customerLastNameTextBox.TabIndex = 3;
+            this.customerLastNameTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.CustomerLastNameTextBox_Validating);
             // 
             // customerStreetTextBox
             // 
             this.customerStreetTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.errorProvider.SetIconPadding(this.customerStreetTextBox, -20);
             this.customerStreetTextBox.Location = new System.Drawing.Point(72, 45);
             this.customerStreetTextBox.Name = "customerStreetTextBox";
             this.customerStreetTextBox.Size = new System.Drawing.Size(502, 20);
@@ -207,10 +216,12 @@
             // customerFirstNameTextBox
             // 
             this.customerFirstNameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.errorProvider.SetIconPadding(this.customerFirstNameTextBox, -20);
             this.customerFirstNameTextBox.Location = new System.Drawing.Point(72, 19);
             this.customerFirstNameTextBox.Name = "customerFirstNameTextBox";
             this.customerFirstNameTextBox.Size = new System.Drawing.Size(215, 20);
             this.customerFirstNameTextBox.TabIndex = 1;
+            this.customerFirstNameTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.CustomerFirstNameTextBox_Validating);
             // 
             // label1
             // 
@@ -436,10 +447,12 @@
             // vehicleRegistrationNumberTextBox
             // 
             this.vehicleRegistrationNumberTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.errorProvider.SetIconPadding(this.vehicleRegistrationNumberTextBox, -20);
             this.vehicleRegistrationNumberTextBox.Location = new System.Drawing.Point(72, 19);
             this.vehicleRegistrationNumberTextBox.Name = "vehicleRegistrationNumberTextBox";
             this.vehicleRegistrationNumberTextBox.Size = new System.Drawing.Size(215, 20);
             this.vehicleRegistrationNumberTextBox.TabIndex = 1;
+            this.vehicleRegistrationNumberTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.VehicleRegistrationNumberTextBox_Validating);
             // 
             // label6
             // 
@@ -449,6 +462,10 @@
             this.label6.Size = new System.Drawing.Size(44, 13);
             this.label6.TabIndex = 0;
             this.label6.Text = "Reg. št.";
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
             // 
             // NewCustomerWithVehicleForm
             // 
@@ -475,6 +492,7 @@
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vehicleModelYearNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vehicleMileageNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -519,5 +537,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox vehicleEngineTextBox;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

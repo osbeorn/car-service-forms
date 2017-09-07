@@ -1,4 +1,5 @@
-﻿using CarServiceForms.Model;
+﻿using CarServiceForms.Core.Helpers;
+using CarServiceForms.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -89,6 +90,11 @@ namespace CarServiceForms.Forms
 
         private void ConfirmButton_Click(object sender, EventArgs e)
         {
+            if (ValidationHelper.HasValidationErrors(this.Controls))
+            {
+                return;
+            }
+
             if (SelectedCustomer != null)
             {
                 // existing customer
@@ -143,6 +149,8 @@ namespace CarServiceForms.Forms
                 DbContext.SaveChanges();
             }
 
+            DialogResult = DialogResult.OK;
+
             Close();
             Dispose();
         }
@@ -160,6 +168,42 @@ namespace CarServiceForms.Forms
         private void VehicleMileageNumericUpDown_Enter(object sender, EventArgs e)
         {
             vehicleMileageNumericUpDown.Select(0, vehicleMileageNumericUpDown.Text.Length);
+        }
+
+        private void CustomerFirstNameTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            if (customerFirstNameTextBox.Text.Trim() == "")
+            {
+                errorProvider.SetError(customerFirstNameTextBox, "Ime je obvezen podatek.");
+                e.Cancel = true;
+                return;
+            }
+
+            errorProvider.SetError(customerFirstNameTextBox, "");
+        }
+
+        private void CustomerLastNameTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            if (customerLastNameTextBox.Text.Trim() == "")
+            {
+                errorProvider.SetError(customerLastNameTextBox, "Priimek je obvezen podatek.");
+                e.Cancel = true;
+                return;
+            }
+
+            errorProvider.SetError(customerLastNameTextBox, "");
+        }
+
+        private void VehicleRegistrationNumberTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            if (vehicleRegistrationNumberTextBox.Text.Trim() == "")
+            {
+                errorProvider.SetError(vehicleRegistrationNumberTextBox, "Registrska številka je obvezen podatek.");
+                e.Cancel = true;
+                return;
+            }
+
+            errorProvider.SetError(vehicleRegistrationNumberTextBox, "");
         }
     }
 }

@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditCustomerWithVehicleForm));
             this.confirmButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.deActivateCustomerButton = new System.Windows.Forms.Button();
             this.customerPhoneTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.customerPostTextBox = new System.Windows.Forms.TextBox();
@@ -43,6 +45,7 @@
             this.customerFirstNameTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.deActivateVehicleButton = new System.Windows.Forms.Button();
             this.vehicleTransmissionTextBox = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -65,17 +68,16 @@
             this.vehicleIdentificationNumberTextBox = new System.Windows.Forms.TextBox();
             this.vehicleRegistrationNumberTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.deActivateCustomerButton = new System.Windows.Forms.Button();
-            this.deActivateVehicleButton = new System.Windows.Forms.Button();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vehicleModelYearNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vehicleMileageNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // confirmButton
             // 
-            this.confirmButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.confirmButton.Location = new System.Drawing.Point(224, 356);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(75, 23);
@@ -86,6 +88,7 @@
             // 
             // cancelButton
             // 
+            this.cancelButton.CausesValidation = false;
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.Location = new System.Drawing.Point(305, 356);
             this.cancelButton.Name = "cancelButton";
@@ -115,6 +118,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Stranka";
             // 
+            // deActivateCustomerButton
+            // 
+            this.deActivateCustomerButton.CausesValidation = false;
+            this.deActivateCustomerButton.Location = new System.Drawing.Point(499, 97);
+            this.deActivateCustomerButton.Name = "deActivateCustomerButton";
+            this.deActivateCustomerButton.Size = new System.Drawing.Size(75, 23);
+            this.deActivateCustomerButton.TabIndex = 10;
+            this.deActivateCustomerButton.UseVisualStyleBackColor = true;
+            this.deActivateCustomerButton.Click += new System.EventHandler(this.DeActivateButton_Click);
+            // 
             // customerPhoneTextBox
             // 
             this.customerPhoneTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -143,10 +156,12 @@
             // customerLastNameTextBox
             // 
             this.customerLastNameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.errorProvider.SetIconPadding(this.customerLastNameTextBox, -20);
             this.customerLastNameTextBox.Location = new System.Drawing.Point(359, 19);
             this.customerLastNameTextBox.Name = "customerLastNameTextBox";
             this.customerLastNameTextBox.Size = new System.Drawing.Size(215, 20);
             this.customerLastNameTextBox.TabIndex = 3;
+            this.customerLastNameTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.CustomerLastNameTextBox_Validating);
             // 
             // customerStreetTextBox
             // 
@@ -186,10 +201,12 @@
             // customerFirstNameTextBox
             // 
             this.customerFirstNameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.errorProvider.SetIconPadding(this.customerFirstNameTextBox, -20);
             this.customerFirstNameTextBox.Location = new System.Drawing.Point(72, 19);
             this.customerFirstNameTextBox.Name = "customerFirstNameTextBox";
             this.customerFirstNameTextBox.Size = new System.Drawing.Size(215, 20);
             this.customerFirstNameTextBox.TabIndex = 1;
+            this.customerFirstNameTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.CustomerFirstNameTextBox_Validating);
             // 
             // label1
             // 
@@ -231,6 +248,16 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Vozilo";
+            // 
+            // deActivateVehicleButton
+            // 
+            this.deActivateVehicleButton.CausesValidation = false;
+            this.deActivateVehicleButton.Location = new System.Drawing.Point(499, 177);
+            this.deActivateVehicleButton.Name = "deActivateVehicleButton";
+            this.deActivateVehicleButton.Size = new System.Drawing.Size(75, 23);
+            this.deActivateVehicleButton.TabIndex = 22;
+            this.deActivateVehicleButton.UseVisualStyleBackColor = true;
+            this.deActivateVehicleButton.Click += new System.EventHandler(this.DeActivateVehicleButton_Click);
             // 
             // vehicleTransmissionTextBox
             // 
@@ -415,10 +442,12 @@
             // vehicleRegistrationNumberTextBox
             // 
             this.vehicleRegistrationNumberTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.errorProvider.SetIconPadding(this.vehicleRegistrationNumberTextBox, -20);
             this.vehicleRegistrationNumberTextBox.Location = new System.Drawing.Point(72, 19);
             this.vehicleRegistrationNumberTextBox.Name = "vehicleRegistrationNumberTextBox";
             this.vehicleRegistrationNumberTextBox.Size = new System.Drawing.Size(215, 20);
             this.vehicleRegistrationNumberTextBox.TabIndex = 1;
+            this.vehicleRegistrationNumberTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.VehicleRegistrationNumberTextBox_Validating);
             // 
             // label6
             // 
@@ -429,23 +458,9 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Reg. št.";
             // 
-            // deActivateButton
+            // errorProvider
             // 
-            this.deActivateCustomerButton.Location = new System.Drawing.Point(499, 97);
-            this.deActivateCustomerButton.Name = "deActivateButton";
-            this.deActivateCustomerButton.Size = new System.Drawing.Size(75, 23);
-            this.deActivateCustomerButton.TabIndex = 10;
-            this.deActivateCustomerButton.UseVisualStyleBackColor = true;
-            this.deActivateCustomerButton.Click += new System.EventHandler(this.DeActivateButton_Click);
-            // 
-            // deActivateVehicleButton
-            // 
-            this.deActivateVehicleButton.Location = new System.Drawing.Point(499, 177);
-            this.deActivateVehicleButton.Name = "deActivateVehicleButton";
-            this.deActivateVehicleButton.Size = new System.Drawing.Size(75, 23);
-            this.deActivateVehicleButton.TabIndex = 22;
-            this.deActivateVehicleButton.UseVisualStyleBackColor = true;
-            this.deActivateVehicleButton.Click += new System.EventHandler(this.DeActivateVehicleButton_Click);
+            this.errorProvider.ContainerControl = this;
             // 
             // EditCustomerWithVehicleForm
             // 
@@ -472,6 +487,7 @@
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vehicleModelYearNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vehicleMileageNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -516,5 +532,6 @@
         private System.Windows.Forms.TextBox vehicleEngineTextBox;
         private System.Windows.Forms.Button deActivateCustomerButton;
         private System.Windows.Forms.Button deActivateVehicleButton;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

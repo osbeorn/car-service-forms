@@ -326,15 +326,18 @@
             // 
             // customerDataTextBox
             // 
+            this.errorProvider.SetIconPadding(this.customerDataTextBox, -20);
             this.customerDataTextBox.Location = new System.Drawing.Point(6, 19);
             this.customerDataTextBox.Multiline = true;
             this.customerDataTextBox.Name = "customerDataTextBox";
             this.customerDataTextBox.ReadOnly = true;
             this.customerDataTextBox.Size = new System.Drawing.Size(572, 59);
             this.customerDataTextBox.TabIndex = 0;
+            this.customerDataTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.CustomerDataTextBox_Validating);
             // 
             // selectCustomerButton
             // 
+            this.selectCustomerButton.CausesValidation = false;
             this.selectCustomerButton.Location = new System.Drawing.Point(503, 84);
             this.selectCustomerButton.Name = "selectCustomerButton";
             this.selectCustomerButton.Size = new System.Drawing.Size(75, 23);
@@ -442,8 +445,6 @@
             // confirmButton
             // 
             this.confirmButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.confirmButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.confirmButton.Enabled = false;
             this.confirmButton.Location = new System.Drawing.Point(225, 563);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(75, 23);
